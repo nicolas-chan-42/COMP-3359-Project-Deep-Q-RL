@@ -1,5 +1,5 @@
+import random
 from abc import ABC
-from random import random
 
 import numpy as np
 
@@ -20,7 +20,6 @@ class Player(ABC):
         pass
 
 
-# TODO: Didn't include state. May take a look later
 class RandomPlayer(Player):
     def __init__(self, env, name='RandomPlayer', seed=None):
         super().__init__(env, name)

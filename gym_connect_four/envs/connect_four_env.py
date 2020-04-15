@@ -28,7 +28,7 @@ class ResultType(Enum):
         return self.value == other.value
 
 
-class Reward(Enum):
+class Reward:
     """
     A data class storing designed reward level.
     """

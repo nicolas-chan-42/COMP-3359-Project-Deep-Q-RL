@@ -9,7 +9,8 @@ done = False
 while not done:
     random_player = RandomPlayer(env)
     action = random_player.get_next_action()
-    result = env.step(action)
-    done = result.is_done()
+
+    state, reward, done, _ = env.step(action)
+
     env.render()
     env.change_player()
