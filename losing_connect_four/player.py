@@ -52,12 +52,9 @@ class RandomPlayer(Player):
 
 class DeepQPlayer(Player):
     def __init__(self, env, name='DeepQPlayer'):
-
-        #New definition of environment to be tf adaptive
-        self.env = tf_py_environment.TFPyEnvironment(suite_gym.load(env.env_name))
-
         fc_layer_params = (100,)
-        #TODO:Can make one DQN using checkpoint
+
+        # TODO:Can make one DQN using checkpoint
         self.net = q_network.QNetwork(
         self.env.observation_spec(),
         self.env.action_spec(),
