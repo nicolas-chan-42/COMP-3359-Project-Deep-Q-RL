@@ -9,7 +9,9 @@ from tf_agents.utils import common
 from tf_agents.trajectories import trajectory
 from tf_agents.replay_buffers import tf_uniform_replay_buffer
 
-# from tf.keras.optimizers import Adam
+# from tensorflow.optimizers import Adam
+
+from tensorflow.keras.optimizers import  Adam
 
 from gym_connect_four import ConnectFourEnv
 
@@ -61,7 +63,7 @@ class DeepQPlayer(Player):
             self.env.action_spec(),
             fc_layer_params=fc_layer_params)
 
-        self.optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=params["LR"])
+        self.optimizer = Adam(learning_rate=params["LR"])
 
         train_step_counter = tf.Variable(0)
 
