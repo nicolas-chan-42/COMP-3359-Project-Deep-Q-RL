@@ -1,1 +1,1 @@
-from gym_connect_four.env.connect_four_env import ConnectFourEnvNew, ResultType, Reward
+from connect_four_env import ConnectFourEnvNew, ResultType, Reward
