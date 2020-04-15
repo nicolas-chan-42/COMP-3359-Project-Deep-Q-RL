@@ -6,9 +6,18 @@ import tensorflow as tf
 from tf_agents.agents.dqn import dqn_agent
 from tf_agents.networks import q_network
 from tf_agents.utils import common
+from tf_agents.trajectories import trajectory
+from tf_agents.replay_buffers import tf_uniform_replay_buffer
+
 from tensorflow.optimizers import Adam
 
 from gym_connect_four import ConnectFourEnv
+
+# Hyper-parameters
+
+LR = 1e-3
+
+REPLAY_BUFFER_MAX_LENGTH = 100000
 
 
 class Player(ABC):
@@ -72,6 +81,11 @@ class DeepQPlayer(Player):
 
         self.policy = self.agent.policy
 
+        self.replay_buffer = tf_uniform_replay_buffer.TFUniformReplayBuffer(
+            data_spec=self.agent.collect_data_spec,
+            batch_size=self.env.batch_size,
+            max_length=REPLAY_BUFFER_MAX_LENGTH)
+
     # TODO: Seems there is discrepancies between tf env and py env. Should solve this later
     def get_next_action(self, state) -> int:
         time_step = available_moves = self.env.available_moves()
@@ -83,3 +97,16 @@ class DeepQPlayer(Player):
 
         if self.env.is_valid_action(action):
             return action
+
+    def collect_step(self):
+        time_step = self.env.current_time_step()
+        action_step = self.policy.action(time_step)
+        next_time_step = self.env.step(action_step.action)
+        traj = trajectory.from_transition(time_step, action_step, next_time_step)
+
+        # Add trajectory to the replay buffer
+        self.buffer.add_batch(traj)
+
+    def collect_data(self, steps):
+        for _ in range(steps):
+            self.collect_step()
