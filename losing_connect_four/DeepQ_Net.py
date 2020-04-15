@@ -16,18 +16,20 @@ from tf_agents.utils import common
 
 fc_layer_params = (100,)
 
+#Load DQN
 q_net = q_network.QNetwork(
     train_env.observation_spec(),
     train_env.action_spec(),
     fc_layer_params=fc_layer_params)
 
-#Set up optimizer
+#Set up an optimizer
 
 optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=LR)
 
 #DQN Agent
 train_step_counter = tf.Variable(0)
 
+#Specify agent settings
 agent = dqn_agent.DqnAgent(
     train_env.time_step_spec(),
     train_env.action_spec(),
@@ -36,7 +38,10 @@ agent = dqn_agent.DqnAgent(
     td_errors_loss_fn=common.element_wise_squared_loss,
     train_step_counter=train_step_counter)
 
+#initialize agent
 agent.initialize()
+
+#Assign policies to the agents
 
 eval_policy = agent.policy
 collect_policy = agent.collect_policy
