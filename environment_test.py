@@ -1,5 +1,7 @@
 # import
 
-env = gym.make()
+env = gym.make('ConnectFour-v1')
+
+action = 3
 
 env.step(action, render=True)
