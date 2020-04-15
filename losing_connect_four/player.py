@@ -5,6 +5,15 @@ import numpy as np
 
 from gym_connect_four import ConnectFourEnv
 
+import tensorflow as tf
+
+from tf_agents.networks import q_network
+from tf_agents.agents.dqn import dqn_agent
+from tf_agents.environments import tf_py_environment
+from tf_agents.environments import suite_gym
+from tf_agents.utils import common
+
+
 
 class Player(ABC):
     """Abstract class for player"""
@@ -39,3 +48,43 @@ class RandomPlayer(Player):
     def reset(self, episode: int = 0, side: int = 1) -> None:
         # For reproducibility of the random
         random.seed(self._seed)
+
+
+class DeepQPlayer(Player):
+    def __init__(self, env, name='DeepQPlayer'):
+
+        #New definition of environment to be tf adaptive
+        self.env = tf_py_environment.TFPyEnvironment(suite_gym.load(env.env_name))
+
+        fc_layer_params = (100,)
+        #TODO:Can make one DQN using checkpoint
+        self.net = q_network.QNetwork(
+        self.env.observation_spec(),
+        self.env.action_spec(),
+        fc_layer_params=fc_layer_params)
+
+        self.optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=LR)
+
+        train_step_counter = tf.Variable(0)
+
+        self.agent = dqn_agent.DqnAgent(
+            self.env.time_step_spec(),
+            self.env.action_spec(),
+            q_network=self.net,
+            optimizer=self.optimizer,
+            td_errors_loss_fn=common.element_wise_squared_loss,
+            train_step_counter=train_step_counter)
+
+        self.policy = self.agent.policy
+    #TODO: Seems there is discrepencies between tf env and py env. Should solve this later
+    def get_next_action(self, state) -> int:
+        time_step = available_moves = self.env.available_moves()
+
+        if not available_moves:
+            raise ValueError('Unable to determine a valid move')
+
+        action = self.policy.action(time_step)
+
+        if self.env.is_valid_action(action):
+            return action
+
