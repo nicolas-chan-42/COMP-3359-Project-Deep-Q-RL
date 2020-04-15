@@ -2,13 +2,15 @@ import gym
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
 
-env = gym.make('ConnectFour-v1')
+env_name = 'ConnectFour-v1'
+env = gym.make(env_name)
 
 done = False
 
 while not done:
     random_player = RandomPlayer(env)
     dq_player = DeepQPlayer(env)
+
     action = random_player.get_next_action()
 
     state, reward, done, _ = env.step(action)

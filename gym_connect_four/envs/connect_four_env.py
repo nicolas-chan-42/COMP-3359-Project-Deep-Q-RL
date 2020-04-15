@@ -47,8 +47,6 @@ class ConnectFourEnv(gym.Env, ABC):
 
         self.board_shape = (6, 7)
 
-        self.env_name = 'ConnectFour-v1'
-
         self.observation_space = spaces.Box(low=-1, high=1,
                                             shape=self.board_shape,
                                             dtype=int)
