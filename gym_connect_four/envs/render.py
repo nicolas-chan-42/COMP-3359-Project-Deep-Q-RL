@@ -2,6 +2,7 @@ import gym
 import numpy as np
 from PIL import Image, ImageDraw
 
+
 class Color(object):
     WHITE = (255, 255, 255)
     RED = (255, 0, 0)
@@ -79,4 +80,3 @@ def render_board(board,
         ], fill=color)
 
     return np.array(image)
-

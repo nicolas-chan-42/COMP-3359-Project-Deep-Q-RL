@@ -28,7 +28,7 @@ class ResultType(Enum):
         return self.value == other.value
 
 
-class Reward:
+class Reward(Enum):
     """
     A data class storing designed reward level.
     """
@@ -38,6 +38,7 @@ class Reward:
     WIN = -1
 
 
+# noinspection PyShadowingNames
 class ConnectFourEnv(gym.Env, ABC):
     metadata = {'render.modes': ['human']}
 
@@ -91,7 +92,7 @@ class ConnectFourEnv(gym.Env, ABC):
         step_result = self._step(action)
         reward = step_result.get_reward(self.__current_player)
         done = step_result.is_done()
-        info = {n_step: self.n_step}
+        info = {"n_step": self.n_step}
         return self.__board.copy(), reward, done, info
 
     def _step(self, action: int) -> StepResult:
@@ -180,6 +181,7 @@ class ConnectFourEnv(gym.Env, ABC):
         else:
             raise error.UnsupportedMode()
 
+    # noinspection PyMethodMayBeStatic
     def close(self) -> None:
         pygame.quit()
 
