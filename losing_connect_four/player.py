@@ -2,16 +2,13 @@ import random
 from abc import ABC
 
 import numpy as np
+import tensorflow as tf
+from tf_agents.agents.dqn import dqn_agent
+from tf_agents.networks import q_network
+from tf_agents.utils import common
+from tensorflow.optimizers import Adam
 
 from gym_connect_four import ConnectFourEnv
-
-import tensorflow as tf
-
-from tf_agents.networks import q_network
-from tf_agents.agents.dqn import dqn_agent
-from tf_agents.environments import tf_py_environment
-from tf_agents.environments import suite_gym
-from tf_agents.utils import common
 
 
 class Player(ABC):
@@ -50,7 +47,7 @@ class RandomPlayer(Player):
 
 
 class DeepQPlayer(Player):
-    def __init__(self, env: ConnectFourEnv, name='DeepQPlayer'):
+    def __init__(self, env: ConnectFourEnv, params, name='DeepQPlayer'):
         super().__init__(env, name)
 
         fc_layer_params = (100,)
@@ -61,7 +58,7 @@ class DeepQPlayer(Player):
             self.env.action_spec(),
             fc_layer_params=fc_layer_params)
 
-        self.optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=LR)
+        self.optimizer = Adam(learning_rate=params["LR"])
 
         train_step_counter = tf.Variable(0)
 
