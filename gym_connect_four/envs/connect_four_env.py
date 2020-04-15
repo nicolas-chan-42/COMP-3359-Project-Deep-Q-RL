@@ -53,6 +53,7 @@ class ConnectFourEnv(gym.Env, ABC):
         self.reward = Reward()
 
         self.__current_player = 1
+        self.n_step = 0
         self.__board = np.zeros(self.board_shape, dtype=int)
 
         self.__player_color = 1
@@ -81,7 +82,6 @@ class ConnectFourEnv(gym.Env, ABC):
         def is_done(self):
             return self.res_type != ResultType.NONE
 
-
     def step(self, action: int) -> Tuple[np.ndarray, float, bool, dict]:
         """
         Perform a step according to action.
@@ -91,7 +91,8 @@ class ConnectFourEnv(gym.Env, ABC):
         step_result = self._step(action)
         reward = step_result.get_reward(self.__current_player)
         done = step_result.is_done()
-        return self.__board.copy(), reward, done, {}
+        info = {n_step: self.n_step}
+        return self.__board.copy(), reward, done, info
 
     def _step(self, action: int) -> StepResult:
         """
@@ -111,6 +112,7 @@ class ConnectFourEnv(gym.Env, ABC):
         for index in list(reversed(range(self.board_shape[0]))):
             if self.__board[index][action] == 0:
                 self.__board[index][action] = self.__current_player
+                self.n_step += 1
                 break
 
         # Check if board is completely filled
@@ -121,6 +123,7 @@ class ConnectFourEnv(gym.Env, ABC):
             if self.is_win_state():
                 result = (ResultType.WIN1 if self.__current_player == 1
                           else ResultType.WIN2)
+
         return self.StepResult(result)
 
     @property
@@ -149,12 +152,14 @@ class ConnectFourEnv(gym.Env, ABC):
                     ["{:>2} ".format(replacements[x]) for x in line]) + "|"
 
             hline = '|---+---+---+---+---+---+---|'
+            print(f"{self.n_step}. Player {self.current_player}")
             print(hline)
             for line in np.apply_along_axis(render_line,
                                             axis=1,
                                             arr=self.__board):
                 print(line)
             print(hline)
+            print()
 
         elif mode == 'human':
             if self.__screen is None:
@@ -177,6 +182,16 @@ class ConnectFourEnv(gym.Env, ABC):
 
     def close(self) -> None:
         pygame.quit()
+
+    @property
+    def current_player(self):
+        if self.__current_player == 1:
+            return 1
+        else:
+            return 2
+
+    def change_player(self):
+        self.__current_player *= -1
 
     def is_valid_action(self, action: int) -> bool:
         return self.__board[0][action] == 0
