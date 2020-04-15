@@ -1,5 +1,5 @@
 import gym
-from gym-connect-four import ConnectFourEnvNew
+from gym_connect_four.gym_connect_four import ConnectFourEnvNew
 
 env = gym.make('ConnectFour-v1')
 
