@@ -9,15 +9,9 @@ from tf_agents.utils import common
 from tf_agents.trajectories import trajectory
 from tf_agents.replay_buffers import tf_uniform_replay_buffer
 
-from tensorflow.optimizers import Adam
+# from tf.keras.optimizers import Adam
 
 from gym_connect_four import ConnectFourEnv
-
-# Hyper-parameters
-
-LR = 1e-3
-
-REPLAY_BUFFER_MAX_LENGTH = 100000
 
 
 class Player(ABC):
@@ -67,7 +61,7 @@ class DeepQPlayer(Player):
             self.env.action_spec(),
             fc_layer_params=fc_layer_params)
 
-        self.optimizer = Adam(learning_rate=params["LR"])
+        self.optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=params["LR"])
 
         train_step_counter = tf.Variable(0)
 
@@ -84,9 +78,8 @@ class DeepQPlayer(Player):
         self.replay_buffer = tf_uniform_replay_buffer.TFUniformReplayBuffer(
             data_spec=self.agent.collect_data_spec,
             batch_size=self.env.batch_size,
-            max_length=REPLAY_BUFFER_MAX_LENGTH)
+            max_length=params["REPLAY_BUFFER_MAX_LENGTH"])
 
-    # TODO: Seems there is discrepancies between tf env and py env. Should solve this later
     def get_next_action(self, state) -> int:
         time_step = available_moves = self.env.available_moves()
 
