@@ -1,3 +1,5 @@
+from setuptools import setup, find_packages
+
 setup(name='gym_connect_four',
       version='0.0.2',
       author='Iasi.ai Community',
