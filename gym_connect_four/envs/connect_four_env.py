@@ -38,7 +38,7 @@ class Reward:
     WIN = -1
 
 
-class ConnectFourEnvNew(gym.Env, ABC):
+class ConnectFourEnv(gym.Env, ABC):
     metadata = {'render.modes': ['human']}
 
     def __init__(self, window_width=512, window_height=512):

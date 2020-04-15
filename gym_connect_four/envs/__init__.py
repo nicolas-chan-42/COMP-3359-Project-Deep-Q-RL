@@ -1,1 +1,1 @@
-from connect_four_env import ConnectFourEnvNew, ResultType, Reward
+from connect_four_env import ConnectFourEnv, ResultType, Reward
