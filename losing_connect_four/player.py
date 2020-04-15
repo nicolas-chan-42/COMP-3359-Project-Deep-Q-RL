@@ -3,15 +3,12 @@ from abc import ABC
 
 import numpy as np
 import tensorflow as tf
+from tensorflow.keras.optimizers import Adam
 from tf_agents.agents.dqn import dqn_agent
 from tf_agents.networks import q_network
-from tf_agents.utils import common
-from tf_agents.trajectories import trajectory
 from tf_agents.replay_buffers import tf_uniform_replay_buffer
-
-# from tensorflow.optimizers import Adam
-
-from tensorflow.keras.optimizers import  Adam
+from tf_agents.trajectories import trajectory
+from tf_agents.utils import common
 
 from gym_connect_four import ConnectFourEnv
 
@@ -97,7 +94,8 @@ class DeepQPlayer(Player):
         time_step = self.env.current_time_step()
         action_step = self.policy.action(time_step)
         next_time_step = self.env.step(action_step.action)
-        traj = trajectory.from_transition(time_step, action_step, next_time_step)
+        traj = trajectory.from_transition(time_step, action_step,
+                                          next_time_step)
 
         # Add trajectory to the replay buffer
         self.buffer.add_batch(traj)

@@ -5,12 +5,9 @@ from losing_connect_four.player import RandomPlayer, DeepQPlayer
 from tf_agents.environments import tf_py_environment
 from tf_agents.environments import suite_gym
 
-''' Hyper-parameters '''
-PARAMS = {}
-
-PARAMS["LR"] = 0.001
-
-PARAMS["REPLAY_BUFFER_MAX_LENGTH"] = 100000
+# Hyper-parameters
+PARAMS = {"LR": 0.001,
+          "REPLAY_BUFFER_MAX_LENGTH": 100000}
 
 env_name = 'ConnectFour-v1'
 env = gym.make(env_name)
