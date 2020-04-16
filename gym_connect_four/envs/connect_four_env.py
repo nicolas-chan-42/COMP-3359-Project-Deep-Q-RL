@@ -186,14 +186,20 @@ class ConnectFourEnv(gym.Env, ABC):
         pygame.quit()
 
     @property
-    def current_player(self):
+    def current_player(self) -> int:
+        """ Current Player ID (Player 1 or 2) """
         if self.__current_player == 1:
             return 1
         else:
             return 2
 
-    def change_player(self):
+    def change_player(self) -> int:
+        """
+        Change current player in the environment.
+        :return: Player ID.
+        """
         self.__current_player *= -1
+        return self.current_player
 
     def is_valid_action(self, action: int) -> bool:
         return self.__board[0][action] == 0

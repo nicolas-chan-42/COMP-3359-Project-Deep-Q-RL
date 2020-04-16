@@ -1,17 +1,18 @@
 """ Deep Q Network """
+import random
 from collections import deque
+from operator import itemgetter
 
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
 from keras.optimizers import Adam
 
-from operator import itemgetter
 
-import random
-
-
-# ReplayMemory: a cyclic buffer to store transitions.
 class ReplayMemory(object):
+    """
+    A cyclic buffer to store transitions.
+    """
+
     def __init__(self, capacity):
         self.capacity = capacity
         self.memory = deque(maxlen=capacity)
@@ -29,8 +30,8 @@ class ReplayMemory(object):
         return len(self.memory)
 
 
-# Class of DQN model
-class DQN():
+class DQN:
+    """Deep-Q Neural Network model"""
 
     def __init__(self, env, params):
 
@@ -41,8 +42,9 @@ class DQN():
 
         self.memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
 
-        self.model = Sequential()
         obs_space_card = self.observation_space[0] * self.observation_space[1]
+
+        self.model = Sequential()
         self.model.add(Flatten(input_shape=self.observation_space))
         self.model.add(Dense(obs_space_card * 2, activation="relu"))
         self.model.add(Dense(obs_space_card * 2, activation="relu"))

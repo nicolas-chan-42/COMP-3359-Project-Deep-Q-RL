@@ -2,24 +2,15 @@ import random
 from abc import ABC
 
 import numpy as np
-import tensorflow as tf
-from tensorflow.keras.optimizers import Adam
-from tf_agents.agents.dqn import dqn_agent
-from tf_agents.networks import q_network
-from tf_agents.replay_buffers import tf_uniform_replay_buffer
-from tf_agents.trajectories import trajectory
-from tf_agents.utils import common
 
 from gym_connect_four import ConnectFourEnv
-
 from losing_connect_four.DeepQ_Net import DQN
-
 
 
 class Player(ABC):
     """Abstract class for player"""
 
-    def __init__(self, env: 'ConnectFourEnv', name='Player'):
+    def __init__(self, env: ConnectFourEnv, name='Player'):
         self.name = name
         self.env = env
 
@@ -31,7 +22,8 @@ class Player(ABC):
 
 
 class RandomPlayer(Player):
-    def __init__(self, env, name='RandomPlayer', seed=None):
+    def __init__(self, env: ConnectFourEnv, name: str = 'RandomPlayer',
+                 seed=None):
         super().__init__(env, name)
         self._seed = seed
 
@@ -63,6 +55,7 @@ class DeepQPlayer(Player):
         self.net = DQN(env, params)
 
         # used decaying epsilon greedy exploration policy
+
     def get_epsilon(self, global_step):
 
         eps_start = self.params["EPS_START"]
@@ -70,18 +63,18 @@ class DeepQPlayer(Player):
         eps_decay_steps = self.params["EPS_DECAY_STEPS"]
 
         if global_step <= eps_decay_steps:
-            # When global_step <= eps_decay_steps, epsilon is decaying linearly.
-            return eps_start - global_step * (eps_start - eps_end) / eps_decay_steps
+            # Linear-decaying epsilon.
+            return eps_start - global_step * (
+                    eps_start - eps_end) / eps_decay_steps
         else:
-            # Otherwise, epsilon stops decaying and stay at its minimum value eps_end
+            # Decayed epsilon.
             return eps_end
 
     # TODO: Move epsilon to main training environment
-    def get_next_action(self, state, n_step):
+    # noinspection PyMethodOverriding
+    def get_next_action(self, state, *, n_step):
         epsilon = self.get_epsilon(n_step)
         state = np.reshape(state, [1] + list(self.observation_space))
         action = self.net.act(state, self.env.available_moves(), epsilon)
         if self.env.is_valid_action(action):
             return action
-
-
