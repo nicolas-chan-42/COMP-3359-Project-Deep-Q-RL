@@ -3,17 +3,18 @@ import gym
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
 
 """Hyper-parameters"""
-PARAMS = {"LR": 0.001,
+PARAMS = {"ENV_NAME": "ConnectFour-v1",
+          "LR": 0.001,
           "REPLAY_BUFFER_MAX_LENGTH": 100000,
           "BATCH_SIZE": 32,
           "EPS_START": 1,
           "EPS_END": 0.01,
           "EPS_DECAY_STEPS": 10000,
-          "GAMMA": 0.95}
+          "GAMMA": 0.95,
+          "N_EPISODES": 2000}
 
 """ Main Training Loop """
-env_name = 'ConnectFour-v1'
-env = gym.make(env_name)
+env = gym.make(PARAMS["ENV_NAME"])
 state = env.reset()
 
 done = False

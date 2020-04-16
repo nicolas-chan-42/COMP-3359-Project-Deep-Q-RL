@@ -85,11 +85,6 @@ class DeepQPlayer(Player):
     def learn(self, state, action, next_state, reward, done) -> None:  # Should return loss
         """
         Use experiment replay to update the weights of the network
-        :param state: 1
-        :param action: 1
-        :param next_state: 2
-        :param reward:
-        :param done:
         """
 
         state = np.reshape(state, [1] + list(self.observation_space))

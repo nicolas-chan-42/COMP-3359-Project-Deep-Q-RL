@@ -51,7 +51,8 @@ class DQN:
         self.model.add(Dense(obs_space_card * 2, activation="relu"))
         self.model.add(Dense(self.action_space, activation="linear"))
 
-        self.model.compile(loss="mse", optimizer=Adam(lr=params["LR"]))
+        self.model.compile(loss="mse",
+                           optimizer=Adam(lr=params["LR"]))
 
     def act(self, state, available_moves, epsilon):
         # With prob. epsilon,
@@ -75,7 +76,7 @@ class DQN:
     # Q value updated here
     def experience_replay(self):
 
-        # Hyperparameters used in this project
+        # Hyper-parameters used in this project
         gamma = self.params["GAMMA"]
         batch_size = self.params["BATCH_SIZE"]
 
@@ -90,7 +91,9 @@ class DQN:
         for state, action, next_state, reward, done in batch:
             q_update = reward
             if not done:
-                q_update = (reward + gamma * np.amax(self.model.predict(next_state)[0]))
+                q_update = (
+                        reward
+                        + gamma * np.amax(self.model.predict(next_state)[0]))
             q_values = self.model.predict(state)
             q_values[0][action] = q_update
             self.model.fit(state, q_values, verbose=0)
