@@ -9,7 +9,7 @@ from keras.models import Sequential
 from tensorflow_addons.optimizers import AdamW
 
 
-class ReplayMemory(object):
+class ReplayMemory:
     """
     A cyclic buffer to store transitions.
     """
@@ -51,18 +51,31 @@ class DQN:
         self.model.add(Dense(obs_space_card * 2, activation="relu"))
         self.model.add(Dense(self.action_space, activation="linear"))
 
-        # Used AdamW optimizer to allow for weight decay
+        # Used Adam optimizer to allow for weight decay
         self.model.compile(loss="mse",
-                           optimizer=AdamW(lr=params["LR"], weight_decay=params["LAMBDA"]))
+                           optimizer=AdamW(lr=params["LR"],
+                                           weight_decay=params["LAMBDA"]))
 
     def act(self, state, available_moves, epsilon):
-        # With prob. epsilon,
-        # (Exploration) select random action.
+        """
+        Apply Epsilon-Greedy strategy.
+
+        Exploration with probability = epsilon;
+        Exploitation with probability = (1-epsilon).
+
+        :param state: state of Connect-Four environment
+        :param available_moves: moves that are available and valid
+        :param epsilon: probability of exploration.
+        :return: a random action (exploration),
+            or a DQN-decided action (exploitation).
+        """
+        # With prob. epsilon, (Exploration):
+        #   select random action.
         if random.random() <= epsilon:
             return random.choice(list(available_moves))
 
-        # With prob. 1 - epsilon,
-        # (Exploitation) select action with max predicted Q-Values of current state.
+        # With prob. 1 - epsilon, (Exploitation):
+        #   select action with max predicted Q-Values of current state.
         # TODO: Copied from source code, need to refactor
         else:
             q_values = self.model.predict(state)[0]
@@ -70,12 +83,12 @@ class DQN:
             act = max(vs, key=itemgetter(1))
             return act[0]
 
-    # Push transition to memory
     def memorize(self, state, action, next_state, reward, done):
+        """Push transition to memory."""
         self.memory.push(state, action, next_state, reward, done)
 
-    # Q value updated here
     def experience_replay(self):
+        """ Update Q-value here """
 
         # Hyper-parameters used in this project
         gamma = self.params["GAMMA"]

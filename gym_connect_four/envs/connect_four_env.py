@@ -23,7 +23,8 @@ class ResultType(Enum):
 
     def __eq__(self, other):
         """
-        Need to implement this due to an unfixed bug in Python since 2017: https://bugs.python.org/issue30545
+        Need to implement this due to an unfixed bug in Python
+        since 2017: https://bugs.python.org/issue30545
         """
         return self.value == other.value
 
@@ -46,17 +47,17 @@ class ConnectFourEnv(gym.Env, ABC):
         super().__init__()
 
         self.board_shape = (6, 7)
-
         self.observation_space = spaces.Box(low=-1, high=1,
                                             shape=self.board_shape,
                                             dtype=int)
         self.action_space = spaces.Discrete(self.board_shape[1])
         self.reward = Reward()
 
+        self.__n_step = 0
         self.__current_player = 1
-        self.n_step = 0
         self.__board = np.zeros(self.board_shape, dtype=int)
 
+        # for visualisation and rendering.
         self.__player_color = 1
         self.__screen = None
         self.__window_width = window_width
@@ -92,7 +93,7 @@ class ConnectFourEnv(gym.Env, ABC):
         step_result = self._step(action)
         reward = step_result.get_reward(self.__current_player)
         done = step_result.is_done()
-        info = {"n_step": self.n_step}
+        info = {"n_step": self.__n_step}
         return self.__board.copy(), reward, done, info
 
     def _step(self, action: int) -> StepResult:
@@ -106,14 +107,15 @@ class ConnectFourEnv(gym.Env, ABC):
         # Raise exception if the action is invalid.
         if not self.is_valid_action(action):
             raise Exception(
-                'Unable to determine a valid move! Maybe invoke at the wrong time?'
+                'Unable to determine a valid move! '
+                'Maybe invoke at the wrong time?'
             )
 
         # Check empty position on board and perform action by filling
         for index in list(reversed(range(self.board_shape[0]))):
             if self.__board[index][action] == 0:
                 self.__board[index][action] = self.__current_player
-                self.n_step += 1
+                self.__n_step += 1
                 break
 
         # Check if board is completely filled
@@ -132,6 +134,12 @@ class ConnectFourEnv(gym.Env, ABC):
         return self.__board.copy()
 
     def reset(self, board: Optional[np.ndarray] = None) -> np.ndarray:
+        """
+        Reset board to initial state, optionally setting as required state.
+
+        :param board: board state to be set to.
+        :return: board state after reset.
+        """
         self.__current_player = 1
         if board is None:
             self.__board = np.zeros(self.board_shape, dtype=int)
@@ -140,7 +148,16 @@ class ConnectFourEnv(gym.Env, ABC):
         self.__rendered_board = self._update_board_render()
         return self.board
 
-    def render(self, mode: str = 'console', close: bool = False) -> None:
+    def render(self, mode: str = 'console',
+               close: Optional[bool] = False) -> None:
+        """
+        Render the Connect-Four board.
+
+        :param mode: "console" if render to console;
+            "human" if render to PyGame window.
+        :param close: whether to quit PyGame window or not.
+        :return: None
+        """
         if mode == 'console':
             replacements = {
                 self.__player_color: 'A',
@@ -149,14 +166,14 @@ class ConnectFourEnv(gym.Env, ABC):
             }
 
             def render_line(line):
-                return "|" + "|".join(
-                    ["{:>2} ".format(replacements[x]) for x in line]) + "|"
+                line = "|".join([f"{replacements[x]:^3}" for x in line])
+                line = f"|{line}|"
+                return line
 
             hline = '|---+---+---+---+---+---+---|'
-            print(f"{self.n_step}. Player {self.current_player}")
+            print(f"{self.__n_step}. Player {self.current_player}")
             print(hline)
-            for line in np.apply_along_axis(render_line,
-                                            axis=1,
+            for line in np.apply_along_axis(render_line, axis=1,
                                             arr=self.__board):
                 print(line)
             print(hline)
