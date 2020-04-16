@@ -1,4 +1,6 @@
 """ Deep Q Network """
+from collections import deque
+
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
 from keras.optimizers import Adam
@@ -7,12 +9,12 @@ from operator import itemgetter
 
 import random
 
+
 # ReplayMemory: a cyclic buffer to store transitions.
 class ReplayMemory(object):
     def __init__(self, capacity):
         self.capacity = capacity
-        self.memory = []
-        self.position = 0
+        self.memory = deque(maxlen=capacity)
 
     def push(self, state, action, reward, next_state, done):
         """Saves a transition."""
@@ -25,6 +27,7 @@ class ReplayMemory(object):
 
     def __len__(self):
         return len(self.memory)
+
 
 # Class of DQN model
 class DQN():
@@ -64,8 +67,4 @@ class DQN():
             return act[0]
 
     def memorize(self, state, action, reward, next_state, done):
-        self.memory.push(self, state, action, reward, next_state, done)
-
-
-
-
+        self.memory.push(state, action, reward, next_state, done)

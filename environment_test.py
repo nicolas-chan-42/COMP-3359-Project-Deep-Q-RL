@@ -21,17 +21,19 @@ done = False
 
 # For logging
 
-global_step = 1000 # set to 0 later
+n_step = 1000 # set to 0 later
 all_rewards = []
 
 # TODO: Need to finish changing players
-while not done:
-    random_player = RandomPlayer(env)
-    dq_player = DeepQPlayer(env, PARAMS)
+random_player = RandomPlayer(env)
+dq_player = DeepQPlayer(env, PARAMS)
 
-    action = dq_player.get_next_action(state, global_step)
+while not done:
+    action = dq_player.get_next_action(state, n_step)
 
     state, reward, done, _ = env.step(action)
+
+    n_step += 1
 
     env.render()
     env.change_player()

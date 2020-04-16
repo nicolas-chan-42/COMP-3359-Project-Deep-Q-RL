@@ -76,8 +76,9 @@ class DeepQPlayer(Player):
             # Otherwise, epsilon stops decaying and stay at its minimum value eps_end
             return eps_end
 
-    def get_next_action(self, state, global_step):
-        epsilon = self.get_epsilon(global_step)
+    # TODO: Move epsilon to main training environment
+    def get_next_action(self, state, n_step):
+        epsilon = self.get_epsilon(n_step)
         state = np.reshape(state, [1] + list(self.observation_space))
         action = self.net.act(state, self.env.available_moves(), epsilon)
         if self.env.is_valid_action(action):
