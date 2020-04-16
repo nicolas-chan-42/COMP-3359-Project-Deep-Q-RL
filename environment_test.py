@@ -2,10 +2,7 @@ import gym
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
 
-from tf_agents.environments import tf_py_environment
-from tf_agents.environments import suite_gym
-
-# Hyper-parameters
+"""Hyper-parameters"""
 PARAMS = {"LR": 0.001,
           "REPLAY_BUFFER_MAX_LENGTH": 100000,
           "BATCH_SIZE" : 32,
@@ -13,11 +10,19 @@ PARAMS = {"LR": 0.001,
           "EPS_END" : 0.01,
           "EPS_DECAY_STEPS": 10000}
 
+""" Main Training Loop """
+
+
 env_name = 'ConnectFour-v1'
 env = gym.make(env_name)
 state = env.reset()
-global_step = 1000
+
 done = False
+
+# For logging
+
+global_step = 1000 # set to 0 later
+all_rewards = []
 
 # TODO: Need to finish changing players
 while not done:
