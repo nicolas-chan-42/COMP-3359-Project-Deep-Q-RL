@@ -8,7 +8,8 @@ PARAMS = {"LR": 0.001,
           "BATCH_SIZE": 32,
           "EPS_START": 1,
           "EPS_END": 0.01,
-          "EPS_DECAY_STEPS": 10000}
+          "EPS_DECAY_STEPS": 10000,
+          "GAMMA": 0.95}
 
 """ Main Training Loop """
 env_name = 'ConnectFour-v1'
@@ -29,14 +30,25 @@ players = {1: random_player,
            2: dq_player}
 player = players[1]
 
+# Logging for the episode
+
+episode_reward = 0
+
 # Inside ONE episode:
 while not done:
     action = dq_player.get_next_action(state, n_step=n_step)
 
-    state, reward, done, _ = env.step(action)
+    next_state, reward, done, _ = env.step(action)
 
+    dq_player.learn(state, action, next_state, reward, done)
+
+    # Update training result at the end for the next episode
     n_step += 1
+    state = next_state
+    episode_reward += reward
 
     env.render()
     player_id = env.change_player()
     player = players[player_id]
+
+print(episode_reward)

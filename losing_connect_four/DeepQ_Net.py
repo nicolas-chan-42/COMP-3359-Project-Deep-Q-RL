@@ -3,6 +3,7 @@ import random
 from collections import deque
 from operator import itemgetter
 
+import numpy as np
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
 from keras.optimizers import Adam
@@ -17,11 +18,9 @@ class ReplayMemory(object):
         self.capacity = capacity
         self.memory = deque(maxlen=capacity)
 
-    def push(self, state, action, reward, next_state, done):
+    def push(self, state, action, next_state, reward, done):
         """Saves a transition."""
-        if len(self.memory) < self.capacity:
-            self.memory.append(None)
-        self.memory.append((state, action, reward, next_state, done))
+        self.memory.append((state, action, next_state, reward, done))
 
     def sample(self, batch_size):
         return random.sample(self.memory, batch_size)
@@ -51,6 +50,7 @@ class DQN:
         self.model.add(Dense(obs_space_card * 2, activation="relu"))
         self.model.add(Dense(obs_space_card * 2, activation="relu"))
         self.model.add(Dense(self.action_space, activation="linear"))
+
         self.model.compile(loss="mse", optimizer=Adam(lr=params["LR"]))
 
     def act(self, state, available_moves, epsilon):
@@ -68,5 +68,31 @@ class DQN:
             act = max(vs, key=itemgetter(1))
             return act[0]
 
-    def memorize(self, state, action, reward, next_state, done):
-        self.memory.push(state, action, reward, next_state, done)
+    # Push transition to memory
+    def memorize(self, state, action, next_state, reward, done):
+        self.memory.push(state, action, next_state, reward, done)
+
+    # Q value updated here
+    def experience_replay(self):
+
+        # Hyperparameters used in this project
+        gamma = self.params["GAMMA"]
+        batch_size = self.params["BATCH_SIZE"]
+
+        # Check if the length of the memory is enough
+        if len(self.memory) < batch_size:
+            return
+
+        # Obtain a random sample from the memory
+        batch = self.memory.sample(batch_size)
+
+        # Update Q value (COPIED)
+        for state, action, next_state, reward, done in batch:
+            q_update = reward
+            if not done:
+                q_update = (reward + gamma * np.amax(self.model.predict(next_state)[0]))
+            q_values = self.model.predict(state)
+            q_values[0][action] = q_update
+            self.model.fit(state, q_values, verbose=0)
+        # TODO: Need to compute loss
+        loss = self.model.loss()

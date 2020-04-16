@@ -14,7 +14,7 @@ class Player(ABC):
         self.name = name
         self.env = env
 
-    def get_next_action(self, state: np.ndarray) -> int:
+    def get_next_action(self, state: np.ndarray, *args) -> int:
         pass
 
     def reset(self, episode=0, side=1):
@@ -72,9 +72,19 @@ class DeepQPlayer(Player):
 
     # TODO: Move epsilon to main training environment
     # noinspection PyMethodOverriding
-    def get_next_action(self, state, *, n_step):
+    def get_next_action(self, state, *, n_step) -> int:
         epsilon = self.get_epsilon(n_step)
         state = np.reshape(state, [1] + list(self.observation_space))
         action = self.net.act(state, self.env.available_moves(), epsilon)
         if self.env.is_valid_action(action):
             return action
+
+    # Use experiment replay to update the weights of the network
+    def learn(self, state, action, next_state, reward, done) -> None:  # Should return loss
+
+        state = np.reshape(state, [1] + list(self.observation_space))
+        next_state = np.reshape(next_state, [1] + list(self.observation_space))
+
+        self.net.memorize(state, action, next_state, reward, done)
+
+        self.net.experience_replay()
