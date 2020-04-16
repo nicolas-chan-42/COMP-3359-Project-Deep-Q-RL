@@ -11,6 +11,7 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "EPS_END": 0.01,
           "EPS_DECAY_STEPS": 10000,
           "GAMMA": 0.95,
+          "LAMBDA": 0.001,
           "N_EPISODES": 2000}
 
 """ Main Training Loop """

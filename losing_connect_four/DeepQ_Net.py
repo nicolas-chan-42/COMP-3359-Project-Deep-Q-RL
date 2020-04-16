@@ -6,7 +6,7 @@ from operator import itemgetter
 import numpy as np
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
-from keras.optimizers import Adam
+from tensorflow_addons.optimizers import AdamW
 
 
 class ReplayMemory(object):
@@ -51,8 +51,9 @@ class DQN:
         self.model.add(Dense(obs_space_card * 2, activation="relu"))
         self.model.add(Dense(self.action_space, activation="linear"))
 
+        # Used AdamW optimizer to allow for weight decay
         self.model.compile(loss="mse",
-                           optimizer=Adam(lr=params["LR"]))
+                           optimizer=AdamW(lr=params["LR"], weight_decay=params["LAMBDA"]))
 
     def act(self, state, available_moves, epsilon):
         # With prob. epsilon,
