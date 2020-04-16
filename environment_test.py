@@ -34,13 +34,20 @@ player = players[1]
 
 episode_reward = 0
 
+# TODO: Main training loop
 # Inside ONE episode:
 while not done:
-    action = dq_player.get_next_action(state, n_step=n_step)
+
+    if player == players[1]:
+        action = random_player.get_next_action()
+    else:
+        action = dq_player.get_next_action(state, n_step=n_step)
 
     next_state, reward, done, _ = env.step(action)
 
-    dq_player.learn(state, action, next_state, reward, done)
+    # Update DQN weights
+    if player == players[2]:
+        dq_player.learn(state, action, next_state, reward, done)
 
     # Update training result at the end for the next episode
     n_step += 1
