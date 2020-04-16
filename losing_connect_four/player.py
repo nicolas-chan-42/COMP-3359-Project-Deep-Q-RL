@@ -20,6 +20,9 @@ class Player(ABC):
     def reset(self, episode=0, side=1):
         pass
 
+    def learn(self, state, action, next_state, reward, done):
+        pass
+
 
 class RandomPlayer(Player):
     def __init__(self, env: ConnectFourEnv, name: str = 'RandomPlayer',
@@ -79,8 +82,15 @@ class DeepQPlayer(Player):
         if self.env.is_valid_action(action):
             return action
 
-    # Use experiment replay to update the weights of the network
     def learn(self, state, action, next_state, reward, done) -> None:  # Should return loss
+        """
+        Use experiment replay to update the weights of the network
+        :param state: 1
+        :param action: 1
+        :param next_state: 2
+        :param reward:
+        :param done:
+        """
 
         state = np.reshape(state, [1] + list(self.observation_space))
         next_state = np.reshape(next_state, [1] + list(self.observation_space))

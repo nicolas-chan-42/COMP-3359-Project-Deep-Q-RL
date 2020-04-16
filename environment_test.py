@@ -26,6 +26,7 @@ all_rewards = []
 # Setup players.
 random_player = RandomPlayer(env)
 dq_player = DeepQPlayer(env, PARAMS)
+
 players = {1: random_player,
            2: dq_player}
 player = players[1]
@@ -37,17 +38,11 @@ episode_reward = 0
 # TODO: Main training loop
 # Inside ONE episode:
 while not done:
-
-    if player == players[1]:
-        action = random_player.get_next_action()
-    else:
-        action = dq_player.get_next_action(state, n_step=n_step)
-
+    action = player.get_next_action(state, n_step=n_step)
     next_state, reward, done, _ = env.step(action)
 
     # Update DQN weights
-    if player == players[2]:
-        dq_player.learn(state, action, next_state, reward, done)
+    player.learn(state, action, next_state, reward, done)
 
     # Update training result at the end for the next episode
     n_step += 1
