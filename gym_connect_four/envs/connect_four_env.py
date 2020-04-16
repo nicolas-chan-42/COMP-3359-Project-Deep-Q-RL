@@ -5,8 +5,7 @@ from typing import Tuple, NamedTuple, Optional
 import gym
 import numpy as np
 import pygame
-from gym import error
-from gym import spaces
+from gym import error, spaces
 
 from gym_connect_four.envs.render import render_board
 

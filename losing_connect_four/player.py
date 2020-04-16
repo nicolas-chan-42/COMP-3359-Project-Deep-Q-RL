@@ -4,7 +4,7 @@ from abc import ABC
 import numpy as np
 
 from gym_connect_four import ConnectFourEnv
-from losing_connect_four.DeepQ_Net import DQN
+from losing_connect_four.deep_q_network import DeepQNetwork
 
 
 class Player(ABC):
@@ -20,7 +20,7 @@ class Player(ABC):
     def reset(self, episode=0, side=1):
         pass
 
-    def learn(self, state, action, next_state, reward, done):
+    def learn(self, state, action, next_state, reward, done, **kwargs):
         pass
 
 
@@ -55,11 +55,10 @@ class DeepQPlayer(Player):
         self.observation_space = env.observation_space.shape
         self.action_space = env.action_space.n
 
-        self.net = DQN(env, params)
-
-        # used decaying epsilon greedy exploration policy
+        self.net = DeepQNetwork(env, params)
 
     def get_epsilon(self, global_step):
+        """Used decaying epsilon greedy exploration policy"""
 
         eps_start = self.params["EPS_START"]
         eps_end = self.params["EPS_END"]
@@ -76,13 +75,14 @@ class DeepQPlayer(Player):
     # TODO: Move epsilon to main training environment
     # noinspection PyMethodOverriding
     def get_next_action(self, state, *, n_step) -> int:
-        epsilon = self.get_epsilon(n_step)
         state = np.reshape(state, [1] + list(self.observation_space))
-        action = self.net.act(state, self.env.available_moves(), epsilon)
+        epsilon = self.get_epsilon(n_step)
+
+        action = self.net.make_move(state, self.env.available_moves(), epsilon)
         if self.env.is_valid_action(action):
             return action
 
-    def learn(self, state, action, next_state, reward, done) -> None:  # Should return loss
+    def learn(self, state, action, next_state, reward, done, **kwargs) -> None:  # Should return loss
         """
         Use experiment replay to update the weights of the network
         """
@@ -93,3 +93,10 @@ class DeepQPlayer(Player):
         self.net.memorize(state, action, next_state, reward, done)
 
         self.net.experience_replay()
+
+        # Update weights of Target DQN every STEPS_PER_TARGET_UPDATE.
+        if kwargs["n_step"] % self.params["N_STEPS_PER_TARGET_UPDATE"] == 0:
+            self.update_target_dqn_weights()
+
+    def update_target_dqn_weights(self):
+        self.net.update_target_dqn_weights()
