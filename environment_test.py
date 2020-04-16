@@ -36,6 +36,7 @@ player = players[1]
 episode_reward = 0
 
 # TODO: Main training loop
+# TODO: Save model
 # Inside ONE episode:
 while not done:
     action = player.get_next_action(state, n_step=n_step)
