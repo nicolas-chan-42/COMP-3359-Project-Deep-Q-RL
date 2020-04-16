@@ -1,47 +1,45 @@
-import tensorflow as tf
+""" Deep Q Network """
+from keras.layers import Dense, Flatten
+from keras.models import Sequential
+from keras.optimizers import Adam
 
-from tf_agents.agents.dqn import dqn_agent
-from tf_agents.drivers import dynamic_step_driver
-from tf_agents.environments import suite_gym
-from tf_agents.environments import tf_py_environment
-from tf_agents.eval import metric_utils
-from tf_agents.metrics import tf_metrics
-from tf_agents.networks import q_network
-from tf_agents.policies import random_tf_policy
-from tf_agents.replay_buffers import tf_uniform_replay_buffer
-from tf_agents.trajectories import trajectory
-from tf_agents.utils import common
+from operator import itemgetter
 
-""" Deep Q Network by Tensorflow"""
+import random
 
-fc_layer_params = (100,)
+# Class of DQN model
+class DQN():
 
-# Load DQN
-q_net = q_network.QNetwork(
-    train_env.observation_spec(),
-    train_env.action_spec(),
-    fc_layer_params=fc_layer_params)
+    def __init__(self, env, params):
 
-# Set up an optimizer
+        self.params = params
 
-optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=LR)
+        self.observation_space = env.observation_space.shape
+        self.action_space = env.action_space.n
 
-# DQN Agent
-train_step_counter = tf.Variable(0)
+        self.model = Sequential()
+        obs_space_card = self.observation_space[0] * self.observation_space[1]
+        self.model.add(Flatten(input_shape=self.observation_space))
+        self.model.add(Dense(obs_space_card * 2, activation="relu"))
+        self.model.add(Dense(obs_space_card * 2, activation="relu"))
+        self.model.add(Dense(obs_space_card * 2, activation="relu"))
+        self.model.add(Dense(obs_space_card * 2, activation="relu"))
+        self.model.add(Dense(self.action_space, activation="linear"))
+        self.model.compile(loss="mse", optimizer=Adam(lr=params["LR"]))
 
-# Specify agent settings
-agent = dqn_agent.DqnAgent(
-    train_env.time_step_spec(),
-    train_env.action_spec(),
-    q_network=q_net,
-    optimizer=optimizer,
-    td_errors_loss_fn=common.element_wise_squared_loss,
-    train_step_counter=train_step_counter)
+    def act(self, state, available_moves, epsilon):
+        # With prob. epsilon,
+        # (Exploration) select random action.
+        if random.random() <= epsilon:
+            return random.choice(list(available_moves))
 
-# initialize agent
-agent.initialize()
+        # With prob. 1 - epsilon,
+        # (Exploitation) select action with max predicted Q-Values of current state.
+        else:
+            q_values = self.model.predict(state)[0]
+            vs = [(i, q_values[i]) for i in available_moves]
+            act = max(vs, key=itemgetter(1))
+            return act[0]
 
-# Assign policies to the agents
 
-eval_policy = agent.policy
-collect_policy = agent.collect_policy
+

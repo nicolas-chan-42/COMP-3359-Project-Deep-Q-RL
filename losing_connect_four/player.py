@@ -12,6 +12,9 @@ from tf_agents.utils import common
 
 from gym_connect_four import ConnectFourEnv
 
+from losing_connect_four.DeepQ_Net import DQN
+
+
 
 class Player(ABC):
     """Abstract class for player"""
@@ -52,54 +55,32 @@ class DeepQPlayer(Player):
     def __init__(self, env: ConnectFourEnv, params, name='DeepQPlayer'):
         super().__init__(env, name)
 
-        fc_layer_params = (100,)
+        self.params = params
 
-        # TODO:Can make one DQN using checkpoint
-        self.net = q_network.QNetwork(
-            self.env.observation_spec(),
-            self.env.action_spec(),
-            fc_layer_params=fc_layer_params)
+        self.observation_space = env.observation_space.shape
+        self.action_space = env.action_space.n
 
-        self.optimizer = Adam(learning_rate=params["LR"])
+        self.net = DQN(env, params)
 
-        train_step_counter = tf.Variable(0)
+        # used decaying epsilon greedy exploration policy
+    def get_epsilon(self, global_step):
 
-        self.agent = dqn_agent.DqnAgent(
-            self.env.time_step_spec(),
-            self.env.action_spec(),
-            q_network=self.net,
-            optimizer=self.optimizer,
-            td_errors_loss_fn=common.element_wise_squared_loss,
-            train_step_counter=train_step_counter)
+        eps_start = self.params["EPS_START"]
+        eps_end = self.params["EPS_END"]
+        eps_decay_steps = self.params["EPS_DECAY_STEPS"]
 
-        self.policy = self.agent.policy
+        if global_step <= eps_decay_steps:
+            # When global_step <= eps_decay_steps, epsilon is decaying linearly.
+            return eps_start - global_step * (eps_start - eps_end) / eps_decay_steps
+        else:
+            # Otherwise, epsilon stops decaying and stay at its minimum value eps_end
+            return eps_end
 
-        self.replay_buffer = tf_uniform_replay_buffer.TFUniformReplayBuffer(
-            data_spec=self.agent.collect_data_spec,
-            batch_size=self.env.batch_size,
-            max_length=params["REPLAY_BUFFER_MAX_LENGTH"])
-
-    def get_next_action(self, state) -> int:
-        time_step = available_moves = self.env.available_moves()
-
-        if not available_moves:
-            raise ValueError('Unable to determine a valid move')
-
-        action = self.policy.action(time_step)
-
+    def get_next_action(self, state, global_step):
+        epsilon = self.get_epsilon(global_step)
+        state = np.reshape(state, [1] + list(self.observation_space))
+        action = self.net.act(state, self.env.available_moves(), epsilon)
         if self.env.is_valid_action(action):
             return action
 
-    def collect_step(self):
-        time_step = self.env.current_time_step()
-        action_step = self.policy.action(time_step)
-        next_time_step = self.env.step(action_step.action)
-        traj = trajectory.from_transition(time_step, action_step,
-                                          next_time_step)
 
-        # Add trajectory to the replay buffer
-        self.buffer.add_batch(traj)
-
-    def collect_data(self, steps):
-        for _ in range(steps):
-            self.collect_step()
