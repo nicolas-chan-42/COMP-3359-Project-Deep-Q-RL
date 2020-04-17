@@ -24,7 +24,6 @@ done = False
 total_step = 1000  # set to 0 later
 all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.int16)
 
-# TODO: Need to finish changing players
 # Setup players.
 random_player = RandomPlayer(env)
 dq_player = DeepQPlayer(env, PARAMS)

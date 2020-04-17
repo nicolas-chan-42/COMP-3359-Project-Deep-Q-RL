@@ -12,6 +12,10 @@ from tensorflow_addons.optimizers import AdamW
 # Tensorflow GPU allocation.
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
 print("physical_devices-------------", len(physical_devices))
+# Limit memory growth to avoid two tensorflow processes competing for the GPU memory.
+gpu_options = tf.compat.v1.GPUOptions(per_process_gpu_memory_fraction=0.3)
+sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(
+    allow_soft_placement=True, log_device_placement=True))
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 
