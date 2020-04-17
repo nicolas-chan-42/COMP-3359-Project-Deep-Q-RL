@@ -13,7 +13,7 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "EPS_DECAY_STEPS": 10000,
           "GAMMA": 0.95,
           "LAMBDA": 0.001,
-          "N_EPISODES": 2000,
+          "N_EPISODES": 1000,
           "N_STEPS_PER_TARGET_UPDATE": 1000}
 
 """ Main Training Loop """
@@ -36,12 +36,16 @@ trainee_id = 2
 
 episode_reward = 0
 
-# TODO: Main training loop
 # TODO: Save model
 # Inside ONE episode:
 for episode in range(PARAMS["N_EPISODES"]):
     # noinspection PyRedeclaration
     state = env.reset()
+
+    # Final state and action for prediction after an episode is end
+    final_prev_state = state
+    final_state = state
+    final_action = 0
 
     while not done:
         player = players[player_id]
@@ -51,14 +55,31 @@ for episode in range(PARAMS["N_EPISODES"]):
         # Update DQN weights.
         player.learn(state, action, next_state, reward, done,
                      n_step=total_step)
-
         # Update training result at the end for the next episode
         total_step += 1
+        # Log the final states and action if finished
+        if done:
+            final_prev_state = state
+            final_state = next_state
+            final_action = action
+
         state = next_state
-        episode_reward += reward
+
+        # if not done, add specific rewards to the player
+        if not done:
+            episode_reward += reward
 
         # env.render()
         player_id = env.change_player()
+
+    if player_id == 1:
+        reward = 1  # Raw implementation of losing reward
+    else:
+        reward = -1  # Raw implementation of win reward
+    episode_reward += reward
+
+    dq_player.learn(final_prev_state, final_action, final_state, reward, done,
+                    n_step=total_step)
 
     all_rewards[episode] = episode_reward
 
