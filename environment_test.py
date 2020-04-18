@@ -110,12 +110,12 @@ for episode in range(PARAMS["N_EPISODES"]):
 
     # TODO: have a list of 2 reward slots for the two players
     episode_reward += reward
-    all_rewards[episode] = episode_reward
 
     # Log the episode reward to aggregator
+    total_reward += reward
     all_rewards[episode] = episode_reward
     cumulative_rewards[episode] = total_reward
-    cumulative_losses[episode] = total_losses
+    cumulative_losses[episode] = n_lose
     if episode % 100 == 0:
         print(f"Episode: {episode}")
         print(f"Cumulative Rewards: {total_reward}")
