@@ -1,6 +1,7 @@
 from collections import deque
 
 import gym
+import matplotlib.pyplot as plt
 import numpy as np
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
@@ -23,7 +24,7 @@ env = gym.make(PARAMS["ENV_NAME"])
 done = False
 
 # For logging
-total_step = 1000  # set to 0 later
+total_step = 0
 all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.int16)
 
 # Setup players.
@@ -109,3 +110,6 @@ for episode in range(PARAMS["N_EPISODES"]):
 
 print(all_rewards.mean(), all_rewards.sum())
 print(f"Number of losses: {n_lose}")
+
+# Visualize the training results
+plt.plot(all_rewards)
