@@ -45,7 +45,6 @@ trainee_id = 1
 # TODO: Save model
 # Inside ONE episode:
 for episode in range(PARAMS["N_EPISODES"]):
-    print(f"Episode {episode}...", end="")
     # Reset reward
     episode_reward = 0
 
@@ -76,7 +75,7 @@ for episode in range(PARAMS["N_EPISODES"]):
         # Get current player's action.
         action_hist.append(player.get_next_action(state, n_step=total_step))
 
-        # Take the latest action in the deque.
+        # Take the latest action in the deque. In endgame, winner here.
         next_state, reward, done, _ = env.step(action_hist[-1])
 
         # Store the resulting state to history
@@ -86,7 +85,7 @@ for episode in range(PARAMS["N_EPISODES"]):
         player_id = env.change_player()
         player = players[player_id]
 
-        # Update DQN weights.
+        # Update DQN weights. In endgame, loser here.
         reward *= -1
         player.learn(state_hist[-3], action_hist[-2],  # state and action
                      state_hist[-1], reward, done,  # next state, reward, done
@@ -99,22 +98,18 @@ for episode in range(PARAMS["N_EPISODES"]):
         # Render game board (NOT recommended with large N_EPISODES)
         # env.render()
 
-    print(f"done")
-
     # Change player at the end of episode.
     player_id = env.change_player()
     player = players[player_id]
 
-    # Both player have learnt all steps at the end, winner here.
+    # Both player have learnt all steps at the end. In endgame, winner here.
     reward *= -1
     player.learn(state_hist[-2], action_hist, state_hist[-1], reward, done,
                  n_step=total_step)
 
     # Adjust reward for trainee.
     # If winner is opponent, we give opposite reward to trainee.
-    if player_id == trainee_id:
-        reward *= 1  # the correct reward has been given.
-    else:
+    if player_id != trainee_id:
         reward *= -1  # adjust reward.
 
     n_lose += max(0, int(reward))  # zero if draw
