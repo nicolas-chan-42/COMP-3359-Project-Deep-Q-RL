@@ -131,4 +131,4 @@ class DeepQNetwork:
             self.policy_dqn.fit(state, q_values, verbose=0)
 
         # TODO: Need to compute loss
-        loss = self.policy_dqn.loss()
+        # loss = self.policy_dqn.loss()
