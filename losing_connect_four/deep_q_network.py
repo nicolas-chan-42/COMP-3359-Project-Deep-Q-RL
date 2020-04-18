@@ -74,7 +74,7 @@ class DeepQNetwork:
         """Copy DQN weights from Policy DQN to Target DQN."""
         self.target_dqn.set_weights(self.policy_dqn.get_weights())
 
-    def make_move(self, state, available_moves, epsilon):
+    def strategically_get_action(self, state, available_moves, epsilon):
         """
         Apply Epsilon-Greedy strategy when making move.
 

@@ -78,7 +78,8 @@ class DeepQPlayer(Player):
         state = np.reshape(state, [1] + list(self.observation_space))
         epsilon = self.get_epsilon(n_step)
 
-        action = self.net.make_move(state, self.env.available_moves(), epsilon)
+        action = self.net.strategically_get_action(
+            state, self.env.available_moves(), epsilon)
         if self.env.is_valid_action(action):
             return action
 
