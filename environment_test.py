@@ -25,8 +25,12 @@ done = False
 
 # For logging
 total_step = 0
+total_reward = 0
+total_losses = 0
 n_lose = 0
 all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.int16)
+cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.int16)
+cumulative_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.int16)
 
 # Setup players.
 random_player = RandomPlayer(env)
@@ -55,7 +59,7 @@ for episode in range(PARAMS["N_EPISODES"]):
     # Initialize action history and perform first step
     action = player.get_next_action(state, n_step=total_step)
     action_hist = deque([action], maxlen=2)
-    next_state, _, _, _ = env.step(action)
+    next_state, reward, _, _ = env.step(action)
 
     # Initialize the state history and save the state and the next state
     state_hist = deque([state], maxlen=4)
@@ -108,8 +112,26 @@ for episode in range(PARAMS["N_EPISODES"]):
     episode_reward += reward
     all_rewards[episode] = episode_reward
 
-print(all_rewards.mean(), all_rewards.sum())
+    # Log the episode reward to aggregator
+    all_rewards[episode] = episode_reward
+    cumulative_rewards[episode] = total_reward
+    cumulative_losses[episode] = total_losses
+    if episode % 100 == 0:
+        print(f"Episode: {episode}")
+        print(f"Cumulative Rewards: {total_reward}")
+        print(f"Totals Losses: {total_losses}")
+        print(f"Totals Steps: {total_step}")
+        print("==========================")
+
+print(f"Cumulative rewards in the end {all_rewards.sum()}")
+print(f"Mean rewards in the end {all_rewards.sum()}")
 print(f"Number of losses: {n_lose}")
 
 # Visualize the training results
-plt.plot(all_rewards)
+# Plot cumulative rewards
+plt.plot(cumulative_rewards)
+plt.show()
+
+# Plot cumulative number of losses
+plt.plot(cumulative_losses)
+plt.show()
