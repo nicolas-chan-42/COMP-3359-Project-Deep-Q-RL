@@ -28,9 +28,9 @@ total_step = 0
 total_reward = 0
 total_losses = 0
 n_lose = 0
-all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.int16)
-cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.int16)
-cumulative_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.int16)
+all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 
 # Setup players.
 random_player = RandomPlayer(env)
@@ -44,6 +44,7 @@ trainee_id = 2
 # TODO: Save model
 # Inside ONE episode:
 for episode in range(PARAMS["N_EPISODES"]):
+    print(f"Episode {episode}...", end="")
     # Reset reward
     episode_reward = 0
 
@@ -59,7 +60,7 @@ for episode in range(PARAMS["N_EPISODES"]):
     # Initialize action history and perform first step
     action = player.get_next_action(state, n_step=total_step)
     action_hist = deque([action], maxlen=2)
-    next_state, reward, _, _ = env.step(action)
+    next_state, reward, done, _ = env.step(action)
 
     # Initialize the state history and save the state and the next state
     state_hist = deque([state], maxlen=4)
@@ -97,14 +98,23 @@ for episode in range(PARAMS["N_EPISODES"]):
         # Render game board (NOT recommended with large N_EPISODES)
         # env.render()
 
+    print(f"done")
+
     # Change player at the end of episode.
     player_id = env.change_player()
     player = players[player_id]
 
-    # Both player have learnt all steps at the end.
+    # Both player have learnt all steps at the end, winner here.
     reward *= -1
     player.learn(state_hist[-2], action_hist, state_hist[-1], reward, done,
                  n_step=total_step)
+
+    # Adjust reward for trainee.
+    # If winner is opponent, we give opposite reward to trainee.
+    if player_id == trainee_id:
+        reward *= 1  # the correct reward has been given.
+    else:
+        reward *= -1  # adjust reward.
 
     n_lose += max(0, int(reward))  # zero if draw
 
@@ -116,11 +126,11 @@ for episode in range(PARAMS["N_EPISODES"]):
     all_rewards[episode] = episode_reward
     cumulative_rewards[episode] = total_reward
     cumulative_losses[episode] = n_lose
-    if episode % 100 == 0:
+    if (episode+1) % 100 == 0:
         print(f"Episode: {episode}")
         print(f"Cumulative Rewards: {total_reward}")
-        print(f"Totals Losses: {total_losses}")
-        print(f"Totals Steps: {total_step}")
+        print(f"Total Losses: {n_lose}")
+        print(f"Total Steps: {total_step}")
         print("==========================")
 
 print(f"Cumulative rewards in the end {all_rewards.sum()}")
