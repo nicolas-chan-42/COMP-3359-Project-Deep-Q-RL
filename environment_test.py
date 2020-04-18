@@ -3,6 +3,7 @@ from collections import deque
 import gym
 import matplotlib.pyplot as plt
 import numpy as np
+# import tensorflow as tf
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
 
@@ -37,9 +38,9 @@ random_player = RandomPlayer(env)
 # with tf.device('/CPU:0'):
 dq_player = DeepQPlayer(env, PARAMS)
 
-players = {1: random_player, 2: dq_player}
+players = {1: dq_player, 2: random_player}
 player_id = 1
-trainee_id = 2
+trainee_id = 1
 
 # TODO: Save model
 # Inside ONE episode:

@@ -76,6 +76,7 @@ class ConnectFourEnv(gym.Env, ABC):
             elif self.res_type is ResultType.DRAW:
                 return Reward.DRAW
             else:
+                # TODO: Winner position should be variable to who is opponent.
                 return {ResultType.WIN1.value: Reward.WIN,
                         ResultType.WIN2.value: Reward.LOSS}[
                     self.res_type.value * player]
@@ -93,7 +94,7 @@ class ConnectFourEnv(gym.Env, ABC):
         reward = step_result.get_reward(self.__current_player)
         done = step_result.is_done()
         info = {"n_step": self.__n_step}
-        return self.__board.copy(), reward, done, info
+        return self.board, reward, done, info
 
     def _step(self, action: int) -> StepResult:
         """
