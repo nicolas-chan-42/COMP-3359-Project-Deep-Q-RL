@@ -17,8 +17,7 @@ class ResultType(Enum):
     """
     NONE = None
     DRAW = 0
-    WIN1 = 1
-    WIN2 = -1
+    WIN = 1
 
     def __eq__(self, other):
         """
@@ -70,16 +69,13 @@ class ConnectFourEnv(gym.Env, ABC):
         """
         res_type: ResultType
 
-        def get_reward(self, player: int):
+        def get_reward(self):
             if self.res_type is ResultType.NONE:
                 return Reward.NONE
             elif self.res_type is ResultType.DRAW:
                 return Reward.DRAW
-            else:
-                # TODO: Winner position should be variable to who is opponent.
-                return {ResultType.WIN1.value: Reward.WIN,
-                        ResultType.WIN2.value: Reward.LOSS}[
-                    self.res_type.value * player]
+            elif self.res_type is ResultType.WIN:
+                return Reward.WIN
 
         def is_done(self):
             return self.res_type != ResultType.NONE
@@ -91,7 +87,7 @@ class ConnectFourEnv(gym.Env, ABC):
         :return: A tuple of board state, reward, whether it's done, and info.
         """
         step_result = self._step(action)
-        reward = step_result.get_reward(self.__current_player)
+        reward = step_result.get_reward()
         done = step_result.is_done()
         info = {"n_step": self.__n_step}
         return self.board, reward, done, info
@@ -124,8 +120,7 @@ class ConnectFourEnv(gym.Env, ABC):
         else:
             # Check win condition
             if self.is_win_state():
-                result = (ResultType.WIN1 if self.__current_player == 1
-                          else ResultType.WIN2)
+                result = ResultType.WIN
 
         return self.StepResult(result)
 
