@@ -3,9 +3,10 @@ from collections import deque
 import gym
 import matplotlib.pyplot as plt
 import numpy as np
-# import tensorflow as tf
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
+
+# import tensorflow as tf
 
 """Hyper-parameters"""
 PARAMS = {"ENV_NAME": "ConnectFour-v1",
@@ -32,6 +33,8 @@ n_lose = 0
 all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 cumulative_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_mean_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 
 # Setup players.
 random_player = RandomPlayer(env)
@@ -122,10 +125,14 @@ for episode in range(PARAMS["N_EPISODES"]):
     all_rewards[episode] = episode_reward
     cumulative_rewards[episode] = total_reward
     cumulative_losses[episode] = n_lose
-    if (episode+1) % 100 == 0:
+    cumulative_mean_rewards[episode] = total_reward / (episode + 1)
+    cumulative_mean_losses[episode] = n_lose / (episode + 1)
+    if (episode + 1) % 100 == 0:
         print(f"Episode: {episode}")
         print(f"Cumulative Rewards: {total_reward}")
+        print(f"Cumulative Mean Rewards: {total_reward / (episode + 1)}")
         print(f"Total Losses: {n_lose}")
+        print(f"Cumulative MeanLosses: {n_lose / (episode + 1)}")
         print(f"Total Steps: {total_step}")
         print("==========================")
 
@@ -138,6 +145,16 @@ print(f"Number of losses: {n_lose}")
 plt.plot(cumulative_rewards)
 plt.show()
 
+# Visualize the training results
+# Plot cumulative mean rewards
+plt.plot(cumulative_mean_rewards)
+plt.show()
+
 # Plot cumulative number of losses
 plt.plot(cumulative_losses)
+plt.show()
+
+# Visualize the training results
+# Plot cumulative mean losses
+plt.plot(cumulative_mean_losses)
 plt.show()
