@@ -146,24 +146,28 @@ for episode in range(PARAMS["N_EPISODES"]):
 dq_player.save_model()
 
 print(f"Cumulative rewards in the end {all_rewards.sum()}")
-print(f"Mean rewards in the end {all_rewards.sum()}")
+print(f"Mean rewards in the end {all_rewards.mean()}")
 print(f"Number of losses: {n_lose}")
 
 # Visualize the training results
 # Plot cumulative rewards
 plt.plot(cumulative_rewards)
+plt.title("Cumulative Reward received over episodes")
 plt.show()
 
 # Visualize the training results
 # Plot cumulative mean rewards
 plt.plot(cumulative_mean_rewards)
+plt.title("Averaged Cumulative Reward received over episodes")
 plt.show()
 
 # Plot cumulative number of losses
 plt.plot(cumulative_losses)
+plt.title("Cumulative Number of Losses over episodes")
 plt.show()
 
 # Visualize the training results
 # Plot cumulative mean losses
 plt.plot(cumulative_mean_losses)
+plt.title("Lose Rate over episodes")
 plt.show()
