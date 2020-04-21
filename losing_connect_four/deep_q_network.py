@@ -6,9 +6,9 @@ from typing import Dict, Union, List, Tuple, Deque
 import gym
 import numpy as np
 import tensorflow as tf
-from keras.engine.saving import load_model
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
+from tensorflow.keras.models import load_model
 from tensorflow_addons.optimizers import AdamW
 
 # Tensorflow GPU allocation.
