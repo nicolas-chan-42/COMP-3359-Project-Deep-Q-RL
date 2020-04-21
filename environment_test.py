@@ -3,7 +3,7 @@ from collections import deque
 import gym
 import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
 
@@ -17,7 +17,7 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "EPS_DECAY_STEPS": 10000,
           "GAMMA": 0.95,
           "LAMBDA": 0.001,
-          "N_EPISODES": 10,
+          "N_EPISODES": 100,
           "N_STEPS_PER_TARGET_UPDATE": 1000}
 
 """ Main Training Loop """
@@ -41,7 +41,7 @@ random_player = RandomPlayer(env)
 # Try to load the saved player if any
 try:
     dq_player = DeepQPlayer(env, PARAMS)
-    dq_player.load_model()
+    # dq_player.load_model()
 except:
     # Initialize a new player if model not found
     dq_player = DeepQPlayer(env, PARAMS)
@@ -132,7 +132,7 @@ for episode in range(PARAMS["N_EPISODES"]):
     cumulative_losses[episode] = n_lose
     cumulative_mean_rewards[episode] = total_reward / (episode + 1)
     cumulative_mean_losses[episode] = n_lose / (episode + 1)
-    if (episode + 1) % 100 == 0:
+    if (episode + 1) % 5 == 0:
         print(f"Episode: {episode}")
         print(f"Cumulative Rewards: {total_reward}")
         print(f"Cumulative Mean Rewards: {total_reward / (episode + 1)}")
