@@ -1,7 +1,7 @@
 """ Deep Q Network """
 import random
 from collections import deque
-from typing import Dict, Any, Union, List, Tuple, Deque
+from typing import Dict, Union, List, Tuple, Deque
 
 import gym
 import numpy as np
@@ -45,7 +45,7 @@ class ReplayMemory:
 class DeepQNetwork:
     """Deep-Q Neural Network model"""
 
-    def __init__(self, env: gym.Env, params: Dict[str, Any]):
+    def __init__(self, env: gym.Env, params: Dict):
         self.params = params
         self.observation_space: List[int] = env.observation_space.shape
         self.action_space: int = env.action_space.n
