@@ -6,12 +6,14 @@ from typing import Dict, Union, List, Tuple, Deque
 import gym
 import numpy as np
 import tensorflow as tf
-from keras.layers import Dense, Flatten
-from keras.models import Sequential
+# from keras.layers import Dense, Flatten
+# from keras.models import Sequential
 from tensorflow.keras.models import load_model
 from tensorflow_addons.optimizers import AdamW
 
 # Tensorflow GPU allocation.
+from losing_connect_four import deep_q_models
+
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
 print(f"Number of physical_devices detected: {len(physical_devices)}")
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
@@ -51,31 +53,31 @@ class DeepQNetwork:
         self.action_space: int = env.action_space.n
 
         self.memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
-        self.policy_dqn = self._deep_q_network()
-        self.target_dqn = self._deep_q_network()
+        self.policy_dqn = deep_q_models.deep_q_network(self)  # self._deep_q_network()
+        self.target_dqn = deep_q_models.deep_q_network(self)  # self._deep_q_network()
         self.update_target_dqn_weights()
 
-    # TODO: Isolate _deep_q_network to enhance extensibility (OCP).
-    def _deep_q_network(self) -> Sequential:
-        """
-        Create a deep-Q neural network.
-        :return: Tensorflow Deep-Q neural network model.
-        """
-        obs_space_card = self.observation_space[0] * self.observation_space[1]
-
-        model = Sequential()
-        model.add(Flatten(input_shape=self.observation_space))
-        model.add(Dense(obs_space_card * 2, activation="relu"))
-        model.add(Dense(obs_space_card * 2, activation="relu"))
-        model.add(Dense(obs_space_card * 2, activation="relu"))
-        model.add(Dense(obs_space_card * 2, activation="relu"))
-        model.add(Dense(self.action_space, activation="linear"))
-
-        # Used Adam optimizer to allow for weight decay
-        optimizer = AdamW(lr=self.params["LR"],
-                          weight_decay=self.params["LAMBDA"])
-        model.compile(loss="mse", optimizer=optimizer)
-        return model
+    # # TODO: Isolate _deep_q_network to enhance extensibility (OCP).
+    # def _deep_q_network(self) -> Sequential:
+    #     """
+    #     Create a deep-Q neural network.
+    #     :return: Tensorflow Deep-Q neural network model.
+    #     """
+    #     obs_space_card = self.observation_space[0] * self.observation_space[1]
+    #
+    #     model = Sequential()
+    #     model.add(Flatten(input_shape=self.observation_space))
+    #     model.add(Dense(obs_space_card * 2, activation="relu"))
+    #     model.add(Dense(obs_space_card * 2, activation="relu"))
+    #     model.add(Dense(obs_space_card * 2, activation="relu"))
+    #     model.add(Dense(obs_space_card * 2, activation="relu"))
+    #     model.add(Dense(self.action_space, activation="linear"))
+    #
+    #     # Used Adam optimizer to allow for weight decay
+    #     optimizer = AdamW(lr=self.params["LR"],
+    #                       weight_decay=self.params["LAMBDA"])
+    #     model.compile(loss="mse", optimizer=optimizer)
+    #     return model
 
     def update_target_dqn_weights(self):
         """Copy DQN weights from Policy DQN to Target DQN."""
