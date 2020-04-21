@@ -2,7 +2,9 @@
 import random
 from collections import deque
 from operator import itemgetter
+from typing import Dict, Any, Union, List, Tuple, Deque
 
+import gym
 import numpy as np
 import tensorflow as tf
 from keras.engine.saving import load_model
@@ -12,8 +14,12 @@ from tensorflow_addons.optimizers import AdamW
 
 # Tensorflow GPU allocation.
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
-print("physical_devices-------------", len(physical_devices))
+print(f"Number of physical_devices detected: {len(physical_devices)}")
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
+
+# Python type hinting.
+State = Union[tf.Tensor, np.ndarray]
+MemoryItem = Tuple[State, int, State, float, bool]
 
 
 class ReplayMemory:
@@ -21,36 +27,37 @@ class ReplayMemory:
     A cyclic buffer to store transitions.
     """
 
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.memory = deque(maxlen=capacity)
+    def __init__(self, capacity: int):
+        self.capacity: int = capacity
+        self.memory: Deque[MemoryItem] = deque(maxlen=capacity)
 
-    def push(self, state, action, next_state, reward, done):
+    def push(self, state: State, action: int,
+             next_state: State, reward: float, done: bool):
         """Saves a transition."""
         self.memory.append((state, action, next_state, reward, done))
 
-    def sample(self, batch_size):
+    def sample(self, batch_size: int) -> List:
         return random.sample(self.memory, batch_size)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.memory)
 
 
 class DeepQNetwork:
     """Deep-Q Neural Network model"""
 
-    def __init__(self, env, params):
+    def __init__(self, env: gym.Env, params: Dict[str, Any]):
         self.params = params
-        self.observation_space = env.observation_space.shape
-        self.action_space = env.action_space.n
+        self.observation_space: List[int] = env.observation_space.shape
+        self.action_space: int = env.action_space.n
 
         self.memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
         self.policy_dqn = self._deep_q_network()
         self.target_dqn = self._deep_q_network()
-        assert (self.policy_dqn is not self.target_dqn)
         self.update_target_dqn_weights()
 
-    def _deep_q_network(self):
+    # TODO: Isolate _deep_q_network to enhance extensibility (OCP).
+    def _deep_q_network(self) -> Sequential:
         """
         Create a deep-Q neural network.
         :return: Tensorflow Deep-Q neural network model.
@@ -75,7 +82,7 @@ class DeepQNetwork:
         """Copy DQN weights from Policy DQN to Target DQN."""
         self.target_dqn.set_weights(self.policy_dqn.get_weights())
 
-    def strategically_get_action(self, state, available_moves, epsilon):
+    def strategically_get_action(self, state, available_moves, epsilon: float):
         """
         Apply Epsilon-Greedy strategy when making move.
 
@@ -102,7 +109,8 @@ class DeepQNetwork:
             act = max(valid_moves, key=itemgetter(1))
             return act[0]
 
-    def memorize(self, state, action, next_state, reward, done):
+    def memorize(self, state: State, action: int,
+                 next_state: State, reward: float, done: bool):
         """Push transition to memory."""
         self.memory.push(state, action, next_state, reward, done)
 
@@ -131,12 +139,11 @@ class DeepQNetwork:
             q_values[0][action] = q_update
             self.policy_dqn.fit(state, q_values, verbose=0)
 
-    def save_model(self, prefix):
+    def save_model(self, prefix: str):
         """
         Save trained model
 
-        :param prefix: Usually the name of the player
-
+        :param prefix: Usually the name of the player.
         """
 
         # Save policy DQN model
@@ -144,13 +151,13 @@ class DeepQNetwork:
         # Save updates on target DQN (if necessary)
         self.target_dqn.save(f"{prefix}_target.h5")
 
-    def load_model(self, prefix):
+    def load_model(self, prefix: str):
         """
-        Load trained model
+        Load trained model.
 
         :param prefix: Usually the name of the player
-
         """
+
         optimizer = AdamW(lr=self.params["LR"],
                           weight_decay=self.params["LAMBDA"])
 
@@ -158,6 +165,7 @@ class DeepQNetwork:
         model_policy = load_model(f"{prefix}_policy.h5")
         model_policy.compile(loss="mse", optimizer=optimizer)
         self.policy_dqn = model_policy
+
         # Load saved target DQN and compile (necessary?)
         model_target = load_model(f"{prefix}_target.h5")
         model_target.compile(loss="mse", optimizer=optimizer)
