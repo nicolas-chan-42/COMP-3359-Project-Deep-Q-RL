@@ -5,6 +5,7 @@ from operator import itemgetter
 
 import numpy as np
 import tensorflow as tf
+from keras.engine.saving import load_model
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
 from tensorflow_addons.optimizers import AdamW
@@ -94,7 +95,7 @@ class DeepQNetwork:
 
         # With prob. 1 - epsilon, (Exploitation):
         #   select action with max predicted Q-Values of current state.
-        # TODO: Copied from source code, need to refactor
+        # TODO: Copied from source, need to refactor
         else:
             q_values = self.policy_dqn.predict(state)[0]
             valid_moves = [(i, q_values[i]) for i in available_moves]
@@ -130,5 +131,37 @@ class DeepQNetwork:
             q_values[0][action] = q_update
             self.policy_dqn.fit(state, q_values, verbose=0)
 
-        # TODO: Need to compute loss
-        # loss = self.policy_dqn.loss()
+    def save_model(self, prefix):
+        """
+        Save trained model
+
+        :param prefix: Usually the name of the player
+
+        """
+
+        # Save policy DQN model
+        self.policy_dqn.save(f"{prefix}_policy.h5")
+        # Save updates on target DQN (if necessary)
+        self.target_dqn.save(f"{prefix}_target.h5")
+
+    def load_model(self, prefix):
+        """
+        Load trained model
+
+        :param prefix: Usually the name of the player
+
+        """
+        optimizer = AdamW(lr=self.params["LR"],
+                          weight_decay=self.params["LAMBDA"])
+
+        # Load policy DQN model and compile
+        model_policy = load_model(f"{prefix}_policy.h5")
+        model_policy.compile(loss="mse", optimizer=optimizer)
+        self.policy_dqn = model_policy
+        # Load saved target DQN and compile (necessary?)
+        model_target = load_model(f"{prefix}_target.h5")
+        model_target.compile(loss="mse", optimizer=optimizer)
+        self.target_dqn = model_target
+
+    # TODO: Need to compute loss
+    # loss = self.policy_dqn.loss()

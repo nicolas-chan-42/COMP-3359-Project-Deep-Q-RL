@@ -23,6 +23,12 @@ class Player(ABC):
     def learn(self, state, action, next_state, reward, done, **kwargs):
         pass
 
+    def save_model(self):
+        pass
+
+    def load_model(self):
+        pass
+
 
 class RandomPlayer(Player):
     def __init__(self, env: ConnectFourEnv, name: str = 'RandomPlayer',
@@ -101,3 +107,11 @@ class DeepQPlayer(Player):
 
     def update_target_dqn_weights(self):
         self.net.update_target_dqn_weights()
+
+    def save_model(self):
+        # Save the trained model using self.name as prefix
+        self.net.save_model(self.name)
+
+    def load_model(self):
+        # Load the trained model using self.name as prefix
+        self.net.load_model(self.name)
