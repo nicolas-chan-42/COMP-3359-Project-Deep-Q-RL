@@ -1,7 +1,6 @@
 """ Deep Q Network """
 import random
 from collections import deque
-from operator import itemgetter
 from typing import Dict, Any, Union, List, Tuple, Deque
 
 import gym
@@ -82,32 +81,8 @@ class DeepQNetwork:
         """Copy DQN weights from Policy DQN to Target DQN."""
         self.target_dqn.set_weights(self.policy_dqn.get_weights())
 
-    def strategically_get_action(self, state, available_moves, epsilon: float):
-        """
-        Apply Epsilon-Greedy strategy when making move.
-
-        Exploration with probability = epsilon;
-        Exploitation with probability = (1-epsilon).
-
-        :param state: state of Connect-Four environment
-        :param available_moves: moves that are available and valid
-        :param epsilon: probability of exploration.
-        :return: a random action (exploration),
-            or a DQN-decided action (exploitation).
-        """
-        # With prob. epsilon, (Exploration):
-        #   select random action.
-        if random.random() <= epsilon:
-            return random.choice(list(available_moves))
-
-        # With prob. 1 - epsilon, (Exploitation):
-        #   select action with max predicted Q-Values of current state.
-        # TODO: Copied from source, need to refactor
-        else:
-            q_values = self.policy_dqn.predict(state)[0]
-            valid_moves = [(i, q_values[i]) for i in available_moves]
-            act = max(valid_moves, key=itemgetter(1))
-            return act[0]
+    def predict(self, state: State) -> List:
+        return self.policy_dqn.predict(state)
 
     def memorize(self, state: State, action: int,
                  next_state: State, reward: float, done: bool):

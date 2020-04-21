@@ -1,5 +1,6 @@
 import random
 from abc import ABC
+from operator import itemgetter
 
 import numpy as np
 
@@ -78,18 +79,46 @@ class DeepQPlayer(Player):
             # Decayed epsilon.
             return eps_end
 
+    def strategically_get_action(self, state, available_moves, epsilon: float):
+        """
+        Apply Epsilon-Greedy strategy when making move.
+
+        Exploration with probability = epsilon;
+        Exploitation with probability = (1-epsilon).
+
+        :param state: state of Connect-Four environment
+        :param available_moves: moves that are available and valid
+        :param epsilon: probability of exploration.
+        :return: a random action (exploration),
+            or a DQN-decided action (exploitation).
+        """
+        # With prob. epsilon, (Exploration):
+        #   select random action.
+        if random.random() <= epsilon:
+            return random.choice(list(available_moves))
+
+        # With prob. 1 - epsilon, (Exploitation):
+        #   select action with max predicted Q-Values of current state.
+        # TODO: Copied from source, need to refactor
+        else:
+            q_values = self.net.predict(state)[0]
+            valid_moves = [(i, q_values[i]) for i in available_moves]
+            act = max(valid_moves, key=itemgetter(1))
+            return act[0]
+
     # TODO: Move epsilon to main training environment
     # noinspection PyMethodOverriding
     def get_next_action(self, state, *, n_step) -> int:
         state = np.reshape(state, [1] + list(self.observation_space))
         epsilon = self.get_epsilon(n_step)
 
-        action = self.net.strategically_get_action(
+        action = self.strategically_get_action(
             state, self.env.available_moves(), epsilon)
         if self.env.is_valid_action(action):
             return action
 
-    def learn(self, state, action, next_state, reward, done, **kwargs) -> None:  # Should return loss
+    def learn(self, state, action, next_state, reward, done,
+              **kwargs):  # Should return loss
         """
         Use experiment replay to update the weights of the network
         """
@@ -109,9 +138,9 @@ class DeepQPlayer(Player):
         self.net.update_target_dqn_weights()
 
     def save_model(self):
-        # Save the trained model using self.name as prefix
+        """Save the trained model using self.name as prefix"""
         self.net.save_model(self.name)
 
     def load_model(self):
-        # Load the trained model using self.name as prefix
+        """Load the trained model using self.name as prefix"""
         self.net.load_model(self.name)
