@@ -18,12 +18,13 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "EPS_DECAY_STEPS": 10000,
           "GAMMA": 0.95,
           "LAMBDA": 0.001,
-          "N_EPISODES": 3,
+          "N_EPISODES": 100,
           "N_STEPS_PER_TARGET_UPDATE": 1000,
           "TRAINEE_MODEL_NAME": "DeepQPlayer",
           "OPPONENT_MODEL_NAME": "DeepQPlayer"}
 
 """ Main Training Loop """
+print("Making gym environment...")
 env = gym.make(PARAMS["ENV_NAME"])
 done = False
 
@@ -39,6 +40,7 @@ cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 
 # Setup players.
 random_player = RandomPlayer(env)
+
 with tf.device('/CPU:0'):
     dq_player = DeepQPlayer(env, PARAMS)
     # Try to load the saved player if any
@@ -51,8 +53,10 @@ with tf.device('/CPU:0'):
     player_id = 1
     trainee_id = 1
 
-    # Inside ONE episode:
+    # Main training loop
+    print("Training through " + str(PARAMS["N_EPISODES"]) + " episodes ")
     for episode in range(PARAMS["N_EPISODES"]):
+        print(f"In episode {episode}")
         # Reset reward
         episode_reward = 0
 

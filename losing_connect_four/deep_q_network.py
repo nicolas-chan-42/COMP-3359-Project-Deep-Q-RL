@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
-from tensorflow.keras.models import load_model
+from keras.models import model_from_json
 from tensorflow_addons.optimizers import AdamW
 
 # Tensorflow GPU allocation.
@@ -120,9 +120,17 @@ class DeepQNetwork:
 
         :param filename: Usually the name of the player.
         """
+        # Save sturcture and weifhts into different files
 
-        # Save policy DQN model
-        self.policy_dqn.save(f"{filename}.h5")
+        # Save policy DQN model weights
+        self.policy_dqn.save_weights(f"{filename}.h5")
+
+        # Save policy DQN structures
+        model_json = self.policy_dqn.to_json()
+
+        with open('model.json', "w") as json_file:
+            json_file.write(model_json)
+        json_file.close()
 
     def load_model(self, filename: str):
         """
@@ -134,11 +142,19 @@ class DeepQNetwork:
                           weight_decay=self.params["LAMBDA"])
 
         # Load policy and target DQN model and compile
-        model = load_model(f"{filename}.h5", compile=False)
+        json_file = open("model.json", 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        model = model_from_json(loaded_model_json)
+        model.load_weights("model.h5")
         model.compile(loss="mse", optimizer=optimizer)
         self.policy_dqn = model
 
-        model = load_model(f"{filename}.h5", compile=False)
+        json_file = open("model.json", 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        model = model_from_json(loaded_model_json)
+        model.load_weights("model.h5")
         model.compile(loss="mse", optimizer=optimizer)
         self.target_dqn = model
 

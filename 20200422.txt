@@ -8,25 +8,26 @@ EPS_END: 0.01
 EPS_DECAY_STEPS: 10000
 GAMMA: 0.95
 LAMBDA: 0.001
-N_EPISODES: 3
+N_EPISODES: 100
 N_STEPS_PER_TARGET_UPDATE: 1000
 TRAINEE_MODEL_NAME: DeepQPlayer
 OPPONENT_MODEL_NAME: DeepQPlayer
-------Model Summary------Model: "sequential_3"
+------Model Summary------
+Model: "sequential_1"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-flatten_3 (Flatten)          (None, 42)                0         
+flatten_1 (Flatten)          (None, 42)                0         
 _________________________________________________________________
-dense_11 (Dense)             (None, 84)                3612      
+dense_1 (Dense)              (None, 84)                3612      
 _________________________________________________________________
-dense_12 (Dense)             (None, 84)                7140      
+dense_2 (Dense)              (None, 84)                7140      
 _________________________________________________________________
-dense_13 (Dense)             (None, 84)                7140      
+dense_3 (Dense)              (None, 84)                7140      
 _________________________________________________________________
-dense_14 (Dense)             (None, 84)                7140      
+dense_4 (Dense)              (None, 84)                7140      
 _________________________________________________________________
-dense_15 (Dense)             (None, 7)                 595       
+dense_5 (Dense)              (None, 7)                 595       
 =================================================================
 Total params: 25,627
 Trainable params: 25,627
