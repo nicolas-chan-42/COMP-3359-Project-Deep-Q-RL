@@ -18,13 +18,13 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "EPS_DECAY_STEPS": 10000,
           "GAMMA": 0.95,
           "LAMBDA": 0.001,
-          "N_EPISODES": 100,
+          "N_EPISODES": 1000,
           "N_STEPS_PER_TARGET_UPDATE": 1000,
           "TRAINEE_MODEL_NAME": "DeepQPlayer",
           "OPPONENT_MODEL_NAME": "DeepQPlayer"}
 
 """ Main Training Loop """
-print("Making gym environment...")
+print("Making Connect Four gym environment...")
 env = gym.make(PARAMS["ENV_NAME"])
 done = False
 
@@ -46,6 +46,7 @@ with tf.device('/CPU:0'):
     # Try to load the saved player if any
     try:
         dq_player.load_model()
+        print("Saved model loaded")
     except (IOError, ImportError):
         pass
     players = {1: dq_player, 2: random_player}
@@ -55,7 +56,7 @@ with tf.device('/CPU:0'):
     # Main training loop
     print("Training through " + str(PARAMS["N_EPISODES"]) + " episodes ")
     for episode in range(PARAMS["N_EPISODES"]):
-        print(f"In episode {episode}")
+        # print(f"In episode {episode}")
         # Reset reward
         episode_reward = 0
 
@@ -115,7 +116,7 @@ with tf.device('/CPU:0'):
 
         # Both player have learnt all steps at the end. In endgame, winner here.
         reward *= -1
-        player.learn(state_hist[-2], action_hist, state_hist[-1], reward, done,
+        player.learn(state_hist[-2], action_hist[-1], state_hist[-1], reward, done,
                      n_step=total_step)
 
         # Adjust reward for trainee.
@@ -136,7 +137,7 @@ with tf.device('/CPU:0'):
         cumulative_mean_rewards[episode] = total_reward / (episode + 1)
         cumulative_mean_losses[episode] = n_lose / (episode + 1)
         if (episode + 1) % 100 == 0:
-            print(f"Episode: {episode}")
+            print(f"Episode: {episode + 1}")
             print(f"Cumulative Rewards: {total_reward}")
             print(f"Cumulative Mean Rewards: {total_reward / (episode + 1)}")
             print(f"Total Losses: {n_lose}")

@@ -120,7 +120,7 @@ class DeepQNetwork:
 
         :param filename: Usually the name of the player.
         """
-        # Save sturcture and weifhts into different files
+        # Save structure and weights into different files
 
         # Save policy DQN model weights
         self.policy_dqn.save_weights(f"{filename}.h5")
@@ -142,7 +142,7 @@ class DeepQNetwork:
                           weight_decay=self.params["LAMBDA"])
 
         # Load policy and target DQN model and compile
-        def load_model_architecture_and_weights(filename):
+        def load_model_architecture_and_weights(filename: str):
             with open(f"{filename}.json", 'r') as json_file:
                 model = model_from_json(json_file.read())
             model.load_weights(f"{filename}.h5")
