@@ -48,7 +48,6 @@ with tf.device('/CPU:0'):
         dq_player.load_model()
     except (IOError, ImportError):
         pass
-
     players = {1: dq_player, 2: random_player}
     player_id = 1
     trainee_id = 1

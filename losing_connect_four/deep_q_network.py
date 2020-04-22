@@ -128,7 +128,7 @@ class DeepQNetwork:
         # Save policy DQN structures
         model_json = self.policy_dqn.to_json()
 
-        with open('model.json', "w") as json_file:
+        with open(f"{filename}.json", "w") as json_file:
             json_file.write(model_json)
         json_file.close()
 
@@ -142,21 +142,21 @@ class DeepQNetwork:
                           weight_decay=self.params["LAMBDA"])
 
         # Load policy and target DQN model and compile
-        json_file = open("model.json", 'r')
+        json_file = open(f"{filename}.json", 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         model = model_from_json(loaded_model_json)
-        model.load_weights("model.h5")
+        model.load_weights(f"{filename}.h5")
         model.compile(loss="mse", optimizer=optimizer)
         self.policy_dqn = model
 
-        json_file = open("model.json", 'r')
+        json_file = open(f"{filename}.json", 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         model = model_from_json(loaded_model_json)
-        model.load_weights("model.h5")
+        model.load_weights(f"{filename}.h5")
         model.compile(loss="mse", optimizer=optimizer)
-        self.target_dqn = model
+        self.policy_dqn = model
 
-    # TODO: Need to compute loss
-    # loss = self.policy_dqn.loss()
+# TODO: Need to compute loss
+# loss = self.policy_dqn.loss()
