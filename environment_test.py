@@ -4,6 +4,8 @@ from datetime import date
 import gym
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
 
@@ -29,20 +31,9 @@ print("Making Connect Four gym environment...")
 env = gym.make(PARAMS["ENV_NAME"])
 done = False
 
-# For logging
-total_step = 0
-total_reward = 0
-n_lose = 0
-all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-cumulative_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-cumulative_mean_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-
+# with tf.device('/CPU:0'):
 # Setup players.
 random_player = RandomPlayer(env)
-
-# with tf.device('/CPU:0'):
 dq_player = DeepQPlayer(env, PARAMS)
 # Try to load the saved player if any
 try:
@@ -54,10 +45,21 @@ players = {1: dq_player, 2: random_player}
 player_id = 1
 trainee_id = 1
 
+# For logging
+total_step = 0
+total_reward = 0
+n_lose = 0
+all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_mean_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+
 # Main training loop
-print("Training through " + str(PARAMS["N_EPISODES"]) + " episodes ")
+print(f"Training through {PARAMS['N_EPISODES']} episodes")
+print("-"*30)
 for episode in range(PARAMS["N_EPISODES"]):
-    # print(f"In episode {episode}")
+    print(f"\rIn episode {episode+1}", end="")
     # Reset reward
     episode_reward = 0
 
@@ -117,7 +119,8 @@ for episode in range(PARAMS["N_EPISODES"]):
 
     # Both player have learnt all steps at the end. In endgame, winner here.
     reward *= -1
-    player.learn(state_hist[-2], action_hist[-1], state_hist[-1], reward, done,
+    player.learn(state_hist[-2], action_hist[-1],
+                 state_hist[-1], reward, done,
                  n_step=total_step)
 
     # Adjust reward for trainee.
@@ -138,7 +141,7 @@ for episode in range(PARAMS["N_EPISODES"]):
     cumulative_mean_rewards[episode] = total_reward / (episode + 1)
     cumulative_mean_losses[episode] = n_lose / (episode + 1)
     if (episode + 1) % 100 == 0:
-        print(f"Episode: {episode + 1}")
+        print(f"\rEpisode: {episode + 1}")
         print(f"Cumulative Rewards: {total_reward}")
         print(f"Cumulative Mean Rewards: {total_reward / (episode + 1)}")
         print(f"Total Losses: {n_lose}")
@@ -146,48 +149,39 @@ for episode in range(PARAMS["N_EPISODES"]):
         print(f"Total Steps: {total_step}")
         print("==========================")
 
-print(f"Cumulative rewards in the end {all_rewards.sum()}")
+print(f"\rCumulative rewards in the end {all_rewards.sum()}")
 print(f"Mean rewards in the end {all_rewards.mean()}")
 print(f"Number of losses: {n_lose}")
 
 """Visualize the training results"""
-# Plot cumulative rewards
-plt.plot(cumulative_rewards)
-plt.title("Cumulative Reward received over episodes")
-plt.show()
-
-# Visualize the training results
-# Plot cumulative mean rewards
-plt.plot(cumulative_mean_rewards)
-plt.title("Averaged Cumulative Reward received over episodes")
-plt.show()
-
-# Plot cumulative number of losses
-plt.plot(cumulative_losses)
-plt.title("Cumulative Number of Losses over episodes")
-plt.show()
-
-# Visualize the training results
-# Plot cumulative mean losses
-plt.plot(cumulative_mean_losses)
-plt.title("Lose Rate over episodes")
-plt.show()
+plot_list = (
+    (cumulative_rewards, "Cumulative Reward received over episodes"),
+    (cumulative_mean_rewards, "Averaged Cumulative Reward received over episodes"),
+    (cumulative_losses, "Cumulative Number of Losses over episodes"),
+    (cumulative_mean_losses, "Lose Rate over episodes"),
+)
+for data_sequence, plot_title in plot_list:
+    plt.plot(data_sequence, ".-")
+    # Plot average line.
+    plt.hlines(data_sequence.mean(), 0, len(data_sequence)-1,
+               colors="g", linestyles="dashed")
+    # Plot horizontal line of last entry.
+    plt.hlines(data_sequence[-1], 0, len(data_sequence)-1,
+               colors="c", linestyles="dotted")
+    plt.title(plot_title)
+    plt.show()
 
 """Save Models and Summaries"""
 # Save trained model
 dq_player.save_model()
 
 # Save model summary
-with open(date.today().strftime("%Y%m%d") + ".txt", "w") as file:
-    file.write("------Hyperparameters------\n")
+with open(f"{date.today().strftime('%Y%m%d')}.txt", "w") as file:
+    file.write(f"{'Hyper-parameters'.center(70, '_')}\n")
     for key, value in PARAMS.items():
         file.write(f"{key}: {value}\n")
-    file.write("------Model Summary------\n")
+    print()
+    file.write(f"{'Model Summary'.center(70, '_')}\n")
 
-
-    def file_write_summary(string):
-        file.write(string)
-        file.write("\n")
-
-
-    dq_player.net.policy_dqn.summary(print_fn=file_write_summary)
+    dq_player.net.policy_dqn.summary(
+        print_fn=lambda s: file.write(f"{s}\n"))
