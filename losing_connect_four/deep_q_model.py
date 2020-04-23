@@ -6,13 +6,12 @@ from typing import Dict, Union, List, Tuple, Deque
 import gym
 import numpy as np
 import tensorflow as tf
-# from keras.layers import Dense, Flatten
-# from keras.models import Sequential
 from keras.models import model_from_json
 from tensorflow_addons.optimizers import AdamW
 
 # Tensorflow GPU allocation.
-from losing_connect_four import deep_q_models
+from losing_connect_four import deep_q_networks
+from losing_connect_four.deep_q_networks import SimpleDeepFCQNetwork
 
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
 print(f"Number of physical_devices detected: {len(physical_devices)}")
@@ -44,7 +43,7 @@ class ReplayMemory:
         return len(self.memory)
 
 
-class DeepQNetwork:
+class DeepQModel:
     """Deep-Q Neural Network model"""
 
     def __init__(self, env: gym.Env, params: Dict):
@@ -53,8 +52,12 @@ class DeepQNetwork:
         self.action_space: int = env.action_space.n
 
         self.memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
-        self.policy_dqn = deep_q_models.deep_q_network(self)
-        self.target_dqn = deep_q_models.deep_q_network(self)
+
+        self.dqn_template = params["DQN_TEMPLATE"]
+        self.policy_dqn = self.dqn_template.create_model(
+            self.observation_space, self.action_space, params)
+        self.target_dqn = self.dqn_template.create_model(
+            self.observation_space, self.action_space, params)
         self.update_target_dqn_weights()
 
     # def _deep_q_network(self) -> Sequential:
@@ -136,8 +139,7 @@ class DeepQNetwork:
         :param filename: Usually the name of the player
         """
         # TODO: isolate optimizer and loss function to deep_q_models.
-        optimizer = AdamW(lr=self.params["LR"],
-                          weight_decay=self.params["LAMBDA"])
+        optimizer = self.dqn_template.create_optimizer(self.params)
 
         # Load policy and target DQN model and compile
         def load_model_architecture_and_weights(filename: str):

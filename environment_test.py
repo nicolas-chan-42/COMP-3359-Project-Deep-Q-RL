@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 # import tensorflow as tf
 
+from losing_connect_four import deep_q_networks
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
 
 """Hyper-parameters"""
@@ -22,6 +24,7 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "LAMBDA": 0.001,
           "N_EPISODES": 50,
           "N_STEPS_PER_TARGET_UPDATE": 1000,
+          "DQN_TEMPLATE": deep_q_networks.SimpleDeepFCQNetwork(),
           "TRAINEE_MODEL_NAME": "DeepQPlayer",
           "OPPONENT_MODEL_NAME": "DeepQPlayer"}
 
@@ -30,20 +33,9 @@ print("Making Connect Four gym environment...")
 env = gym.make(PARAMS["ENV_NAME"])
 done = False
 
-# For logging
-total_step = 0
-total_reward = 0
-n_lose = 0
-all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-cumulative_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-cumulative_mean_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
-
+# with tf.device('/CPU:0'):
 # Setup players.
 random_player = RandomPlayer(env)
-
-# with tf.device('/CPU:0'):
 dq_player = DeepQPlayer(env, PARAMS)
 # Try to load the saved player if any
 try:
@@ -54,6 +46,16 @@ except (IOError, ImportError):
 players = {1: dq_player, 2: random_player}
 player_id = 1
 trainee_id = 1
+
+# For logging
+total_step = 0
+total_reward = 0
+n_lose = 0
+all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_mean_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
+cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 
 # Main training loop
 print("Training through " + str(PARAMS["N_EPISODES"]) + " episodes ")

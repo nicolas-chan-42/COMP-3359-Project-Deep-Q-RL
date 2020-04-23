@@ -5,7 +5,7 @@ from operator import itemgetter
 import numpy as np
 
 from gym_connect_four import ConnectFourEnv
-from losing_connect_four.deep_q_network import DeepQNetwork
+from losing_connect_four.deep_q_model import DeepQModel
 
 
 class Player(ABC):
@@ -62,7 +62,7 @@ class DeepQPlayer(Player):
         self.observation_space = env.observation_space.shape
         self.action_space = env.action_space.n
 
-        self.net = DeepQNetwork(env, params)
+        self.net = DeepQModel(env, params)
 
     def get_epsilon(self, global_step):
         """Used decaying epsilon greedy exploration policy"""
