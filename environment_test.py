@@ -1,4 +1,5 @@
 from collections import deque
+from datetime import date
 
 import gym
 import matplotlib.pyplot as plt
@@ -17,17 +18,19 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "EPS_DECAY_STEPS": 10000,
           "GAMMA": 0.95,
           "LAMBDA": 0.001,
-          "N_EPISODES": 100,
-          "N_STEPS_PER_TARGET_UPDATE": 1000}
+          "N_EPISODES": 1000,
+          "N_STEPS_PER_TARGET_UPDATE": 1000,
+          "TRAINEE_MODEL_NAME": "DeepQPlayer",
+          "OPPONENT_MODEL_NAME": "DeepQPlayer"}
 
 """ Main Training Loop """
+print("Making Connect Four gym environment...")
 env = gym.make(PARAMS["ENV_NAME"])
 done = False
 
 # For logging
 total_step = 0
 total_reward = 0
-total_losses = 0
 n_lose = 0
 all_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 cumulative_rewards = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
@@ -37,22 +40,23 @@ cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 
 # Setup players.
 random_player = RandomPlayer(env)
+
 # with tf.device('/CPU:0'):
+dq_player = DeepQPlayer(env, PARAMS)
 # Try to load the saved player if any
 try:
-    dq_player = DeepQPlayer(env, PARAMS)
-    # dq_player.load_model()
-except:
-    # Initialize a new player if model not found
-    dq_player = DeepQPlayer(env, PARAMS)
-
+    dq_player.load_model()
+    print("Saved model loaded")
+except (IOError, ImportError):
+    pass
 players = {1: dq_player, 2: random_player}
 player_id = 1
 trainee_id = 1
 
-# TODO: Save model
-# Inside ONE episode:
+# Main training loop
+print("Training through " + str(PARAMS["N_EPISODES"]) + " episodes ")
 for episode in range(PARAMS["N_EPISODES"]):
+    # print(f"In episode {episode}")
     # Reset reward
     episode_reward = 0
 
@@ -112,7 +116,7 @@ for episode in range(PARAMS["N_EPISODES"]):
 
     # Both player have learnt all steps at the end. In endgame, winner here.
     reward *= -1
-    player.learn(state_hist[-2], action_hist, state_hist[-1], reward, done,
+    player.learn(state_hist[-2], action_hist[-1], state_hist[-1], reward, done,
                  n_step=total_step)
 
     # Adjust reward for trainee.
@@ -133,7 +137,7 @@ for episode in range(PARAMS["N_EPISODES"]):
     cumulative_mean_rewards[episode] = total_reward / (episode + 1)
     cumulative_mean_losses[episode] = n_lose / (episode + 1)
     if (episode + 1) % 5 == 0:
-        print(f"Episode: {episode}")
+        print(f"Episode: {episode + 1}")
         print(f"Cumulative Rewards: {total_reward}")
         print(f"Cumulative Mean Rewards: {total_reward / (episode + 1)}")
         print(f"Total Losses: {n_lose}")
@@ -141,14 +145,11 @@ for episode in range(PARAMS["N_EPISODES"]):
         print(f"Total Steps: {total_step}")
         print("==========================")
 
-# Save Deep-Q player here
-# dq_player.save_model()
-
 print(f"Cumulative rewards in the end {all_rewards.sum()}")
 print(f"Mean rewards in the end {all_rewards.mean()}")
 print(f"Number of losses: {n_lose}")
 
-# Visualize the training results
+"""Visualize the training results"""
 # Plot cumulative rewards
 plt.plot(cumulative_rewards, ".-")
 plt.title("Cumulative Reward received over episodes")
@@ -170,3 +171,22 @@ plt.show()
 plt.plot(cumulative_mean_losses, ".-")
 plt.title("Lose Rate over episodes")
 plt.show()
+
+"""Save Models and Summaries"""
+# Save trained model
+dq_player.save_model()
+
+# Save model summary
+with open(date.today().strftime("%Y%m%d") + ".txt", "w") as file:
+    file.write("------Hyperparameters------\n")
+    for key, value in PARAMS.items():
+        file.write(f"{key}: {value}\n")
+    file.write("------Model Summary------\n")
+
+
+    def file_write_summary(string):
+        file.write(string)
+        file.write("\n")
+
+
+    dq_player.net.policy_dqn.summary(print_fn=file_write_summary)

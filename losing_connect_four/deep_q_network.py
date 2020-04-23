@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 # from keras.layers import Dense, Flatten
 # from keras.models import Sequential
-from tensorflow.keras.models import load_model
+from keras.models import model_from_json
 from tensorflow_addons.optimizers import AdamW
 
 # Tensorflow GPU allocation.
@@ -116,37 +116,40 @@ class DeepQNetwork:
             q_values[0][action] = q_update
             self.policy_dqn.fit(state, q_values, verbose=0)
 
-    def save_model(self, prefix: str):
+    def save_model(self, filename: str):
         """
         Save trained model
 
-        :param prefix: Usually the name of the player.
+        :param filename: Usually the name of the player.
         """
 
-        # Save policy DQN model
-        self.policy_dqn.save(f"{prefix}_policy.h5")
-        # Save updates on target DQN (if necessary)
-        self.target_dqn.save(f"{prefix}_target.h5")
+        # Save policy DQN structures
+        model_json = self.policy_dqn.to_json()
 
-    def load_model(self, prefix: str):
+        with open(f"{filename}.json", "w") as json_file:
+            json_file.write(model_json)
+        json_file.close()
+
+    def load_model(self, filename: str):
         """
         Load trained model.
 
-        :param prefix: Usually the name of the player
+        :param filename: Usually the name of the player
         """
 
         optimizer = AdamW(lr=self.params["LR"],
                           weight_decay=self.params["LAMBDA"])
 
-        # Load policy DQN model and compile
-        model_policy = load_model(f"{prefix}_policy.h5")
-        model_policy.compile(loss="mse", optimizer=optimizer)
-        self.policy_dqn = model_policy
+        # Load policy and target DQN model and compile
+        def load_model_architecture_and_weights(filename: str):
+            with open(f"{filename}.json", 'r') as json_file:
+                model = model_from_json(json_file.read())
+            model.load_weights(f"{filename}.h5")
+            model.compile(loss="mse", optimizer=optimizer)
+            return model
 
-        # Load saved target DQN and compile (necessary?)
-        model_target = load_model(f"{prefix}_target.h5")
-        model_target.compile(loss="mse", optimizer=optimizer)
-        self.target_dqn = model_target
+        self.policy_dqn = load_model_architecture_and_weights(filename)
+        self.target_dqn = load_model_architecture_and_weights(filename)
 
     # TODO: Need to compute loss
     # loss = self.policy_dqn.loss()

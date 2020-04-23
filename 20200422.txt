@@ -1,0 +1,35 @@
+------Hyperparameters------
+ENV_NAME: ConnectFour-v1
+LR: 0.001
+REPLAY_BUFFER_MAX_LENGTH: 100000
+BATCH_SIZE: 32
+EPS_START: 1
+EPS_END: 0.01
+EPS_DECAY_STEPS: 10000
+GAMMA: 0.95
+LAMBDA: 0.001
+N_EPISODES: 10
+N_STEPS_PER_TARGET_UPDATE: 1000
+TRAINEE_MODEL_NAME: DeepQPlayer
+OPPONENT_MODEL_NAME: DeepQPlayer
+------Model Summary------
+Model: "sequential_1"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+flatten_1 (Flatten)          (None, 42)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 84)                3612      
+_________________________________________________________________
+dense_2 (Dense)              (None, 84)                7140      
+_________________________________________________________________
+dense_3 (Dense)              (None, 84)                7140      
+_________________________________________________________________
+dense_4 (Dense)              (None, 84)                7140      
+_________________________________________________________________
+dense_5 (Dense)              (None, 7)                 595       
+=================================================================
+Total params: 25,627
+Trainable params: 25,627
+Non-trainable params: 0
+_________________________________________________________________
