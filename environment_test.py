@@ -4,6 +4,8 @@ from datetime import date
 import gym
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # import tensorflow as tf
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
@@ -18,7 +20,7 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "EPS_DECAY_STEPS": 10000,
           "GAMMA": 0.95,
           "LAMBDA": 0.001,
-          "N_EPISODES": 1000,
+          "N_EPISODES": 50,
           "N_STEPS_PER_TARGET_UPDATE": 1000,
           "TRAINEE_MODEL_NAME": "DeepQPlayer",
           "OPPONENT_MODEL_NAME": "DeepQPlayer"}
@@ -177,8 +179,8 @@ plt.show()
 dq_player.save_model()
 
 # Save model summary
-with open(date.today().strftime("%Y%m%d") + ".txt", "w") as file:
-    file.write("------Hyperparameters------\n")
+with open(f"{date.today().strftime('%Y%m%d')}.txt", "w") as file:
+    file.write("------Hyper-parameters------\n")
     for key, value in PARAMS.items():
         file.write(f"{key}: {value}\n")
     file.write("------Model Summary------\n")

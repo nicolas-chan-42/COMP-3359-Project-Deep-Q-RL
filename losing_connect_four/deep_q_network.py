@@ -53,11 +53,10 @@ class DeepQNetwork:
         self.action_space: int = env.action_space.n
 
         self.memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
-        self.policy_dqn = deep_q_models.deep_q_network(self)  # self._deep_q_network()
-        self.target_dqn = deep_q_models.deep_q_network(self)  # self._deep_q_network()
+        self.policy_dqn = deep_q_models.deep_q_network(self)
+        self.target_dqn = deep_q_models.deep_q_network(self)
         self.update_target_dqn_weights()
 
-    # # TODO: Isolate _deep_q_network to enhance extensibility (OCP).
     # def _deep_q_network(self) -> Sequential:
     #     """
     #     Create a deep-Q neural network.
@@ -136,7 +135,7 @@ class DeepQNetwork:
 
         :param filename: Usually the name of the player
         """
-
+        # TODO: isolate optimizer and loss function to deep_q_models.
         optimizer = AdamW(lr=self.params["LR"],
                           weight_decay=self.params["LAMBDA"])
 
