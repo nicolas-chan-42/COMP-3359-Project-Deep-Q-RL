@@ -4,9 +4,10 @@ from datetime import date
 import gym
 import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow as tf
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
+
+# import tensorflow as tf
 
 """Hyper-parameters"""
 PARAMS = {"ENV_NAME": "ConnectFour-v1",
@@ -41,109 +42,109 @@ cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 # Setup players.
 random_player = RandomPlayer(env)
 
-with tf.device('/CPU:0'):
-    dq_player = DeepQPlayer(env, PARAMS)
-    # Try to load the saved player if any
-    try:
-        dq_player.load_model()
-        print("Saved model loaded")
-    except (IOError, ImportError):
-        pass
-    players = {1: dq_player, 2: random_player}
-    player_id = 1
-    trainee_id = 1
+# with tf.device('/CPU:0'):
+dq_player = DeepQPlayer(env, PARAMS)
+# Try to load the saved player if any
+try:
+    dq_player.load_model()
+    print("Saved model loaded")
+except (IOError, ImportError):
+    pass
+players = {1: dq_player, 2: random_player}
+player_id = 1
+trainee_id = 1
 
-    # Main training loop
-    print("Training through " + str(PARAMS["N_EPISODES"]) + " episodes ")
-    for episode in range(PARAMS["N_EPISODES"]):
-        # print(f"In episode {episode}")
-        # Reset reward
-        episode_reward = 0
+# Main training loop
+print("Training through " + str(PARAMS["N_EPISODES"]) + " episodes ")
+for episode in range(PARAMS["N_EPISODES"]):
+    # print(f"In episode {episode}")
+    # Reset reward
+    episode_reward = 0
 
-        # noinspection PyRedeclaration
-        state = env.reset()
+    # noinspection PyRedeclaration
+    state = env.reset()
 
-        # Player in position
-        player = players[player_id]
+    # Player in position
+    player = players[player_id]
 
-        # Do one step ahead of the while loop
-        # Log state and action histories
+    # Do one step ahead of the while loop
+    # Log state and action histories
 
-        # Initialize action history and perform first step
-        action = player.get_next_action(state, n_step=total_step)
-        action_hist = deque([action], maxlen=2)
-        next_state, reward, done, _ = env.step(action)
+    # Initialize action history and perform first step
+    action = player.get_next_action(state, n_step=total_step)
+    action_hist = deque([action], maxlen=2)
+    next_state, reward, done, _ = env.step(action)
 
-        # Initialize the state history and save the state and the next state
-        state_hist = deque([state], maxlen=4)
+    # Initialize the state history and save the state and the next state
+    state_hist = deque([state], maxlen=4)
+    state_hist.append(next_state)
+    state = next_state
+
+    # Change player and enter while loop
+    player_id = env.change_player()
+    player = players[player_id]
+
+    while not done:
+        # Get current player's action.
+        action_hist.append(player.get_next_action(state, n_step=total_step))
+
+        # Take the latest action in the deque. In endgame, winner here.
+        next_state, reward, done, _ = env.step(action_hist[-1])
+
+        # Store the resulting state to history
         state_hist.append(next_state)
-        state = next_state
 
-        # Change player and enter while loop
+        # Change player here
         player_id = env.change_player()
         player = players[player_id]
 
-        while not done:
-            # Get current player's action.
-            action_hist.append(player.get_next_action(state, n_step=total_step))
-
-            # Take the latest action in the deque. In endgame, winner here.
-            next_state, reward, done, _ = env.step(action_hist[-1])
-
-            # Store the resulting state to history
-            state_hist.append(next_state)
-
-            # Change player here
-            player_id = env.change_player()
-            player = players[player_id]
-
-            # Update DQN weights. In endgame, loser here.
-            reward *= -1
-            player.learn(state_hist[-3], action_hist[-2],  # state and action
-                         state_hist[-1], reward, done,  # next state, reward, done
-                         n_step=total_step)
-
-            # Update training result at the end for the next step
-            total_step += 1
-            state = next_state
-
-            # Render game board (NOT recommended with large N_EPISODES)
-            # env.render()
-
-        # Change player at the end of episode.
-        player_id = env.change_player()
-        player = players[player_id]
-
-        # Both player have learnt all steps at the end. In endgame, winner here.
+        # Update DQN weights. In endgame, loser here.
         reward *= -1
-        player.learn(state_hist[-2], action_hist[-1], state_hist[-1], reward, done,
+        player.learn(state_hist[-3], action_hist[-2],  # state and action
+                     state_hist[-1], reward, done,  # next state, reward, done
                      n_step=total_step)
 
-        # Adjust reward for trainee.
-        # If winner is opponent, we give opposite reward to trainee.
-        if player_id != trainee_id:
-            reward *= -1  # adjust reward.
+        # Update training result at the end for the next step
+        total_step += 1
+        state = next_state
 
-        n_lose += max(0, int(reward))  # zero if draw
+        # Render game board (NOT recommended with large N_EPISODES)
+        # env.render()
 
-        # TODO: have a list of 2 reward slots for the two players
-        episode_reward += reward
+    # Change player at the end of episode.
+    player_id = env.change_player()
+    player = players[player_id]
 
-        # Log the episode reward to aggregator
-        total_reward += reward
-        all_rewards[episode] = episode_reward
-        cumulative_rewards[episode] = total_reward
-        cumulative_losses[episode] = n_lose
-        cumulative_mean_rewards[episode] = total_reward / (episode + 1)
-        cumulative_mean_losses[episode] = n_lose / (episode + 1)
-        if (episode + 1) % 100 == 0:
-            print(f"Episode: {episode + 1}")
-            print(f"Cumulative Rewards: {total_reward}")
-            print(f"Cumulative Mean Rewards: {total_reward / (episode + 1)}")
-            print(f"Total Losses: {n_lose}")
-            print(f"Cumulative Mean Losses: {n_lose / (episode + 1)}")
-            print(f"Total Steps: {total_step}")
-            print("==========================")
+    # Both player have learnt all steps at the end. In endgame, winner here.
+    reward *= -1
+    player.learn(state_hist[-2], action_hist[-1], state_hist[-1], reward, done,
+                 n_step=total_step)
+
+    # Adjust reward for trainee.
+    # If winner is opponent, we give opposite reward to trainee.
+    if player_id != trainee_id:
+        reward *= -1  # adjust reward.
+
+    n_lose += max(0, int(reward))  # zero if draw
+
+    # TODO: have a list of 2 reward slots for the two players
+    episode_reward += reward
+
+    # Log the episode reward to aggregator
+    total_reward += reward
+    all_rewards[episode] = episode_reward
+    cumulative_rewards[episode] = total_reward
+    cumulative_losses[episode] = n_lose
+    cumulative_mean_rewards[episode] = total_reward / (episode + 1)
+    cumulative_mean_losses[episode] = n_lose / (episode + 1)
+    if (episode + 1) % 100 == 0:
+        print(f"Episode: {episode + 1}")
+        print(f"Cumulative Rewards: {total_reward}")
+        print(f"Cumulative Mean Rewards: {total_reward / (episode + 1)}")
+        print(f"Total Losses: {n_lose}")
+        print(f"Cumulative Mean Losses: {n_lose / (episode + 1)}")
+        print(f"Total Steps: {total_step}")
+        print("==========================")
 
 print(f"Cumulative rewards in the end {all_rewards.sum()}")
 print(f"Mean rewards in the end {all_rewards.mean()}")
