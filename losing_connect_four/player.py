@@ -135,11 +135,15 @@ class DeepQPlayer(Player):
 
         self.net.memorize(state, action, next_state, reward, done)
 
-        self.net.experience_replay()
+        epochs = kwargs.get("epochs", 1)
+        self.net.experience_replay(epochs=epochs)
 
         # Update weights of Target DQN every STEPS_PER_TARGET_UPDATE.
-        if kwargs["n_step"] % self.params["N_STEPS_PER_TARGET_UPDATE"] == 0:
-            self.update_target_dqn_weights()
+        if "n_step" in kwargs:
+            if kwargs["n_step"] % self.params["N_STEPS_PER_TARGET_UPDATE"] == 0:
+                self.update_target_dqn_weights()
+        else:
+            raise ValueError("Keyword argument 'n_step' is missing")
 
     def update_target_dqn_weights(self):
         self.net.update_target_dqn_weights()
