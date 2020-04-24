@@ -80,8 +80,9 @@ for episode in range(PARAMS["N_EPISODES"]):
 
     # Initialize the state history and save the state and the next state
     state_hist = deque([state], maxlen=4)
+    next_state *= -1  # Multiply -1 to change owner of each move.
     state_hist.append(next_state)
-    state = next_state * -1  # Multiply -1 to change owner of each move.
+    state = next_state
 
     # Change player and enter while loop
     player_id = env.change_player()
@@ -95,6 +96,7 @@ for episode in range(PARAMS["N_EPISODES"]):
         next_state, reward, done, _ = env.step(action_hist[-1])
 
         # Store the resulting state to history
+        next_state *= -1  # Multiply -1 to change owner of each move.
         state_hist.append(next_state)
 
         # Change player here
@@ -109,7 +111,7 @@ for episode in range(PARAMS["N_EPISODES"]):
 
         # Update training result at the end for the next step
         total_step += 1
-        state = next_state * -1  # Multiply -1 to change owner of each move.
+        state = next_state
 
         # Render game board (NOT recommended with large N_EPISODES)
         # env.render()
