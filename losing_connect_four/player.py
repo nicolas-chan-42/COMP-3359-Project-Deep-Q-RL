@@ -1,6 +1,7 @@
 import random
 from abc import ABC
 from operator import itemgetter
+from random import Random
 from typing import Optional
 
 import numpy as np
@@ -40,7 +41,7 @@ class RandomPlayer(Player):
                  seed=None):
         super().__init__(env, name)
         self._seed = seed
-        random.seed(seed)
+        self._random = Random(seed)
 
     def get_next_action(self, *args, **kwargs) -> int:
         available_moves = self.env.available_moves()
@@ -49,7 +50,7 @@ class RandomPlayer(Player):
             raise ValueError('Unable to determine a valid move')
 
         # Choose one move from list of available moves
-        action = random.choice(list(available_moves))
+        action = self._random.choice(list(available_moves))
 
         return action
 
