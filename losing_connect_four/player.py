@@ -40,6 +40,7 @@ class RandomPlayer(Player):
                  seed=None):
         super().__init__(env, name)
         self._seed = seed
+        random.seed(seed)
 
     def get_next_action(self, *args, **kwargs) -> int:
         available_moves = self.env.available_moves()
