@@ -1,7 +1,7 @@
 """ Deep Q Network """
 import random
 from collections import deque
-from typing import Dict, Union, List, Deque, NamedTuple
+from typing import Dict, Union, List, Deque, NamedTuple, Optional
 
 import gym
 import numpy as np
@@ -97,7 +97,7 @@ class DeepQNetwork:
         """Push transition to memory."""
         self.memory.push(state, action, next_state, reward, done)
 
-    def experience_replay(self):
+    def experience_replay(self, epochs: Optional[int] = 1):
         """ Update Q-value here """
 
         # Hyper-parameters used in this project
@@ -119,26 +119,39 @@ class DeepQNetwork:
         reward_batch = np.stack(batches.reward)
         done_batch = np.stack(batches.done)
 
-        # Q_update = ((max_a' Q'(s',a') * gamma) if done else 0) + reward
-        q_update = np.amax(self.target_dqn.predict(next_state_batch), axis=1)
-        q_update = gamma * q_update
-        q_update *= done_batch
-        q_update += reward_batch
-
-        # Q(s,a) <- Q(s,a) + Q_update
-        q_values = self.policy_dqn.predict(state_batch)
-        q_values[np.arange(batch_size), action_batch.flatten()] = q_update
-
+        # Prepare flipped states and actions.
         # Flip state and action along y-axis of game board.
         state_batch_flip = np.flip(state_batch, axis=-1)
-        q_values_flip = np.flip(q_values, axis=-1)
+        action_batch_flip = np.flip(action_batch, axis=-1)
+        next_state_batch_flip = np.flip(next_state_batch, axis=-1)
 
-        state_batch_with_flip = np.concatenate([state_batch, state_batch_flip],
-                                               axis=0)
-        q_values_with_flip = np.concatenate([q_values, q_values_flip], axis=0)
+        # Concatenate non-flip with flip batches.
+        state_batch_w_flip = np.concatenate((state_batch, state_batch_flip),
+                                            axis=0)
+        action_batch_w_flip = np.concatenate((action_batch, action_batch_flip),
+                                             axis=0)
+        next_state_batch_w_flip = np.concatenate(
+            (next_state_batch, next_state_batch_flip), axis=0)
 
-        self.policy_dqn.fit(state_batch_with_flip, q_values_with_flip,
-                            verbose=0)
+        # Concatenate reward and done with itself to match batch size.
+        reward_batch_w_flip = np.concatenate((reward_batch, reward_batch),
+                                             axis=0)
+        done_batch_w_flip = np.concatenate((done_batch, done_batch), axis=0)
+
+        # Q_update = ((max_a' Q'(s',a') * gamma) if done else 0) + reward
+        q_update = np.amax(self.target_dqn.
+                           predict(next_state_batch_w_flip), axis=1)
+        q_update = gamma * q_update
+        q_update *= done_batch_w_flip
+        q_update += reward_batch_w_flip
+
+        # Q(s,a) <- Q(s,a) + Q_update
+        q_values = self.policy_dqn.predict(state_batch_w_flip)
+        q_values[np.arange(batch_size * 2),
+                 action_batch_w_flip.flatten()] = q_update
+
+        self.policy_dqn.fit(state_batch_w_flip, q_values,
+                            epochs=epochs, verbose=0)
 
     def save_model(self, filename: str):
         """
