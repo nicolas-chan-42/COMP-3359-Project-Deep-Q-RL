@@ -1,10 +1,11 @@
+import os
 from collections import deque
 from datetime import date
 
 import gym
 import matplotlib.pyplot as plt
 import numpy as np
-import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
@@ -57,9 +58,9 @@ cumulative_mean_losses = np.zeros(PARAMS["N_EPISODES"], dtype=np.float32)
 
 # Main training loop
 print(f"Training through {PARAMS['N_EPISODES']} episodes")
-print("-"*30)
+print("-" * 30)
 for episode in range(PARAMS["N_EPISODES"]):
-    print(f"\rIn episode {episode+1}", end="")
+    print(f"\rIn episode {episode + 1}", end="")
     # Reset reward
     episode_reward = 0
 
@@ -80,7 +81,7 @@ for episode in range(PARAMS["N_EPISODES"]):
     # Initialize the state history and save the state and the next state
     state_hist = deque([state], maxlen=4)
     state_hist.append(next_state)
-    state = next_state
+    state = next_state * -1  # Multiply -1 to change owner of each move.
 
     # Change player and enter while loop
     player_id = env.change_player()
@@ -108,7 +109,7 @@ for episode in range(PARAMS["N_EPISODES"]):
 
         # Update training result at the end for the next step
         total_step += 1
-        state = next_state
+        state = next_state * -1  # Multiply -1 to change owner of each move.
 
         # Render game board (NOT recommended with large N_EPISODES)
         # env.render()
@@ -120,7 +121,8 @@ for episode in range(PARAMS["N_EPISODES"]):
     # Both player have learnt all steps at the end. In endgame, winner here.
     reward *= -1
     player.learn(state_hist[-2], action_hist[-1],
-                 state_hist[-1], reward, done,
+                 state_hist[-1] * -1, reward, done,
+                 # Multiply -1 to change owner of each move.
                  n_step=total_step)
 
     # Adjust reward for trainee.
@@ -155,15 +157,17 @@ print(f"Number of losses: {n_lose}")
 
 """Visualize the training results"""
 plot_list = (
+    # (all_rewards, "Reward received in each episode"),
     (cumulative_rewards, "Cumulative Reward received over episodes"),
     (cumulative_mean_rewards, "Averaged Cumulative Reward received over episodes"),
     (cumulative_losses, "Cumulative Number of Losses over episodes"),
     (cumulative_mean_losses, "Lose Rate over episodes"),
 )
+plt.rcParams["figure.facecolor"] = "white"
 for data_sequence, plot_title in plot_list:
     plt.plot(data_sequence, ".-")
     # Plot average line.
-    plt.hlines(data_sequence.mean(), 0, len(data_sequence)-1,
+    plt.hlines(data_sequence.mean(), 0, len(data_sequence) - 1,
                colors="g", linestyles="dashed")
     plt.title(plot_title)
     plt.grid()
