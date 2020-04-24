@@ -129,7 +129,16 @@ class DeepQNetwork:
         q_values = self.policy_dqn.predict(state_batch)
         q_values[np.arange(batch_size), action_batch.flatten()] = q_update
 
-        self.policy_dqn.fit(state_batch, q_values, verbose=0)
+        # Flip state and action along y-axis of game board.
+        state_batch_flip = np.flip(state_batch, axis=-1)
+        q_values_flip = np.flip(q_values, axis=-1)
+
+        state_batch_with_flip = np.concatenate([state_batch, state_batch_flip],
+                                               axis=0)
+        q_values_with_flip = np.concatenate([q_values, q_values_flip], axis=0)
+
+        self.policy_dqn.fit(state_batch_with_flip, q_values_with_flip,
+                            verbose=0)
 
     def save_model(self, filename: str):
         """
