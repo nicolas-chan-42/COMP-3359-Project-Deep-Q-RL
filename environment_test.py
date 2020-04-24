@@ -165,10 +165,8 @@ for data_sequence, plot_title in plot_list:
     # Plot average line.
     plt.hlines(data_sequence.mean(), 0, len(data_sequence)-1,
                colors="g", linestyles="dashed")
-    # Plot horizontal line of last entry.
-    plt.hlines(data_sequence[-1], 0, len(data_sequence)-1,
-               colors="c", linestyles="dotted")
     plt.title(plot_title)
+    plt.grid()
     plt.show()
 
 """Save Models and Summaries"""
