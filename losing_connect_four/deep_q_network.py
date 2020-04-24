@@ -1,7 +1,7 @@
 """ Deep Q Network """
 import random
 from collections import deque
-from typing import Dict, Union, List, Tuple, Deque
+from typing import Dict, Union, List, Deque, NamedTuple
 
 import gym
 import numpy as np
@@ -18,7 +18,14 @@ tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 # Python type hinting.
 State = Union[tf.Tensor, np.ndarray]
-MemoryItem = Tuple[State, int, State, float, bool]
+
+
+class MemoryItem(NamedTuple):
+    state: State
+    action: int
+    next_state: State
+    reward: float
+    done: bool
 
 
 class ReplayMemory:
@@ -33,7 +40,8 @@ class ReplayMemory:
     def push(self, state: State, action: int,
              next_state: State, reward: float, done: bool):
         """Saves a transition."""
-        self.memory.append((state, action, next_state, reward, done))
+        memory_item = MemoryItem(state, action, next_state, reward, done)
+        self.memory.append(memory_item)
 
     def sample(self, batch_size: int) -> List:
         return random.sample(self.memory, batch_size)
@@ -104,15 +112,25 @@ class DeepQNetwork:
         batch = self.memory.sample(batch_size)
 
         # Update Q value (COPIED, slightly modified)
-        for state, action, next_state, reward, done in batch:
-            q_update = reward
-            if not done:
-                q_update += (gamma * np.amax(
-                    self.target_dqn.predict(next_state)[0]))
+        # TODO: Re-vectorise the computation here
+        batches = MemoryItem(*zip(*batch))
+        state_batch = np.stack(batches.state)
+        action_batch = np.stack(batches.action)
+        next_state_batch = np.stack(batches.next_state)
+        reward_batch = np.stack(batches.reward)
+        done_batch = np.stack(batches.done)
 
-            q_values = self.policy_dqn.predict(state)
-            q_values[0][action] = q_update
-            self.policy_dqn.fit(state, q_values, verbose=0)
+        # Q_update = ((max_a' Q'(s',a') * gamma) if done else 0) + reward
+        q_update = np.amax(self.target_dqn.predict(next_state_batch), axis=1)
+        q_update = gamma * q_update
+        q_update *= done_batch
+        q_update += reward_batch
+
+        # Q(s,a) <- Q(s,a) + Q_update
+        q_values = self.policy_dqn.predict(state_batch)
+        q_values[np.arange(batch_size), action_batch.flatten()] = q_update
+
+        self.policy_dqn.fit(state_batch, q_values, verbose=0)
 
     def save_model(self, filename: str):
         """
