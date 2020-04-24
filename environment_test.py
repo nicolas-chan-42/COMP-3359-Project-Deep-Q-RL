@@ -175,10 +175,10 @@ dq_player.save_model()
 
 # Save model summary
 with open(f"{date.today().strftime('%Y%m%d')}.txt", "w") as file:
-    file.write(f"{'Hyper-parameters'.center(70, '_')}\n")
+    file.write(f"{'Hyper-parameters'.center(65, '_')}\n")
     for key, value in PARAMS.items():
         file.write(f"{key}: {value}\n")
-    print()
-    file.write(f"{'Model Summary'.center(70, '_')}\n")
+    file.write("\n")
+    file.write(f"{'Model Summary'.center(65, '_')}\n")
 
     dq_player.write_summary(print_fn=lambda s: file.write(f"{s}\n"))

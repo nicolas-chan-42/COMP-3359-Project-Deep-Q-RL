@@ -111,8 +111,7 @@ class DeepQNetwork:
         # Obtain a random sample from the memory
         batch = self.memory.sample(batch_size)
 
-        # Update Q value (COPIED, slightly modified)
-        # TODO: Re-vectorise the computation here
+        # Update Q value.
         batches = MemoryItem(*zip(*batch))
         state_batch = np.stack(batches.state)
         action_batch = np.stack(batches.action)
