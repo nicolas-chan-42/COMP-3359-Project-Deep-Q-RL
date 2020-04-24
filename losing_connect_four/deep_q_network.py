@@ -152,5 +152,12 @@ class DeepQNetwork:
         self.policy_dqn = load_model_architecture_and_weights(filename)
         self.target_dqn = load_model_architecture_and_weights(filename)
 
+    def write_summary(self, print_fn=print):
+        """
+        Write the summary of model.
+        :param print_fn: print function to use.
+        """
+        self.policy_dqn.summary(print_fn=print_fn)
+
 # TODO: Need to compute loss
 # loss = self.policy_dqn.loss()

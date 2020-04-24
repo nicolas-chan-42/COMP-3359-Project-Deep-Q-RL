@@ -1,6 +1,7 @@
 import random
 from abc import ABC
 from operator import itemgetter
+from typing import Optional
 
 import numpy as np
 
@@ -18,7 +19,7 @@ class Player(ABC):
     def get_next_action(self, state: np.ndarray, *args) -> int:
         pass
 
-    def reset(self, episode=0, side=1):
+    def reset(self):
         pass
 
     def learn(self, state, action, next_state, reward, done, **kwargs):
@@ -28,6 +29,9 @@ class Player(ABC):
         pass
 
     def load_model(self):
+        pass
+
+    def write_summary(self, print_fn=print):
         pass
 
 
@@ -48,9 +52,12 @@ class RandomPlayer(Player):
 
         return action
 
-    def reset(self, episode: int = 0, side: int = 1) -> None:
+    def reset(self, seed: Optional = None) -> None:
         # For reproducibility of the random
-        random.seed(self._seed)
+        if seed:
+            random.seed(seed)
+        else:
+            random.seed(self._seed)
 
 
 class DeepQPlayer(Player):
@@ -65,7 +72,7 @@ class DeepQPlayer(Player):
         self.net = DeepQNetwork(env, params)
 
     def get_epsilon(self, global_step):
-        """Used decaying epsilon greedy exploration policy"""
+        """Used decaying epsilon greedy exploration policy."""
 
         eps_start = self.params["EPS_START"]
         eps_end = self.params["EPS_END"]
@@ -119,9 +126,7 @@ class DeepQPlayer(Player):
 
     def learn(self, state, action, next_state, reward, done,
               **kwargs):  # Should return loss
-        """
-        Use experiment replay to update the weights of the network
-        """
+        """Use experiment replay to update the weights of the network."""
 
         state = np.reshape(state, [1] + list(self.observation_space))
         next_state = np.reshape(next_state, [1] + list(self.observation_space))
@@ -138,9 +143,13 @@ class DeepQPlayer(Player):
         self.net.update_target_dqn_weights()
 
     def save_model(self):
-        """Save the trained model using self.name as prefix"""
+        """Save the trained model using self.name as prefix."""
         self.net.save_model(self.name)
 
     def load_model(self):
-        """Load the trained model using self.name as prefix"""
+        """Load the trained model using self.name as prefix."""
         self.net.load_model(self.name)
+
+    def write_summary(self, print_fn=print):
+        """Write summary of deep-Q model."""
+        self.net.write_summary(print_fn=print_fn)

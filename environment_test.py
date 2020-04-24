@@ -33,7 +33,7 @@ done = False
 
 # with tf.device('/CPU:0'):
 # Setup players.
-random_player = RandomPlayer(env)
+random_player = RandomPlayer(env, seed=3359)
 dq_player = DeepQPlayer(env, PARAMS)
 # Try to load the saved player if any
 try:
@@ -181,5 +181,4 @@ with open(f"{date.today().strftime('%Y%m%d')}.txt", "w") as file:
     print()
     file.write(f"{'Model Summary'.center(70, '_')}\n")
 
-    dq_player.net.policy_dqn.summary(
-        print_fn=lambda s: file.write(f"{s}\n"))
+    dq_player.write_summary(print_fn=lambda s: file.write(f"{s}\n"))
