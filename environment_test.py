@@ -23,6 +23,7 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "GAMMA": 0.95,
           "LAMBDA": 0.001,
           "N_EPISODES": 1000,
+          "EPOCHS_PER_LEARNING": 2,
           "N_STEPS_PER_TARGET_UPDATE": 1000,
           "TRAINEE_MODEL_NAME": "DeepQPlayer",
           "OPPONENT_MODEL_NAME": "DeepQPlayer"}
@@ -80,7 +81,7 @@ for episode in range(PARAMS["N_EPISODES"]):
 
     # Initialize the state history and save the state and the next state
     state_hist = deque([state], maxlen=4)
-    next_state *= -1  # Multiply -1 to change owner of each move.
+    next_state *= -1  # Multiply -1 to change player perspective of game board.
     state_hist.append(next_state)
     state = next_state
 
@@ -96,7 +97,10 @@ for episode in range(PARAMS["N_EPISODES"]):
         next_state, reward, done, _ = env.step(action_hist[-1])
 
         # Store the resulting state to history
-        next_state *= -1  # Multiply -1 to change owner of each move.
+        # If the next player is player 2,
+        #   Multiply next_state by -1 to change player perspective.
+        if player_id == 1:
+            next_state *= -1
         state_hist.append(next_state)
 
         # Change player here
@@ -107,7 +111,7 @@ for episode in range(PARAMS["N_EPISODES"]):
         reward *= -1
         player.learn(state_hist[-3], action_hist[-2],  # state and action
                      state_hist[-1], reward, done,  # next state, reward, done
-                     n_step=total_step)
+                     n_step=total_step, epochs=PARAMS["EPOCHS_PER_LEARNING"])
 
         # Update training result at the end for the next step
         total_step += 1
@@ -125,7 +129,7 @@ for episode in range(PARAMS["N_EPISODES"]):
     player.learn(state_hist[-2], action_hist[-1],
                  state_hist[-1] * -1, reward, done,
                  # Multiply -1 to change owner of each move.
-                 n_step=total_step)
+                 n_step=total_step, epochs=PARAMS["EPOCHS_PER_LEARNING"])
 
     # Adjust reward for trainee.
     # If winner is opponent, we give opposite reward to trainee.
@@ -161,7 +165,8 @@ print(f"Number of losses: {n_lose}")
 plot_list = (
     # (all_rewards, "Reward received in each episode"),
     (cumulative_rewards, "Cumulative Reward received over episodes"),
-    (cumulative_mean_rewards, "Averaged Cumulative Reward received over episodes"),
+    (cumulative_mean_rewards,
+     "Averaged Cumulative Reward received over episodes"),
     (cumulative_losses, "Cumulative Number of Losses over episodes"),
     (cumulative_mean_losses, "Lose Rate over episodes"),
 )
