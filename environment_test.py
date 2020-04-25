@@ -15,8 +15,8 @@ from losing_connect_four.player import RandomPlayer, DeepQPlayer
 """Hyper-parameters"""
 PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "LR": 0.001,
-          "REPLAY_BUFFER_MAX_LENGTH": 100000,
-          "BATCH_SIZE": 32,
+          "REPLAY_BUFFER_MAX_LENGTH": 1024,
+          "BATCH_SIZE": 16,
           "EPS_START": 1,
           "EPS_END": 0.01,
           "EPS_DECAY_STEPS": 10000,
@@ -26,7 +26,9 @@ PARAMS = {"ENV_NAME": "ConnectFour-v1",
           "EPOCHS_PER_LEARNING": 2,
           "N_STEPS_PER_TARGET_UPDATE": 1000,
           "TRAINEE_MODEL_NAME": "DeepQPlayer",
-          "OPPONENT_MODEL_NAME": "DeepQPlayer"}
+          "OPPONENT_MODEL_NAME": "DeepQPlayer",
+          "IS_LOAD_MODEL": False,
+          "IS_SAVE_MODEL": False}
 
 """ Main Training Loop """
 print("Making Connect Four gym environment...")
@@ -39,8 +41,9 @@ random_player = RandomPlayer(env, seed=3359)
 dq_player = DeepQPlayer(env, PARAMS)
 # Try to load the saved player if any
 try:
-    dq_player.load_model()
-    print("Saved model loaded")
+    if PARAMS["IS_LOAD_MODEL"]:
+        dq_player.load_model()
+        print("Saved model loaded")
 except (IOError, ImportError):
     pass
 players = {1: dq_player, 2: random_player}
@@ -160,15 +163,16 @@ for episode in range(PARAMS["N_EPISODES"]):
 print(f"\rCumulative rewards in the end {all_rewards.sum()}")
 print(f"Mean rewards in the end {all_rewards.mean()}")
 print(f"Number of losses: {n_lose}")
+print(f"Mean Losses: {n_lose / PARAMS['N_EPISODES']}")
 
 """Visualize the training results"""
 plot_list = (
     # (all_rewards, "Reward received in each episode"),
     (cumulative_rewards, "Cumulative Reward received over episodes"),
-    (cumulative_mean_rewards,
-     "Averaged Cumulative Reward received over episodes"),
-    (cumulative_losses, "Cumulative Number of Losses over episodes"),
-    (cumulative_mean_losses, "Lose Rate over episodes"),
+    # (cumulative_mean_rewards,
+    #  "Averaged Cumulative Reward received over episodes"),
+    # (cumulative_losses, "Cumulative Number of Losses over episodes"),
+    (cumulative_mean_losses, "Losing Rate over episodes"),
 )
 plt.rcParams["figure.facecolor"] = "white"
 for data_sequence, plot_title in plot_list:
@@ -181,15 +185,16 @@ for data_sequence, plot_title in plot_list:
     plt.show()
 
 """Save Models and Summaries"""
-# Save trained model
-dq_player.save_model()
+if PARAMS["IS_SAVE_MODEL"]:
+    # Save trained model
+    dq_player.save_model()
 
-# Save model summary
-with open(f"{date.today().strftime('%Y%m%d')}.txt", "w") as file:
-    file.write(f"{'Hyper-parameters'.center(65, '_')}\n")
-    for key, value in PARAMS.items():
-        file.write(f"{key}: {value}\n")
-    file.write("\n")
-    file.write(f"{'Model Summary'.center(65, '_')}\n")
+    # Save model summary
+    with open(f"{date.today().strftime('%Y%m%d')}.txt", "w") as file:
+        file.write(f"{'Hyper-parameters'.center(65, '_')}\n")
+        for key, value in PARAMS.items():
+            file.write(f"{key}: {value}\n")
+        file.write("\n")
+        file.write(f"{'Model Summary'.center(65, '_')}\n")
 
-    dq_player.write_summary(print_fn=lambda s: file.write(f"{s}\n"))
+        dq_player.write_summary(print_fn=lambda s: file.write(f"{s}\n"))
