@@ -1,6 +1,8 @@
 import random
 from abc import ABC
 from operator import itemgetter
+from random import Random
+from typing import Optional
 
 import numpy as np
 
@@ -18,7 +20,7 @@ class Player(ABC):
     def get_next_action(self, state: np.ndarray, *args) -> int:
         pass
 
-    def reset(self, episode=0, side=1):
+    def reset(self):
         pass
 
     def learn(self, state, action, next_state, reward, done, **kwargs):
@@ -30,12 +32,16 @@ class Player(ABC):
     def load_model(self):
         pass
 
+    def write_summary(self, print_fn=print):
+        pass
+
 
 class RandomPlayer(Player):
     def __init__(self, env: ConnectFourEnv, name: str = 'RandomPlayer',
                  seed=None):
         super().__init__(env, name)
         self._seed = seed
+        self._random = Random(seed)
 
     def get_next_action(self, *args, **kwargs) -> int:
         available_moves = self.env.available_moves()
@@ -44,13 +50,16 @@ class RandomPlayer(Player):
             raise ValueError('Unable to determine a valid move')
 
         # Choose one move from list of available moves
-        action = random.choice(list(available_moves))
+        action = self._random.choice(list(available_moves))
 
         return action
 
-    def reset(self, episode: int = 0, side: int = 1) -> None:
+    def reset(self, seed: Optional = None) -> None:
         # For reproducibility of the random
-        random.seed(self._seed)
+        if seed:
+            random.seed(seed)
+        else:
+            random.seed(self._seed)
 
 
 class DeepQPlayer(Player):
@@ -65,7 +74,7 @@ class DeepQPlayer(Player):
         self.net = DeepQModel(env, params)
 
     def get_epsilon(self, global_step):
-        """Used decaying epsilon greedy exploration policy"""
+        """Used decaying epsilon greedy exploration policy."""
 
         eps_start = self.params["EPS_START"]
         eps_end = self.params["EPS_END"]
@@ -119,28 +128,34 @@ class DeepQPlayer(Player):
 
     def learn(self, state, action, next_state, reward, done,
               **kwargs):  # Should return loss
-        """
-        Use experiment replay to update the weights of the network
-        """
+        """Use experiment replay to update the weights of the network."""
 
-        state = np.reshape(state, [1] + list(self.observation_space))
-        next_state = np.reshape(next_state, [1] + list(self.observation_space))
+        state = np.reshape(state, list(self.observation_space))
+        next_state = np.reshape(next_state, list(self.observation_space))
 
         self.net.memorize(state, action, next_state, reward, done)
 
-        self.net.experience_replay()
+        epochs = kwargs.get("epochs", 1)
+        self.net.experience_replay(epochs=epochs)
 
         # Update weights of Target DQN every STEPS_PER_TARGET_UPDATE.
-        if kwargs["n_step"] % self.params["N_STEPS_PER_TARGET_UPDATE"] == 0:
-            self.update_target_dqn_weights()
+        if "n_step" in kwargs:
+            if kwargs["n_step"] % self.params["N_STEPS_PER_TARGET_UPDATE"] == 0:
+                self.update_target_dqn_weights()
+        else:
+            raise ValueError("Keyword argument 'n_step' is missing")
 
     def update_target_dqn_weights(self):
         self.net.update_target_dqn_weights()
 
     def save_model(self):
-        """Save the trained model using self.name as prefix"""
+        """Save the trained model using self.name as prefix."""
         self.net.save_model(self.name)
 
     def load_model(self):
-        """Load the trained model using self.name as prefix"""
+        """Load the trained model using self.name as prefix."""
         self.net.load_model(self.name)
+
+    def write_summary(self, print_fn=print):
+        """Write summary of deep-Q model."""
+        self.net.write_summary(print_fn=print_fn)
