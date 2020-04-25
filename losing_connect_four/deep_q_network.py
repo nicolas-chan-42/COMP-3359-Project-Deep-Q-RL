@@ -9,7 +9,7 @@ import tensorflow as tf
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
 from keras.models import model_from_json
-from tensorflow_addons.optimizers import AdamW
+from keras.optimizers import Adam
 
 # Tensorflow GPU allocation.
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
@@ -80,8 +80,7 @@ class DeepQNetwork:
         model.add(Dense(self.action_space, activation="linear"))
 
         # Used Adam optimizer to allow for weight decay
-        optimizer = AdamW(lr=self.params["LR"],
-                          weight_decay=self.params["LAMBDA"])
+        optimizer = Adam(lr=self.params["LR"], beta_2=self.params["LAMBDA"])
         model.compile(loss="mse", optimizer=optimizer)
         return model
 
@@ -177,8 +176,8 @@ class DeepQNetwork:
 
         :param filename: Usually the name of the player
         """
-        optimizer = AdamW(lr=self.params["LR"],
-                          weight_decay=self.params["LAMBDA"])
+        optimizer = Adam(lr=self.params["LR"],
+                         beta_2=self.params["LAMBDA"])
 
         # Load policy and target DQN model and compile
         def load_model_architecture_and_weights(filename: str):
