@@ -138,11 +138,11 @@ class DeepQNetwork:
                                              axis=0)
         done_batch_w_flip = np.concatenate((done_batch, done_batch), axis=0)
 
-        # Q_update = ((max_a' Q'(s',a') * gamma) if done else 0) + reward
+        # Q_update = ((max_a' Q'(s',a') * gamma) if (not done) else 0) + reward
         q_update = np.amax(self.target_dqn.
                            predict(next_state_batch_w_flip), axis=1)
         q_update = gamma * q_update
-        q_update *= done_batch_w_flip
+        q_update *= np.logical_not(done_batch_w_flip)
         q_update += reward_batch_w_flip
 
         # Q(s,a) <- Q(s,a) + Q_update
