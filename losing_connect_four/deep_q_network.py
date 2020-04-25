@@ -196,6 +196,3 @@ class DeepQNetwork:
         :param print_fn: print function to use.
         """
         self.policy_dqn.summary(print_fn=print_fn)
-
-# TODO: Need to compute loss
-# loss = self.policy_dqn.loss()
