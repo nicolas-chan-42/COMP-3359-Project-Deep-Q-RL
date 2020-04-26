@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer
-from main_training import train_one_episode
+from losing_connect_four.training import train_one_episode
 
 import tensorflow as tf
 
