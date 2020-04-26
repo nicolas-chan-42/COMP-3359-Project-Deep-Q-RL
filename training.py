@@ -8,7 +8,7 @@ import gym
 import matplotlib.pyplot as plt
 import numpy as np
 
-from losing_connect_four.training import train_one_episode
+from main_training import train_one_episode
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
