@@ -10,12 +10,16 @@ from gym_connect_four import ConnectFourEnv
 from losing_connect_four.deep_q_network import DeepQNetwork
 
 
+# TODO: Add Evaluation (Greedy-only) mode.
 class Player(ABC):
     """Abstract class for player"""
 
     def __init__(self, env: ConnectFourEnv, name='Player'):
         self.name = name
         self.env = env
+
+    def __repr__(self):
+        return self.name
 
     def get_next_action(self, state: np.ndarray, *args) -> int:
         pass
