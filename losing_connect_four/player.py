@@ -1,8 +1,8 @@
 import random
-from abc import ABC
+from abc import ABC, abstractmethod
 from operator import itemgetter
 from random import Random
-from typing import Optional
+from typing import Optional, Dict, Type
 
 import numpy as np
 
@@ -10,30 +10,36 @@ from gym_connect_four import ConnectFourEnv
 from losing_connect_four.deep_q_model import DeepQModel
 
 
+# TODO: Add Evaluation (Greedy-only) mode.
+from losing_connect_four.deep_q_networks import DeepQNetwork
+
+
 class Player(ABC):
     """Abstract class for player"""
 
+    @abstractmethod
     def __init__(self, env: ConnectFourEnv, name='Player'):
         self.name = name
         self.env = env
 
-    def get_next_action(self, state: np.ndarray, *args) -> int:
-        pass
+    def __repr__(self):
+        return self.name
 
-    def reset(self):
+    @abstractmethod
+    def get_next_action(self, state: np.ndarray, *args) -> int:
         pass
 
     def learn(self, state, action, next_state, reward, done, **kwargs):
         pass
 
     def save_model(self):
-        pass
+        return NotImplementedError
 
     def load_model(self):
-        pass
+        return NotImplementedError
 
     def write_summary(self, print_fn=print):
-        pass
+        return NotImplementedError
 
 
 class RandomPlayer(Player):
@@ -63,7 +69,8 @@ class RandomPlayer(Player):
 
 
 class DeepQPlayer(Player):
-    def __init__(self, env: ConnectFourEnv, params, name='DeepQPlayer'):
+    def __init__(self, env: ConnectFourEnv, params: Dict,
+                 dqn_template: Type[DeepQNetwork], name: str = "DeepQPlayer"):
         super().__init__(env, name)
 
         self.params = params
@@ -71,7 +78,7 @@ class DeepQPlayer(Player):
         self.observation_space = env.observation_space.shape
         self.action_space = env.action_space.n
 
-        self.net = DeepQModel(env, params)
+        self.model = DeepQModel(env, params, dqn_template=dqn_template)
 
     def get_epsilon(self, global_step):
         """Used decaying epsilon greedy exploration policy."""
@@ -110,7 +117,7 @@ class DeepQPlayer(Player):
         #   select action with max predicted Q-Values of current state.
         # TODO: Copied from source, need to refactor
         else:
-            q_values = self.net.predict(state)[0]
+            q_values = self.model.predict(state)[0]
             valid_moves = [(i, q_values[i]) for i in available_moves]
             act = max(valid_moves, key=itemgetter(1))
             return act[0]
@@ -133,10 +140,10 @@ class DeepQPlayer(Player):
         state = np.reshape(state, list(self.observation_space))
         next_state = np.reshape(next_state, list(self.observation_space))
 
-        self.net.memorize(state, action, next_state, reward, done)
+        self.model.memorize(state, action, next_state, reward, done)
 
         epochs = kwargs.get("epochs", 1)
-        self.net.experience_replay(epochs=epochs)
+        self.model.experience_replay(epochs=epochs)
 
         # Update weights of Target DQN every STEPS_PER_TARGET_UPDATE.
         if "n_step" in kwargs:
@@ -146,16 +153,16 @@ class DeepQPlayer(Player):
             raise ValueError("Keyword argument 'n_step' is missing")
 
     def update_target_dqn_weights(self):
-        self.net.update_target_dqn_weights()
+        self.model.update_target_dqn_weights()
 
     def save_model(self):
         """Save the trained model using self.name as prefix."""
-        self.net.save_model(self.name)
+        self.model.save_model(self.name)
 
     def load_model(self):
         """Load the trained model using self.name as prefix."""
-        self.net.load_model(self.name)
+        self.model.load_model(self.name)
 
     def write_summary(self, print_fn=print):
         """Write summary of deep-Q model."""
-        self.net.write_summary(print_fn=print_fn)
+        self.model.write_summary(print_fn=print_fn)
