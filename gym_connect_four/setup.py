@@ -2,8 +2,7 @@ from setuptools import setup, find_packages
 
 setup(name='gym_connect_four',
       version='0.0.2',
-      author='Iasi.ai Community',
-      author_email='http://iasi.ai',
+      author='Howard Chan and Nicolas Chan',
       packages=find_packages(),
       install_requires=['gym>=0.14',
                         'numpy>=1.17.0',
