@@ -88,11 +88,10 @@ for episode in range(PARAMS["N_EPISODES"]):
     print(f"\rIn episode {episode + 1}", end="")
 
     # Train 1 episode.
-    reward, total_step = train_one_episode(env, players, PARAMS, total_step)
+    episode_reward, total_step = train_one_episode(env, players, PARAMS, total_step)
 
     # Collect results from the one episode.
-    episode_reward = reward
-    episode_loss = max(0, int(reward))  # Count losses only.
+    episode_loss = int(episode_reward > 0)  # Count losses only.
 
     # Log the episode reward.
     total_reward += episode_reward
