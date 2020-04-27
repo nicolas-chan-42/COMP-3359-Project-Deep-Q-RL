@@ -1,15 +1,14 @@
 """ Deep Q Network """
 import random
 from collections import deque
-from typing import Dict, Union, List, Deque, NamedTuple, Optional
+from typing import Dict, Union, List, Deque, NamedTuple, Optional, Type
 
 import gym
 import numpy as np
 import tensorflow as tf
-from keras.layers import Dense, Flatten
-from keras.models import Sequential
 from keras.models import model_from_json
-from keras.optimizers import Adam
+
+from losing_connect_four.deep_q_networks import DeepQNetwork
 
 # Tensorflow GPU allocation.
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
@@ -50,39 +49,24 @@ class ReplayMemory:
         return len(self.memory)
 
 
-class DeepQNetwork:
+class DeepQModel:
     """Deep-Q Neural Network model"""
 
-    def __init__(self, env: gym.Env, params: Dict):
+    def __init__(self, env: gym.Env, params: Dict,
+                 dqn_template: Type[DeepQNetwork]):
         self.params = params
         self.observation_space: List[int] = env.observation_space.shape
         self.action_space: int = env.action_space.n
 
         self.memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
-        self.policy_dqn = self._deep_q_network()
-        self.target_dqn = self._deep_q_network()
+
+        self.dqn_template = dqn_template
+        self.policy_dqn = dqn_template().create_network(
+            self.observation_space, self.action_space, params)
+        self.target_dqn = dqn_template().create_network(
+            self.observation_space, self.action_space, params)
+
         self.update_target_dqn_weights()
-
-    # TODO: Isolate _deep_q_network to enhance extensibility (OCP).
-    def _deep_q_network(self) -> Sequential:
-        """
-        Create a deep-Q neural network.
-        :return: Tensorflow Deep-Q neural network model.
-        """
-        obs_space_card = self.observation_space[0] * self.observation_space[1]
-
-        model = Sequential()
-        model.add(Flatten(input_shape=self.observation_space))
-        model.add(Dense(obs_space_card * 2, activation="relu"))
-        model.add(Dense(obs_space_card * 2, activation="relu"))
-        model.add(Dense(obs_space_card * 2, activation="relu"))
-        model.add(Dense(obs_space_card * 2, activation="relu"))
-        model.add(Dense(self.action_space, activation="linear"))
-
-        # Used Adam optimizer to allow for weight decay
-        optimizer = Adam(lr=self.params["LR"], beta_2=self.params["LAMBDA"])
-        model.compile(loss="mse", optimizer=optimizer)
-        return model
 
     def update_target_dqn_weights(self):
         """Copy DQN weights from Policy DQN to Target DQN."""
@@ -118,11 +102,15 @@ class DeepQNetwork:
         reward_batch = np.stack(batches.reward)
         done_batch = np.stack(batches.done)
 
+        # Add channel dimension.
+        state_batch = np.expand_dims(state_batch, axis=3)
+        next_state_batch = np.expand_dims(next_state_batch, axis=3)
+
         # Prepare flipped states and actions.
         # Flip state and action along y-axis of game board.
-        state_batch_flip = np.flip(state_batch, axis=-1)
-        action_batch_flip = np.flip(action_batch, axis=-1)
-        next_state_batch_flip = np.flip(next_state_batch, axis=-1)
+        state_batch_flip = np.flip(state_batch, axis=2)
+        action_batch_flip = np.flip(action_batch, axis=0)
+        next_state_batch_flip = np.flip(next_state_batch, axis=2)
 
         # Concatenate non-flip with flip batches.
         state_batch_w_flip = np.concatenate((state_batch, state_batch_flip),
@@ -176,15 +164,16 @@ class DeepQNetwork:
 
         :param filename: Usually the name of the player
         """
-        optimizer = Adam(lr=self.params["LR"],
-                         beta_2=self.params["LAMBDA"])
+
+        loss_function = self.dqn_template().create_loss_function()
+        optimizer = self.dqn_template().create_optimizer(self.params)
 
         # Load policy and target DQN model and compile
         def load_model_architecture_and_weights(filename: str):
             with open(f"{filename}.json", 'r') as json_file:
                 model = model_from_json(json_file.read())
             model.load_weights(f"{filename}.h5")
-            model.compile(loss="mse", optimizer=optimizer)
+            model.compile(loss=loss_function, optimizer=optimizer)
             return model
 
         self.policy_dqn = load_model_architecture_and_weights(filename)

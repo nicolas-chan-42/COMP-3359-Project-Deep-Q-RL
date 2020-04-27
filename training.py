@@ -8,11 +8,21 @@ import gym
 import matplotlib.pyplot as plt
 import numpy as np
 
+<<<<<<< HEAD
 from losing_connect_four.training import train_one_episode
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 from losing_connect_four.player import RandomPlayer, DeepQPlayer, Player
+=======
+# Must be put before any tensorflow import statement.
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+from losing_connect_four.deep_q_networks import SimpleDeepFCQNetwork #, SimplerFCDQN
+from losing_connect_four.player import RandomPlayer, DeepQPlayer, Player
+from losing_connect_four.training import train_one_episode
+
+>>>>>>> origin/separate_deep_q_models
 
 # import tensorflow as tf
 
@@ -26,8 +36,8 @@ PARAMS = {
     "EPS_END": 0.01,
     "EPS_DECAY_STEPS": 10000,
     "GAMMA": 0.95,
-    "LAMBDA": 0.001,
-    "N_EPISODES": 50,
+    "LAMBDA": 0.0001,
+    "N_EPISODES": 300,
     "EPOCHS_PER_LEARNING": 2,
     "N_STEPS_PER_TARGET_UPDATE": 1000,
     "TRAINEE_MODEL_NAME": "DeepQPlayer",
@@ -39,12 +49,11 @@ PARAMS = {
 """Set-up Environment"""
 print("Making Connect-Four Gym Environment...")
 env = gym.make(PARAMS["ENV_NAME"])
-done = False
 
 """Setup Players"""
 # with tf.device('/CPU:0'):
 # Setup players.
-player1: Player = DeepQPlayer(env, PARAMS)
+player1: Player = DeepQPlayer(env, PARAMS, SimpleDeepFCQNetwork)
 player2: Player = RandomPlayer(env, seed=3359)
 players = {1: player1, 2: player2,
            "trainee_id": 1}
