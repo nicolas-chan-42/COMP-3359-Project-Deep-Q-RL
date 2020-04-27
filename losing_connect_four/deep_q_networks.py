@@ -3,8 +3,7 @@ from abc import ABC, abstractmethod
 from tensorflow.keras.layers import Flatten, Dense, Conv2D, Activation
 from tensorflow.keras.losses import mean_squared_error
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.optimizers import RMSprop
+from tensorflow.keras.optimizers import Adam, RMSprop, SGD
 
 
 # Abstract Basic Classes.
@@ -72,6 +71,11 @@ class OptimizerMixinRMSProp(OptimizerMixin):
         return RMSprop(lr=params["LR"])
 
 
+class OptimizerMixinSGD(OptimizerMixin):
+    def create_optimizer(self, params):
+        return SGD(momentum=0.1, nesterov=True)
+
+
 # Loss Functions.
 class LossFuncMSEMixin(LossFunctionMixin):
     def create_loss_function(self):
@@ -105,7 +109,7 @@ class SimpleDeepFCQNetwork(OptimizerMixinAdam, LossFuncMSEMixin, DeepQNetwork):
         return net
 
 
-class SimplerFCDQN(OptimizerMixinRMSProp, SimpleDeepFCQNetwork):
+class SimpleFCRMSPropDQN(OptimizerMixinRMSProp, SimpleDeepFCQNetwork):
     """
     Architecture:
 
@@ -114,6 +118,20 @@ class SimplerFCDQN(OptimizerMixinRMSProp, SimpleDeepFCQNetwork):
     - Dense(output: action_space)
 
     Optimizer: RMSProp;
+    Loss Function: MSE.
+    """
+    pass
+
+
+class SimpleFCSgdDqn(OptimizerMixinSGD, SimpleDeepFCQNetwork):
+    """
+    Architecture:
+
+    - Flatten(input: observation_space)
+    - 5 Dense(2 * obs_space)
+    - Dense(output: action_space)
+
+    Optimizer: SGD;
     Loss Function: MSE.
     """
     pass
