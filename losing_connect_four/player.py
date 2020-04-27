@@ -115,23 +115,26 @@ class DeepQPlayer(Player):
 
         # With prob. 1 - epsilon, (Exploitation):
         #   select action with max predicted Q-Values of current state.
-        # TODO: Copied from source, need to refactor
         else:
             q_values = self.model.predict(state)[0]
             valid_moves = [(i, q_values[i]) for i in available_moves]
-            act = max(valid_moves, key=itemgetter(1))
-            return act[0]
+            act, _ = max(valid_moves, key=itemgetter(1))
+            return act
 
     # TODO: Move epsilon to main training environment
     # noinspection PyMethodOverriding
     def get_next_action(self, state, *, n_step) -> int:
-        state = np.reshape(state, [1] + list(self.observation_space))
-        epsilon = self.get_epsilon(n_step)
+        # Add batch dimension and channel dimension for prediction.
+        state = np.reshape(state, (1, *self.observation_space, 1))
 
+        epsilon = self.get_epsilon(n_step)
         action = self.strategically_get_action(
             state, self.env.available_moves(), epsilon)
+
         if self.env.is_valid_action(action):
             return action
+        else:
+            raise ValueError("Action is not valid!")
 
     def learn(self, state, action, next_state, reward, done,
               **kwargs):  # Should return loss

@@ -41,7 +41,6 @@ PARAMS = {
 """Set-up Environment"""
 print("Making Connect-Four Gym Environment...")
 env = gym.make(PARAMS["ENV_NAME"])
-done = False
 
 """Setup Players"""
 # with tf.device('/CPU:0'):
