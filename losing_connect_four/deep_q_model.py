@@ -102,11 +102,15 @@ class DeepQModel:
         reward_batch = np.stack(batches.reward)
         done_batch = np.stack(batches.done)
 
+        # Add channel dimension.
+        state_batch = np.expand_dims(state_batch, axis=3)
+        next_state_batch = np.expand_dims(next_state_batch, axis=3)
+
         # Prepare flipped states and actions.
         # Flip state and action along y-axis of game board.
-        state_batch_flip = np.flip(state_batch, axis=-1)
-        action_batch_flip = np.flip(action_batch, axis=-1)
-        next_state_batch_flip = np.flip(next_state_batch, axis=-1)
+        state_batch_flip = np.flip(state_batch, axis=2)
+        action_batch_flip = np.flip(action_batch, axis=0)
+        next_state_batch_flip = np.flip(next_state_batch, axis=2)
 
         # Concatenate non-flip with flip batches.
         state_batch_w_flip = np.concatenate((state_batch, state_batch_flip),
