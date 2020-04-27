@@ -95,6 +95,7 @@ class DeepQModel:
         batch = self.memory.sample(batch_size)
 
         # Update Q value.
+        # Stack up arrays as batches.
         batches = MemoryItem(*zip(*batch))
         state_batch = np.stack(batches.state)
         action_batch = np.stack(batches.action)

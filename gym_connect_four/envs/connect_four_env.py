@@ -136,6 +136,7 @@ class ConnectFourEnv(gym.Env, ABC):
         :return: board state after reset.
         """
         self.__current_player = 1
+        self.__n_step = 0
         if board is None:
             self.__board = np.zeros(self.board_shape, dtype=int)
         else:

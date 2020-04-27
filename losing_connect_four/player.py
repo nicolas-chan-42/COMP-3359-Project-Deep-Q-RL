@@ -139,10 +139,6 @@ class DeepQPlayer(Player):
     def learn(self, state, action, next_state, reward, done,
               **kwargs):  # Should return loss
         """Use experiment replay to update the weights of the network."""
-
-        state = np.reshape(state, list(self.observation_space))
-        next_state = np.reshape(next_state, list(self.observation_space))
-
         self.model.memorize(state, action, next_state, reward, done)
 
         epochs = kwargs.get("epochs", 1)
