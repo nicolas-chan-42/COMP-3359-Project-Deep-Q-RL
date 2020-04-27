@@ -1,9 +1,10 @@
 from collections import deque
+from math import log
 from typing import Dict, Tuple
 
 from gym_connect_four import ConnectFourEnv
 from losing_connect_four.deep_q_model import ReplayMemory
-from losing_connect_four.player import PretrainRandomPlayer, Player
+from losing_connect_four.player import PretrainRandomPlayer, Player, DeepQPlayer
 
 
 def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
@@ -94,28 +95,47 @@ def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
     return reward, total_step
 
 
-def pretrain(env, params, player):
-    # If the player is not deepQ player, no need to pretrain
-    if player.name != "DeepQPlayer":
-        return player
-    replay_memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
+def pretrain(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
+    """Generate memory and perform experience play to player."""
+
+    # If the player is not deepQ player, it's meaningless to pre-train.
+    if not isinstance(player, DeepQPlayer):
+        return
+
+    print(f"Pre-train {player!r}")
+    print("-"*30)
+    memory_size = params["REPLAY_BUFFER_MAX_LENGTH"]
+    replay_memory = ReplayMemory(memory_size)
 
     # Setup random players generating the memories.
     player1: Player = PretrainRandomPlayer(env, replay_memory, seed=3359)
     player2: Player = PretrainRandomPlayer(env, replay_memory, seed=4904)
-
     players = {1: player1, 2: player2}
 
     total_step = 0
-
-    while total_step < params["REPLAY_BUFFER_MAX_LENGTH"]:
-        print(f"\rTotal steps: {total_step + 1}", end="")
+    while total_step < memory_size:
         _, total_step = train_one_episode(env, players, params, total_step)
+        print(f"\rPreparing Pre-train memory: {total_step + 1}", end="")
+    print()
 
-    # Pretrain starts here
+    # Pre-train starts here.
+    # Pass in generated memories to player to be pre-trained.
     player.model.memory.memory = replay_memory.memory
 
-    for episode in range(params["N_PRETRAIN_EPISODES"]):
-        player.model.experience_replay()
+    # Experience replay.
+    utilisation_rate = 0.95
+    batch_size = params["BATCH_SIZE"]
+    # Solving 1 - utilisation_rate = (1 - batch_size / memory)**n for n.
+    n_episode = int(
+        log(1 - utilisation_rate) / log(1 - batch_size / memory_size))
+    print(f"Pre-train {player!r} for {n_episode} episodes "
+          f"to achieve {utilisation_rate:.0%} utilisation of prepared memory")
 
-    return player
+    epochs = params["EPOCHS_PER_PRETRAIN_LEARNING"]
+    for episode in range(int(n_episode)):
+        print(f"\rPre-training {player!r} for episode {episode + 1}", end="")
+        player.model.experience_replay(epochs=epochs)
+    print()
+
+    print(f"Pre-trained {player!r}")
+    print("="*30)

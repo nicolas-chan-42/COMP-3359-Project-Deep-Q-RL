@@ -65,6 +65,7 @@ class RandomPlayer(Player):
         else:
             random.seed(self._seed)
 
+
 class DeepQPlayer(Player):
     def __init__(self, env: ConnectFourEnv, params: Dict,
                  dqn_template: Type[DeepQNetwork], name: str = "DeepQPlayer"):
@@ -165,7 +166,7 @@ class DeepQPlayer(Player):
 
 
 class PretrainRandomPlayer(RandomPlayer):
-
+    """Random Player for the use of Pre-training."""
     def __init__(self, env: ConnectFourEnv, memory,
                  name: str = 'PretrainRandomPlayer', seed=None):
         super().__init__(env, name, seed=seed)
