@@ -2,6 +2,8 @@ from collections import deque
 from typing import Dict, Tuple
 
 from gym_connect_four import ConnectFourEnv
+from losing_connect_four.deep_q_model import ReplayMemory
+from losing_connect_four.player import PretrainRandomPlayer, Player
 
 
 def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
@@ -90,3 +92,30 @@ def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
     total_step += 1
 
     return reward, total_step
+
+
+def pretrain(env, params, player):
+    # If the player is not deepQ player, no need to pretrain
+    if player.name != "DeepQPlayer":
+        return player
+    replay_memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
+
+    # Setup random players generating the memories.
+    player1: Player = PretrainRandomPlayer(env, replay_memory, seed=3359)
+    player2: Player = PretrainRandomPlayer(env, replay_memory, seed=4904)
+
+    players = {1: player1, 2: player2}
+
+    total_step = 0
+
+    while total_step < params["REPLAY_BUFFER_MAX_LENGTH"]:
+        print(f"\rTotal steps: {total_step + 1}", end="")
+        _, total_step = train_one_episode(env, players, params, total_step)
+
+    # Pretrain starts here
+    player.model.memory.memory = replay_memory.memory
+
+    for episode in range(params["N_PRETRAIN_EPISODES"]):
+        player.model.experience_replay()
+
+    return player

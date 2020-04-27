@@ -8,8 +8,6 @@ import numpy as np
 
 from gym_connect_four import ConnectFourEnv
 from losing_connect_four.deep_q_model import DeepQModel
-
-
 # TODO: Add Evaluation (Greedy-only) mode.
 from losing_connect_four.deep_q_networks import DeepQNetwork
 
@@ -66,7 +64,6 @@ class RandomPlayer(Player):
             random.seed(seed)
         else:
             random.seed(self._seed)
-
 
 class DeepQPlayer(Player):
     def __init__(self, env: ConnectFourEnv, params: Dict,
@@ -165,3 +162,16 @@ class DeepQPlayer(Player):
     def write_summary(self, print_fn=print):
         """Write summary of deep-Q model."""
         self.model.write_summary(print_fn=print_fn)
+
+
+class PretrainRandomPlayer(RandomPlayer):
+
+    def __init__(self, env: ConnectFourEnv, memory,
+                 name: str = 'PretrainRandomPlayer', seed=None):
+        super().__init__(env, name, seed=seed)
+
+        self.memory = memory
+
+    def learn(self, state, action, next_state, reward, done,
+              **kwargs):
+        self.memory.push(state, action, next_state, reward, done)
