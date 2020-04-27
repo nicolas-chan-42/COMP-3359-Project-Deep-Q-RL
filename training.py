@@ -8,21 +8,12 @@ import gym
 import matplotlib.pyplot as plt
 import numpy as np
 
-<<<<<<< HEAD
-from losing_connect_four.training import train_one_episode
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-from losing_connect_four.player import RandomPlayer, DeepQPlayer, Player
-=======
 # Must be put before any tensorflow import statement.
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 from losing_connect_four.deep_q_networks import SimpleDeepFCQNetwork #, SimplerFCDQN
 from losing_connect_four.player import RandomPlayer, DeepQPlayer, Player
 from losing_connect_four.training import train_one_episode
-
->>>>>>> origin/separate_deep_q_models
 
 # import tensorflow as tf
 
@@ -146,6 +137,7 @@ for episode in range(PARAMS["N_EPISODES"]):
 
 # Print training information.
 print("\rIn the end of training,")
+print(f"Total Steps: {total_step}")
 print(f"Total Reward: {total_reward}")
 print(f"Average Reward: {total_reward / PARAMS['N_EPISODES']}")
 print(f"Total Number of Losses: {total_losses}")
