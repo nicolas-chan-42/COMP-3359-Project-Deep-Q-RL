@@ -63,7 +63,7 @@ class LossFunctionMixin(ABC):
 # Optimizers.
 class OptimizerMixinAdam(OptimizerMixin):
     def create_optimizer(self, params):
-        return Adam(lr=params["LR"], beta_2=params["LAMBDA"])
+        return Adam(lr=params["LR"])
 
 
 class OptimizerMixinRMSProp(OptimizerMixin):

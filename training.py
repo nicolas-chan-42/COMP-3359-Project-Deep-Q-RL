@@ -27,7 +27,6 @@ PARAMS = {
     "EPS_END": 0.01,
     "EPS_DECAY_STEPS": 10000,
     "GAMMA": 0.95,
-    "LAMBDA": 0.0001,
     "N_EPISODES": 1000,
     # "N_PRETRAIN_EPISODES": 1000,  # Utilisation rate may be better
     "EPOCHS_PER_LEARNING": 2,
