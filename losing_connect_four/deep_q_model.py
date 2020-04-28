@@ -97,46 +97,54 @@ class DeepQModel:
         # Update Q value.
         # Stack up arrays as batches.
         batches = MemoryItem(*zip(*batch))
-        state_batch = np.stack(batches.state)
-        action_batch = np.stack(batches.action)
-        next_state_batch = np.stack(batches.next_state)
-        reward_batch = np.stack(batches.reward)
-        done_batch = np.stack(batches.done)
+        state_batch = tf.stack(
+            tf.convert_to_tensor(batches.state, dtype=tf.int32))
+        action_batch = tf.stack(
+            tf.convert_to_tensor(batches.action, dtype=tf.int32))
+        next_state_batch = tf.stack(
+            tf.convert_to_tensor(batches.next_state, dtype=tf.int32))
+        reward_batch = tf.stack(
+            tf.convert_to_tensor(batches.reward, dtype=tf.float32))
+        done_batch = tf.stack(
+            tf.convert_to_tensor(batches.done, dtype=tf.bool))
 
         # Add channel dimension.
-        state_batch = np.expand_dims(state_batch, axis=3)
-        next_state_batch = np.expand_dims(next_state_batch, axis=3)
+        state_batch = tf.expand_dims(state_batch, axis=3)
+        next_state_batch = tf.expand_dims(next_state_batch, axis=3)
 
         # Prepare flipped states and actions.
         # Flip state and action along y-axis of game board.
-        state_batch_flip = np.flip(state_batch, axis=2)
+        state_batch_flip = tf.reverse(state_batch, axis=tf.constant([2]))
         action_batch_flip = 6 - action_batch
-        next_state_batch_flip = np.flip(next_state_batch, axis=2)
+        next_state_batch_flip = tf.reverse(next_state_batch,
+                                           axis=tf.constant([2]))
 
         # Concatenate non-flip with flip batches.
-        state_batch_w_flip = np.concatenate((state_batch, state_batch_flip),
-                                            axis=0)
-        action_batch_w_flip = np.concatenate((action_batch, action_batch_flip),
-                                             axis=0)
-        next_state_batch_w_flip = np.concatenate(
+        state_batch_w_flip = tf.concat((state_batch, state_batch_flip), axis=0)
+        action_batch_w_flip = tf.concat((action_batch, action_batch_flip),
+                                        axis=0)
+        next_state_batch_w_flip = tf.concat(
             (next_state_batch, next_state_batch_flip), axis=0)
 
         # Concatenate reward and done with itself to match batch size.
-        reward_batch_w_flip = np.concatenate((reward_batch, reward_batch),
-                                             axis=0)
-        done_batch_w_flip = np.concatenate((done_batch, done_batch), axis=0)
+        reward_batch_w_flip = tf.concat((reward_batch, reward_batch), axis=0)
+        done_batch_w_flip = tf.concat((done_batch, done_batch), axis=0)
 
         # Q_update = ((max_a' Q'(s',a') * gamma) if (not done) else 0) + reward
-        q_update = np.amax(self.target_dqn.
-                           predict(next_state_batch_w_flip), axis=1)
-        q_update = gamma * q_update
-        q_update *= np.logical_not(done_batch_w_flip)
+        bool_mask = tf.logical_not(done_batch_w_flip)
+        q_update = tf.reduce_max(self.target_dqn.
+                                 predict(next_state_batch_w_flip), axis=1)
+        q_update *= gamma
+        q_update = tf.where(condition=bool_mask,
+                            x=q_update, y=tf.zeros_like(q_update))
         q_update += reward_batch_w_flip
 
         # Q(s,a) <- Q(s,a) + Q_update
         q_values = self.policy_dqn.predict(state_batch_w_flip)
-        q_values[np.arange(batch_size * 2),
-                 action_batch_w_flip.flatten()] = q_update
+        indices = tf.stack(
+            [tf.range(batch_size * 2, dtype=tf.int32), action_batch_w_flip],
+            axis=1)
+        q_values = tf.tensor_scatter_nd_update(q_values, indices, q_update)
 
         self.policy_dqn.fit(state_batch_w_flip, q_values,
                             epochs=epochs, verbose=0)

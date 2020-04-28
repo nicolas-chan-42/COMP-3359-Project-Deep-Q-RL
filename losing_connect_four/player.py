@@ -5,6 +5,7 @@ from random import Random
 from typing import Optional, Dict, Type
 
 import numpy as np
+import tensorflow as tf
 
 from gym_connect_four import ConnectFourEnv
 from losing_connect_four.deep_q_model import DeepQModel
@@ -123,7 +124,8 @@ class DeepQPlayer(Player):
     # noinspection PyMethodOverriding
     def get_next_action(self, state, *, n_step) -> int:
         # Add batch dimension and channel dimension for prediction.
-        state = np.reshape(state, (1, *self.observation_space, 1))
+        state = tf.convert_to_tensor(state)
+        state = tf.reshape(state, (1, *self.observation_space, 1))
 
         epsilon = self.get_epsilon(n_step)
         action = self.strategically_get_action(
