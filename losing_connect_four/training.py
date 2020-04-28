@@ -8,7 +8,7 @@ from losing_connect_four.player import PretrainRandomPlayer, Player, DeepQPlayer
 
 
 def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
-                      total_step: int) -> Tuple[float, int]:
+                      total_step: int = 0) -> Tuple[float, int]:
     """
     Perform 1 training episode in ConnectFour Environment.
 
@@ -29,7 +29,8 @@ def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
 
     # Do one step ahead of the while loop
     # Initialize action history and perform first step.
-    action = player.get_next_action(state, n_step=total_step)
+    epsilon = player.get_epsilon(total_step=total_step)
+    action = player.get_next_action(state, epsilon=epsilon)
     action_hist = deque([action], maxlen=2)
     next_state, reward, done, _ = env.step(action)
 
@@ -45,7 +46,8 @@ def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
 
     while not done:
         # Get current player's action.
-        action_hist.append(player.get_next_action(state, n_step=total_step))
+        epsilon = player.get_epsilon(total_step=total_step)
+        action_hist.append(player.get_next_action(state, epsilon=epsilon))
 
         # Take the latest action in the deque. In endgame, winner here.
         next_state, reward, done, _ = env.step(action_hist[-1])

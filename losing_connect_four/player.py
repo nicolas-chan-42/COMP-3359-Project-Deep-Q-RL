@@ -24,6 +24,9 @@ class Player(ABC):
     def __repr__(self):
         return self.name
 
+    def get_epsilon(self, total_step):
+        pass
+
     @abstractmethod
     def get_next_action(self, state: np.ndarray, *args) -> int:
         pass
@@ -69,7 +72,8 @@ class RandomPlayer(Player):
 
 class DeepQPlayer(Player):
     def __init__(self, env: ConnectFourEnv, params: Dict,
-                 dqn_template: Type[DeepQNetwork], name: str = "DeepQPlayer"):
+                 dqn_template: Type[DeepQNetwork], is_eval=False,
+                 name: str = "DeepQPlayer"):
         super().__init__(env, name)
 
         self.params = params
@@ -78,17 +82,20 @@ class DeepQPlayer(Player):
         self.action_space = env.action_space.n
 
         self.model = DeepQModel(env, params, dqn_template=dqn_template)
+        self.is_eval = is_eval
 
-    def get_epsilon(self, global_step):
+    def get_epsilon(self, total_step):
         """Used decaying epsilon greedy exploration policy."""
+        if self.is_eval:
+            return 0
 
         eps_start = self.params["EPS_START"]
         eps_end = self.params["EPS_END"]
         eps_decay_steps = self.params["EPS_DECAY_STEPS"]
 
-        if global_step <= eps_decay_steps:
+        if total_step <= eps_decay_steps:
             # Linear-decaying epsilon.
-            return eps_start - global_step * (
+            return eps_start - total_step * (
                     eps_start - eps_end) / eps_decay_steps
         else:
             # Decayed epsilon.
@@ -120,14 +127,12 @@ class DeepQPlayer(Player):
             act, _ = max(valid_moves, key=itemgetter(1))
             return act
 
-    # TODO: Move epsilon to main training environment
     # noinspection PyMethodOverriding
-    def get_next_action(self, state, *, n_step) -> int:
+    def get_next_action(self, state, *, epsilon: float) -> int:
         # Add batch dimension and channel dimension for prediction.
         state = tf.convert_to_tensor(state)
         state = tf.reshape(state, (1, *self.observation_space, 1))
 
-        epsilon = self.get_epsilon(n_step)
         action = self.strategically_get_action(
             state, self.env.available_moves(), epsilon)
 
@@ -138,6 +143,8 @@ class DeepQPlayer(Player):
 
     def learn(self, state, action, next_state, reward, done,
               **kwargs):  # Should return loss
+        if self.is_eval:
+            return
         """Use experiment replay to update the weights of the network."""
         self.model.memorize(state, action, next_state, reward, done)
 
@@ -166,6 +173,8 @@ class DeepQPlayer(Player):
         """Write summary of deep-Q model."""
         self.model.write_summary(print_fn=print_fn)
 
+    def eval_mode(self, enable=False):
+        self.is_eval = enable
 
 class PretrainRandomPlayer(RandomPlayer):
     """Random Player for the use of Pre-training."""
