@@ -63,17 +63,17 @@ class LossFunctionMixin(ABC):
 # Optimizers.
 class OptimizerMixinAdam(OptimizerMixin):
     def create_optimizer(self, params):
-        return Adam(lr=params["LR"])
+        return Adam(learning_rate=params["LR"])
 
 
 class OptimizerMixinRMSProp(OptimizerMixin):
     def create_optimizer(self, params):
-        return RMSprop(lr=params["LR"])
+        return RMSprop(learning_rate=params["LR"])
 
 
 class OptimizerMixinSGD(OptimizerMixin):
     def create_optimizer(self, params):
-        return SGD(momentum=0.1, nesterov=True)
+        return SGD(learning_rate=params["LR"])
 
 
 # Loss Functions.

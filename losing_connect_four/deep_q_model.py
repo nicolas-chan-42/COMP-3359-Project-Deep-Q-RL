@@ -148,44 +148,44 @@ class DeepQModel:
         self.policy_dqn.fit(state_batch_w_flip, q_values,
                             epochs=epochs, verbose=0)
 
-    def save_model(self, filename: str):
+    def save_model(self, filepath: str):
         """
         Save trained model
 
-        :param filename: Usually the name of the player.
+        :param filepath: Usually the name of the player.
         """
         # Save structure and weights into different files
 
         # Save policy DQN model weights
-        self.policy_dqn.save_weights(f"{filename}.h5")
+        self.policy_dqn.save_weights(f"{filepath}.h5")
 
         # Save policy DQN structures
         model_json = self.policy_dqn.to_json()
 
-        with open(f"{filename}.json", "w") as json_file:
+        with open(f"{filepath}.json", "w") as json_file:
             json_file.write(model_json)
         json_file.close()
 
-    def load_model(self, filename: str):
+    def load_model(self, filepath: str):
         """
         Load trained model.
 
-        :param filename: Usually the name of the player
+        :param filepath: Usually the name of the player
         """
 
         loss_function = self.dqn_template().create_loss_function()
         optimizer = self.dqn_template().create_optimizer(self.params)
 
         # Load policy and target DQN model and compile
-        def load_model_architecture_and_weights(filename: str):
-            with open(f"{filename}.json", 'r') as json_file:
+        def load_model_architecture_and_weights(filepath: str):
+            with open(f"{filepath}.json", 'r') as json_file:
                 model = tf.keras.models.model_from_json(json_file.read())
-            model.load_weights(f"{filename}.h5")
+            model.load_weights(f"{filepath}.h5")
             model.compile(loss=loss_function, optimizer=optimizer)
             return model
 
-        self.policy_dqn = load_model_architecture_and_weights(filename)
-        self.target_dqn = load_model_architecture_and_weights(filename)
+        self.policy_dqn = load_model_architecture_and_weights(filepath)
+        self.target_dqn = load_model_architecture_and_weights(filepath)
 
     def write_summary(self, print_fn=print):
         """

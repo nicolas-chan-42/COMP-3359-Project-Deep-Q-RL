@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 
 from gym_connect_four import ConnectFourEnv
-from losing_connect_four.deep_q_model import DeepQModel
+from losing_connect_four.deep_q_model import DeepQModel, ReplayMemory
 # TODO: Add Evaluation (Greedy-only) mode.
 from losing_connect_four.deep_q_networks import DeepQNetwork
 
@@ -167,13 +167,13 @@ class DeepQPlayer(Player):
     def update_target_dqn_weights(self):
         self.model.update_target_dqn_weights()
 
-    def save_model(self, model_dir):
+    def save_model(self, model_path):
         """Save the trained model using model directory as prefix."""
-        self.model.save_model(model_dir)
+        self.model.save_model(model_path)
 
-    def load_model(self, model_dir):
+    def load_model(self, model_path):
         """Load the trained model using model directory as prefix."""
-        self.model.load_model(model_dir)
+        self.model.load_model(model_path)
 
     def write_summary(self, print_fn=print):
         """Write summary of deep-Q model."""
@@ -182,9 +182,10 @@ class DeepQPlayer(Player):
     def eval_mode(self, enable=False):
         self.is_eval = enable
 
+
 class PretrainRandomPlayer(RandomPlayer):
     """Random Player for the use of Pre-training."""
-    def __init__(self, env: ConnectFourEnv, memory,
+    def __init__(self, env: ConnectFourEnv, memory: ReplayMemory,
                  name: str = 'PretrainRandomPlayer', seed=None):
         super().__init__(env, name, seed=seed)
 
@@ -192,4 +193,5 @@ class PretrainRandomPlayer(RandomPlayer):
 
     def learn(self, state, action, next_state, reward, done,
               **kwargs):
+        """Learning by simply memorizing"""
         self.memory.push(state, action, next_state, reward, done)
