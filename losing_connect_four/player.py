@@ -34,14 +34,20 @@ class Player(ABC):
     def learn(self, state, action, next_state, reward, done, **kwargs):
         pass
 
-    def save_model(self):
+    def save_model(self, model_dir: str):
         return NotImplementedError
 
-    def load_model(self):
+    def load_model(self, model_dir: str):
         return NotImplementedError
 
     def write_summary(self, print_fn=print):
         return NotImplementedError
+
+    def eval_mode(self, enable: bool = False):
+        pass
+
+    def reset(self, seed: Optional = None):
+        pass
 
 
 class RandomPlayer(Player):
@@ -161,13 +167,13 @@ class DeepQPlayer(Player):
     def update_target_dqn_weights(self):
         self.model.update_target_dqn_weights()
 
-    def save_model(self):
-        """Save the trained model using self.name as prefix."""
-        self.model.save_model(self.name)
+    def save_model(self, model_dir):
+        """Save the trained model using model directory as prefix."""
+        self.model.save_model(model_dir)
 
-    def load_model(self):
-        """Load the trained model using self.name as prefix."""
-        self.model.load_model(self.name)
+    def load_model(self, model_dir):
+        """Load the trained model using model directory as prefix."""
+        self.model.load_model(model_dir)
 
     def write_summary(self, print_fn=print):
         """Write summary of deep-Q model."""

@@ -6,7 +6,6 @@ from typing import Dict, Union, List, Deque, NamedTuple, Optional, Type
 import gym
 import numpy as np
 import tensorflow as tf
-from keras.models import model_from_json
 
 from losing_connect_four.deep_q_networks import DeepQNetwork
 
@@ -180,7 +179,7 @@ class DeepQModel:
         # Load policy and target DQN model and compile
         def load_model_architecture_and_weights(filename: str):
             with open(f"{filename}.json", 'r') as json_file:
-                model = model_from_json(json_file.read())
+                model = tf.keras.models.model_from_json(json_file.read())
             model.load_weights(f"{filename}.h5")
             model.compile(loss=loss_function, optimizer=optimizer)
             return model

@@ -1,6 +1,5 @@
 import os
 from collections import deque
-from datetime import date
 from statistics import mean
 from typing import NamedTuple, List
 
@@ -27,15 +26,14 @@ PARAMS = {
     "EPS_END": 0.01,
     "EPS_DECAY_STEPS": 10000,
     "GAMMA": 0.95,
-    "N_EPISODES": 2000,
+    "N_EPISODES": 10,
     # "N_PRETRAIN_EPISODES": 1000,  # Utilisation rate may be better
     "EPOCHS_PER_LEARNING": 2,
     "EPOCHS_PER_PRETRAIN_LEARNING": 2,
     "N_STEPS_PER_TARGET_UPDATE": 1000,
-    # "TRAINEE_MODEL_NAME": "DeepQPlayer",  # USELESS
-    # "OPPONENT_MODEL_NAME": "DeepQPlayer", # USELESS
-    "LOAD_MODEL": [None, None],
-    "SAVE_MODEL": None,
+    "MODEL_DIR": "saved_models/",
+    "LOAD_MODEL": ["DQPlayer_seed_3407", None],  # Input filename here
+    "SAVE_MODEL": "DQPlayer_seed_3407",  # Input filename here
     "PRETRAIN": False,
 }
 
@@ -58,14 +56,14 @@ with tf.device('/CPU:0'):
         pretrain(env, PARAMS, players[players["trainee_id"]])
 
     """Load the saved player if requested"""
-    for player, model_spec in zip(players, PARAMS.get("LOAD_MODEL", None)):
+    for player_id, model_spec in zip(players, PARAMS.get("LOAD_MODEL", None)):
         # Pre-trained
-        if PARAMS["PRETRAIN"] and player is players[players["trainee_id"]]:
+        if PARAMS["PRETRAIN"] and players[player_id] is players[players["trainee_id"]]:
             continue
         try:
             if model_spec:
-                player.load_model()  # TODO: add way to specify which model to load
-                print(f"Saved model loaded for {player!r}")
+                players[player_id].load_model(f"{PARAMS['MODEL_DIR']}{model_spec}")
+                print(f"Saved model loaded for {players[player_id]!r}")
         except (IOError, ImportError):
             pass
 
@@ -194,11 +192,11 @@ for figure in plot_list:
 save_model = PARAMS.get("SAVE_MODEL", None)
 if save_model:
     # Save trained model
-    player = players["trainee_id"]
-    player.save_model()
+    player = players[players["trainee_id"]]
+    player.save_model(f"{PARAMS['MODEL_DIR']}{save_model}")
 
     # Save model summary
-    with open(f"{date.today().strftime('%Y%m%d')}.txt", "w") as file:
+    with open(f"{PARAMS['MODEL_DIR']}{save_model}.txt", "w") as file:
         file.write(f"{'Hyper-parameters'.center(65, '_')}\n")
         for key, value in PARAMS.items():
             file.write(f"{key}: {value}\n")
@@ -209,6 +207,7 @@ if save_model:
 
 """Model Evaluation"""
 player1.eval_mode(enable=True)
+player2.reset(3407)
 print(f"Starting evaluation...", end="")
 total_step = 0
 
