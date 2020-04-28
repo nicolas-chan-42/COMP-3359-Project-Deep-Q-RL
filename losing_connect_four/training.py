@@ -1,5 +1,7 @@
+from abc import ABC
 from collections import deque
 from math import log
+from pathlib import Path
 from typing import Dict, Tuple
 
 from gym_connect_four import ConnectFourEnv
@@ -105,7 +107,7 @@ def pretrain(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
         return
 
     print(f"Pre-train {player!r}")
-    print("-"*30)
+    print("-" * 30)
     memory_size = params["REPLAY_BUFFER_MAX_LENGTH"]
     replay_memory = ReplayMemory(memory_size)
 
@@ -124,15 +126,19 @@ def pretrain(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
     # Pass in generated memories to player to be pre-trained.
     player.model.memory.memory = replay_memory.memory
 
-    # Experience replay.
-    utilisation_rate = 0.95
+    # Prepare for experience replay.
     batch_size = params["BATCH_SIZE"]
+    utilisation_rate = params["PRETRAIN_UTILISATION_RATE"]
+    utilisation_rate = min(1, max(0, utilisation_rate))  # clip within [0,1].
+    utilisation_rate = utilisation_rate if utilisation_rate < 1 else 0.9999
+
     # Solving 1 - utilisation_rate = (1 - batch_size / memory)**n for n.
     n_episode = int(
         log(1 - utilisation_rate) / log(1 - batch_size / memory_size))
     print(f"Pre-train {player!r} for {n_episode} episodes "
           f"to achieve {utilisation_rate:.0%} utilisation of prepared memory")
 
+    # Experience replay.
     epochs = params["EPOCHS_PER_PRETRAIN_LEARNING"]
     for episode in range(int(n_episode)):
         print(f"\rPre-training {player!r} for episode {episode + 1}", end="")
@@ -140,4 +146,41 @@ def pretrain(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
     print()
 
     print(f"Pre-trained {player!r}")
-    print("="*30)
+    print("=" * 30)
+
+
+def load_model_to_players(config: Dict, params: Dict, players: Dict):
+    """Load trained model to player"""
+    models_to_be_loaded = config.get("LOAD_MODEL", [None, None])
+
+    for player_id, model_spec in enumerate(models_to_be_loaded, start=1):
+        # If no model is requested to be loaded, continue to next.
+        if not model_spec:
+            continue
+
+        # Pre-trained player is not considered for loading.
+        if params["PRETRAIN"] and player_id == players["trainee_id"]:
+            print(f"{players[player_id]!r} is pre-trained and thus not loaded")
+            continue
+
+        # Preparations before loading model.
+        if config["MODEL_DIR"]:
+            directory_path = Path(config["MODEL_DIR"])
+        else:
+            directory_path = Path(".")
+        model_path = directory_path / model_spec
+
+        if not model_path.with_suffix(".json").is_file():
+            raise Exception(f"{model_path.with_suffix('.json')} is not found")
+        if not model_path.with_suffix(".h5").is_file():
+            raise Exception(f"{model_path.with_suffix('.h5')} is not found")
+
+        # Try loading model
+        try:
+            player = players[player_id]
+            player.load_model(f"{model_path}")
+            print(f"Loaded model {model_spec} for {player!r}")
+        except (IOError, ImportError) as err:
+            print(f"Model {model_spec} CANNOT be loaded due to error")
+            raise err
+

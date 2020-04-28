@@ -1,6 +1,7 @@
 """ Deep Q Network """
 import random
 from collections import deque
+from pathlib import Path
 from typing import Dict, Union, List, Deque, NamedTuple, Optional, Type
 
 import gym
@@ -148,37 +149,39 @@ class DeepQModel:
         self.policy_dqn.fit(state_batch_w_flip, q_values,
                             epochs=epochs, verbose=0)
 
-    def save_model(self, filepath: str):
+    def save_model(self, filepath: Union[Path, str]):
         """
-        Save trained model
+        Save trained model (structure and weights) into different files
 
         :param filepath: Usually the name of the player.
         """
-        # Save structure and weights into different files
+
+        filepath = Path(filepath)
 
         # Save policy DQN model weights
-        self.policy_dqn.save_weights(f"{filepath}.h5")
+        self.policy_dqn.save_weights(f"{filepath.with_suffix('.h5')}")
 
         # Save policy DQN structures
         model_json = self.policy_dqn.to_json()
 
-        with open(f"{filepath}.json", "w") as json_file:
+        with open(f"{filepath.with_suffix('.json')}", "w") as json_file:
             json_file.write(model_json)
         json_file.close()
 
-    def load_model(self, filepath: str):
+    def load_model(self, filepath: Union[Path, str]):
         """
         Load trained model.
 
         :param filepath: Usually the name of the player
         """
 
+        filepath = Path(filepath)
         loss_function = self.dqn_template().create_loss_function()
         optimizer = self.dqn_template().create_optimizer(self.params)
 
         # Load policy and target DQN model and compile
-        def load_model_architecture_and_weights(filepath: str):
-            with open(f"{filepath}.json", 'r') as json_file:
+        def load_model_architecture_and_weights(filepath: Path):
+            with open(f"{filepath.with_suffix('.json')}", 'r') as json_file:
                 model = tf.keras.models.model_from_json(json_file.read())
             model.load_weights(f"{filepath}.h5")
             model.compile(loss=loss_function, optimizer=optimizer)
