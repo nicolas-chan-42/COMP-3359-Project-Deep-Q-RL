@@ -1,8 +1,11 @@
-from abc import ABC
 from collections import deque
 from math import log
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List, NamedTuple, Sequence
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 from gym_connect_four import ConnectFourEnv
 from losing_connect_four.deep_q_model import ReplayMemory
@@ -184,3 +187,150 @@ def load_model_to_players(config: Dict, params: Dict, players: Dict):
             print(f"Model {model_spec} CANNOT be loaded due to error")
             raise err
 
+
+class Record:
+    """Class for storing episodic rewards and losses information."""
+
+    def __init__(self, params: Dict, config: Dict, name: str, dtype=np.float32):
+        self.name = name
+        self.n_episode: int = params["N_EPISODES"]
+        self.period: int = config["N_EPISODE_PER_PRINT"]
+
+        # Compute the window periods for moving averages.
+        averaging_windows: np.ndarray = np.asarray([
+            self.n_episode,
+            self.n_episode // 2,
+            self.n_episode // 4,
+            self.period,
+            self.period * 2,
+            self.period // 2,
+            50, 100, 200, 500, 1000,
+        ]).clip(min=1, max=self.n_episode)
+        self.averaging_windows: np.ndarray = np.unique(averaging_windows)
+
+        # Preallocate a Pandas series for storing records.
+        self.records = pd.Series(
+            data=np.zeros(shape=self.n_episode),
+            dtype=dtype,
+            name=name,
+        )
+
+    def add_record(self, episode: int, record: float):
+        """Add record.
+        :param episode: in which episode.
+        :param record: the value of record.
+        """
+        self.records[episode] = record
+
+    def moving_averages(self, period: int) -> pd.Series:
+        """
+        Get moving average series.
+        :param period: the window period averaging for.
+        :return: a Pandas series of moving average with
+            specified window period.
+        """
+        return self.records.rolling(period, min_periods=1).mean()
+
+    def cumulative_sums(self) -> pd.Series:
+        """
+        Get cumulative sum series.
+        :return: a Pandas series of cumulative sums.
+        """
+        return self.records.cumsum()
+
+    def recent_average(self, episode: int, period: int) -> float:
+        """
+        Get the average of the given period before and including a
+        specified episode.
+
+        :param episode: which episode to use.
+        :param period: the length of period to compute mean.
+        :return: mean of records in the given period before and including
+            given episode.
+        """
+        upper_bound = episode
+        lower_bound = max(episode - period + 1, 0)
+        return self.records[lower_bound:upper_bound].mean()
+
+    def print_info(self, episode: int):
+        """
+        Print moving averages, average, and total.
+        :param episode: which episode is at.
+        """
+        name = self.name
+        total = self.records[:episode].sum()
+
+        # Print Moving Averages.
+        for window in self.averaging_windows:
+            print(f"{window}-Episode Moving-Average {name}: "
+                  f"{self.recent_average(episode=episode, period=window)}")
+        # Print Average.
+        print(f"Average {name}: {total / (episode + 1)}")
+        # Print Total.
+        print(f"Total {name}: {total}")
+
+
+# NameTuples for Plotting.
+PlotLine = NamedTuple("PlotLine", data_array=np.ndarray, label=str)
+Figure = NamedTuple("Figure", title=str, lines=List[PlotLine])
+
+
+def create_plot_list(records: Sequence[Record]) -> List[Figure]:
+    """
+    Create a plot list for a sequence of Record for latter plotting.
+
+    :param records: a sequence of Record to be plotted.
+    :return: a list of Figure for the sequence of Record
+        for latter plotting.
+    """
+    plot_list = []
+    for sub_records in records:
+        for figure in create_plot_sublist(sub_records):
+            plot_list.append(figure)
+    return plot_list
+
+
+def create_plot_sublist(records: Record) -> List[Figure]:
+    """
+    Create a plot list of individual Record for latter plotting.
+    This function cooperates with function create_create_plot_list.
+
+    :param records: an individual Record to be plotted
+    :return: a list of Figure for this individual Record
+        for latter plotting.
+    """
+    name = records.name
+    plot_sublist = [
+        Figure(f"Cumulative {name} over episodes",
+               [PlotLine(records.cumulative_sums().values,
+                         "Cum. Losses")]),
+
+        Figure(f"Average {name} over episodes",
+               [PlotLine(records.moving_averages(period=window).values,
+                         f"{window}-Episode M.A.")
+                for window in records.averaging_windows])]
+    return plot_sublist
+
+
+def plot_records(plot_list: List[Figure]):
+    """
+    Plot records/data and corresponding average lines for each figure task in
+    the plot list.
+
+    :param plot_list: A list of records/data to be plotted.
+    """
+    plt.rcParams["figure.facecolor"] = "white"
+    for figure in plot_list:
+        plot_title = figure.title
+
+        for plot_line in figure.lines:
+            data_array = plot_line.data_array
+            plt.plot(data_array, "-", label=plot_line.label)
+            # Plot average line.
+            plt.hlines(y=data_array.mean(), xmin=0, xmax=len(data_array) - 1,
+                       colors=plt.gca().lines[-1].get_color(),
+                       linestyles="dashed")
+        plt.title(plot_title)
+        plt.legend()
+        plt.grid()
+        plt.show()
