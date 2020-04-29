@@ -7,7 +7,7 @@ import numpy as np
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 from losing_connect_four.deep_q_networks import SimpleFCSgdDqn
-from losing_connect_four.player import DeepQPlayer, Player, HumanPlayer
+from losing_connect_four.player import DeepQPlayer, Player, RandomPlayer
 from losing_connect_four.training import (
     train_one_episode, pretrain, load_model_to_players,
     Record, plot_records, create_plot_list
@@ -51,7 +51,7 @@ print("\rConnect-Four Gym Environment Made")
 # with tf.device('/CPU:0'):
 # Setup players.
 player1: Player = DeepQPlayer(env, PARAMS, SimpleFCSgdDqn)
-player2: Player = HumanPlayer(env)
+player2: Player = RandomPlayer(env)
 players = {1: player1, 2: player2,
            "trainee_id": 1}
 
