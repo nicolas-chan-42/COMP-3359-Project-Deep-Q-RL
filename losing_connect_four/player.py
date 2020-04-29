@@ -185,6 +185,7 @@ class DeepQPlayer(Player):
 
 class PretrainRandomPlayer(RandomPlayer):
     """Random Player for the use of Pre-training."""
+
     def __init__(self, env: ConnectFourEnv, memory: ReplayMemory,
                  name: str = 'PretrainRandomPlayer', seed=None):
         super().__init__(env, name, seed=seed)
@@ -195,3 +196,18 @@ class PretrainRandomPlayer(RandomPlayer):
               **kwargs):
         """Learning by simply memorizing"""
         self.memory.push(state, action, next_state, reward, done)
+
+
+class HumanPlayer(Player):
+    def __init__(self, env: ConnectFourEnv, name: str = "HumanPlayer"):
+        super().__init__(env, name)
+
+    def get_next_action(self, state: np.ndarray, *args) -> int:
+        self.env.render()
+        while True:
+            action = int(input("Select your next action in 1-7: ")) - 1
+            if self.env.is_valid_action(action):
+                return action
+            else:
+                print("Action is not valid, please try again: ")
+                continue
