@@ -26,11 +26,6 @@ PARAMS = {
     "EPS_DECAY_STEPS": 10000,
     "GAMMA": 0.95,
     "N_EPISODES": 500,
-    "EPOCHS_PER_LEARNING": 2,
-    "EPOCHS_PER_PRETRAIN_LEARNING": 2,
-    "N_STEPS_PER_TARGET_UPDATE": 1000,
-    "PRETRAIN": False,
-    "PRETRAIN_UTILISATION_RATE": 0.95,
 }
 
 CONFIG = {
@@ -38,7 +33,6 @@ CONFIG = {
     # Use None as placeholder.
     "MODEL_DIR": "saved_models",  # Input directory path here.
     "LOAD_MODEL": ["DQPlayer_seed_3407", None],  # Input filename here.
-    "SAVE_MODEL": "DQPlayer_seed_3407",  # Input filename here
     "N_EPISODE_PER_PRINT": 100,
 }
 
