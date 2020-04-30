@@ -32,6 +32,9 @@ def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
     player = players[player_id]
     trainee_id = players.get("trainee_id", 1)
 
+    # Extract PARAMS.
+    epochs = params.get("EPOCHS_PER_LEARNING", 1)
+
     # Do one step ahead of the while loop
     # Initialize action history and perform first step.
     epsilon = player.get_epsilon(total_step=total_step)
@@ -72,7 +75,7 @@ def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
         reward *= -1
         player.learn(state_hist[-3], action_hist[-2],  # state and action
                      state_hist[-1], reward, done,  # next state, reward, done
-                     n_step=total_step, epochs=params["EPOCHS_PER_LEARNING"])
+                     n_step=total_step, epochs=epochs)
 
         # Update training result at the end for the next step
         total_step += 1
@@ -90,7 +93,7 @@ def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
     player.learn(state_hist[-2], action_hist[-1],
                  state_hist[-1] * -1, reward, done,
                  # Multiply -1 to change owner of each move.
-                 n_step=total_step, epochs=params["EPOCHS_PER_LEARNING"])
+                 n_step=total_step, epochs=epochs)
 
     # Adjust reward for trainee.
     # If winner is opponent, we give opposite reward to trainee.

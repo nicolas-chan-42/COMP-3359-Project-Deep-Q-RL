@@ -2,7 +2,7 @@
 import random
 from collections import deque
 from pathlib import Path
-from typing import Dict, Union, List, Deque, NamedTuple, Optional, Type
+from typing import Dict, Union, List, Deque, NamedTuple, Optional
 
 import gym
 import numpy as np
@@ -53,7 +53,7 @@ class DeepQModel:
     """Deep-Q Neural Network model"""
 
     def __init__(self, env: gym.Env, params: Dict,
-                 dqn_template: Type[DeepQNetwork]):
+                 dqn_template: DeepQNetwork):
         self.params = params
         self.observation_space: List[int] = env.observation_space.shape
         self.action_space: int = env.action_space.n
@@ -61,9 +61,9 @@ class DeepQModel:
         self.memory = ReplayMemory(params["REPLAY_BUFFER_MAX_LENGTH"])
 
         self.dqn_template = dqn_template
-        self.policy_dqn = dqn_template().create_network(
+        self.policy_dqn = dqn_template.create_network(
             self.observation_space, self.action_space, params)
-        self.target_dqn = dqn_template().create_network(
+        self.target_dqn = dqn_template.create_network(
             self.observation_space, self.action_space, params)
 
         self.update_target_dqn_weights()
@@ -176,8 +176,8 @@ class DeepQModel:
         """
 
         filepath = Path(filepath)
-        loss_function = self.dqn_template().create_loss_function()
-        optimizer = self.dqn_template().create_optimizer(self.params)
+        loss_function = self.dqn_template.create_loss_function()
+        optimizer = self.dqn_template.create_optimizer(self.params)
 
         # Load policy and target DQN model and compile
         def load_model_architecture_and_weights(filepath: Path):

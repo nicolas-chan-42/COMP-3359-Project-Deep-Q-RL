@@ -25,7 +25,7 @@ PARAMS = {
     "EPS_END": 0.01,
     "EPS_DECAY_STEPS": 10000,
     "GAMMA": 0.95,
-    "N_EPISODES": 50,
+    "N_EPISODES": 500,
     "EPOCHS_PER_LEARNING": 2,
     "EPOCHS_PER_PRETRAIN_LEARNING": 2,
     "N_STEPS_PER_TARGET_UPDATE": 1000,
@@ -50,14 +50,13 @@ print("\rConnect-Four Gym Environment Made")
 """Setup Players"""
 # with tf.device('/CPU:0'):
 # Setup players.
-player1: Player = DeepQPlayer(env, PARAMS,
-                              SimpleFCSgdDqn(momentum=0))
+player1: Player = DeepQPlayer(env, PARAMS, SimpleFCSgdDqn(momentum=0))
 player2: Player = RandomPlayer(env, seed=3407)
 players = {1: player1, 2: player2,
            "trainee_id": 1}
 
 """Pre-train Player"""
-if PARAMS["PRETRAIN"]:
+if PARAMS.get("PRETRAIN"):
     # noinspection PyTypeChecker
     pretrain(env, PARAMS, players[players["trainee_id"]])
 

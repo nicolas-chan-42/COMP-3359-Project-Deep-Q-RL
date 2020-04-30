@@ -2,7 +2,7 @@ import random
 from abc import ABC, abstractmethod
 from operator import itemgetter
 from random import Random
-from typing import Optional, Dict, Type
+from typing import Optional, Dict
 
 import numpy as np
 import tensorflow as tf
@@ -78,7 +78,7 @@ class RandomPlayer(Player):
 
 class DeepQPlayer(Player):
     def __init__(self, env: ConnectFourEnv, params: Dict,
-                 dqn_template: Type[DeepQNetwork], is_eval=False,
+                 dqn_template: DeepQNetwork, is_eval=False,
                  name: str = "DeepQPlayer"):
         super().__init__(env, name)
 
@@ -149,9 +149,12 @@ class DeepQPlayer(Player):
 
     def learn(self, state, action, next_state, reward, done,
               **kwargs):  # Should return loss
+        """
+        Use experiment replay to update the weights of the network.
+        """
         if self.is_eval:
             return
-        """Use experiment replay to update the weights of the network."""
+
         self.model.memorize(state, action, next_state, reward, done)
 
         epochs = kwargs.get("epochs", 1)

@@ -44,22 +44,21 @@ print("\rConnect-Four Gym Environment Made")
 """Setup Players"""
 # with tf.device('/CPU:0'):
 # Setup players.
-player1: Player = DeepQPlayer(env, PARAMS, SimpleFCSgdDqn)
-player2: Player = RandomPlayer(env)
+player1: Player = DeepQPlayer(env, PARAMS, SimpleFCSgdDqn(momentum=0),
+                              is_eval=True)
+player2: Player = RandomPlayer(env, seed=2119)
 players = {1: player1, 2: player2,
            "trainee_id": 1}
 
 """Pre-train Player"""
-if PARAMS["PRETRAIN"]:
+if PARAMS.get("PRETRAIN"):
     # noinspection PyTypeChecker
     pretrain(env, PARAMS, players[players["trainee_id"]])
 
 """Load the saved player if requested"""
 load_model_to_players(CONFIG, PARAMS, players)
 
-"""Model Evaluation"""
-player1.eval_mode(enable=True)
-print(f"Starting evaluation...", end="")
+"""Logging"""
 total_step = 0
 
 # Reward.

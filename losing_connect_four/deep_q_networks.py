@@ -16,9 +16,14 @@ class DeepQNetwork(ABC):
     * create_optimizer(...) returns the optimizer to be used.
     * create_create_loss_function(...) returns the loss function to be used.
     """
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
 
-    def create_network(self, observation_space, action_space, params,
-                       *args, **kwargs):
+    def create_network(self, observation_space, action_space, params):
+        args = self.args
+        kwargs = self.kwargs
+
         # Add channel dimension.
         observation_space = (*observation_space, 1)
 
@@ -32,53 +37,65 @@ class DeepQNetwork(ABC):
         net.compile(loss=loss_function, optimizer=optimizer)
         return net
 
+    def create_optimizer(self, params):
+        args = self.args
+        kwargs = self.kwargs
+
+        return self._create_optimizer(params, *args, **kwargs)
+
+    def create_loss_function(self):
+        args = self.args
+        kwargs = self.kwargs
+
+        return self._create_loss_function(*args, **kwargs)
+
     @abstractmethod
     def _create_network(self, observation_space, action_space, params,
                         *args, **kwargs):
         raise NotImplementedError
 
     @abstractmethod
-    def create_optimizer(self, params):
+    def _create_optimizer(self, params, *args, **kwargs):
         raise NotImplementedError
 
     @abstractmethod
-    def create_loss_function(self):
+    def _create_loss_function(self, *args, **kwargs):
         raise NotImplementedError
 
 
 class OptimizerMixin(ABC):
     """"Optimizer ABC"""
     @abstractmethod
-    def create_optimizer(self, params):
+    def _create_optimizer(self, params, *args, **kwargs):
         raise NotImplementedError
 
 
 class LossFunctionMixin(ABC):
     """"Loss Function ABC"""
     @abstractmethod
-    def create_loss_function(self):
+    def _create_loss_function(self, *args, **kwargs):
         raise NotImplementedError
 
 
 # Optimizers.
 class OptimizerMixinAdam(OptimizerMixin):
-    def create_optimizer(self, params):
-        return Adam(learning_rate=params["LR"])
+    def _create_optimizer(self, params, *args, **kwargs):
+        return Adam(learning_rate=params["LR"], *args, **kwargs)
 
 
 class OptimizerMixinRMSProp(OptimizerMixin):
-    def create_optimizer(self, params):
-        return RMSprop(learning_rate=params["LR"])
+    def _create_optimizer(self, params, *args, **kwargs):
+        return RMSprop(learning_rate=params["LR"], *args, **kwargs)
 
 
 class OptimizerMixinSGD(OptimizerMixin):
-    def create_optimizer(self, params):
-        return SGD(learning_rate=params["LR"])
+    def _create_optimizer(self, params, *args, **kwargs):
+        return SGD(learning_rate=params["LR"], *args, **kwargs)
 
 
 # Loss Functions.
 class LossFuncMSEMixin(LossFunctionMixin):
-    def create_loss_function(self):
+    def _create_loss_function(self, *args, **kwargs):
         return mean_squared_error
 
 
