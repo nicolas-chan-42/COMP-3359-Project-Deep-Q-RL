@@ -9,7 +9,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from losing_connect_four.deep_q_networks import SimpleFCSgdDqn
 from losing_connect_four.player import DeepQPlayer, Player, RandomPlayer
 from losing_connect_four.training import (
-    train_one_episode, pretrain, load_model_to_players,
+    train_one_episode, load_model_to_players,
     Record, plot_records, create_plot_list
 )
 
@@ -49,11 +49,6 @@ player1: Player = DeepQPlayer(env, PARAMS, SimpleFCSgdDqn(momentum=0),
 player2: Player = RandomPlayer(env, seed=2119)
 players = {1: player1, 2: player2,
            "trainee_id": 1}
-
-"""Pre-train Player"""
-if PARAMS.get("PRETRAIN"):
-    # noinspection PyTypeChecker
-    pretrain(env, PARAMS, players[players["trainee_id"]])
 
 """Load the saved player if requested"""
 load_model_to_players(CONFIG, PARAMS, players)
