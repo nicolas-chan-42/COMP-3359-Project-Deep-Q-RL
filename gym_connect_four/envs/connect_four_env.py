@@ -32,7 +32,7 @@ class Reward:
     A data class storing designed reward level.
     """
     NONE = 0
-    DRAW = -0.1
+    DRAW = 0
     LOSS = 1
     WIN = -1
 
