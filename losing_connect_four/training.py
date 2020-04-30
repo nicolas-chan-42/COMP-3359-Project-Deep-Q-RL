@@ -12,15 +12,15 @@ from losing_connect_four.deep_q_model import ReplayMemory
 from losing_connect_four.player import PretrainRandomPlayer, Player, DeepQPlayer
 
 
-def train_one_episode(env: ConnectFourEnv, players: Dict, params: Dict,
+def train_one_episode(env: ConnectFourEnv, params: Dict, players: Dict,
                       total_step: int = 0) -> Tuple[float, int]:
     """
     Perform 1 training episode in ConnectFour Environment.
 
     :param env: Gym environment (ConnectFourEnv).
+    :param params: Hyper-parameter dictionary.
     :param players: A dictionary containing the instance of
         Player 1, Player 2, and the ID of player to be trained (trainee).
-    :param params: Hyper-parameter dictionary.
     :param total_step: Total number of steps performed in env.
     :return: A tuple of final reward and updated total_step.
     """
@@ -124,7 +124,7 @@ def pretrain(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
 
     total_step = 0
     while total_step < memory_size:
-        _, total_step = train_one_episode(env, players, params, total_step)
+        _, total_step = train_one_episode(env, params, players, total_step)
         print(f"\rPreparing Pre-train memory: {total_step + 1}", end="")
     print()
 
