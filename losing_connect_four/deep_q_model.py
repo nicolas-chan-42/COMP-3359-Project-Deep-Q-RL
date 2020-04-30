@@ -153,10 +153,11 @@ class DeepQModel:
         """
         Save trained model (structure and weights) into different files
 
-        :param filepath: Usually the name of the player.
+        :param filepath: the filepath of the player, with no suffix.
         """
 
         filepath = Path(filepath)
+        filepath.parent.mkdir(parents=True, exist_ok=True)
 
         # Save policy DQN model weights
         self.policy_dqn.save_weights(f"{filepath.with_suffix('.h5')}")
@@ -172,10 +173,12 @@ class DeepQModel:
         """
         Load trained model.
 
-        :param filepath: Usually the name of the player
+        :param filepath: the filepath of the player, with no suffix.
         """
 
         filepath = Path(filepath)
+        filepath.parent.mkdir(parents=True, exist_ok=True)
+
         loss_function = self.dqn_template.create_loss_function()
         optimizer = self.dqn_template.create_optimizer(self.params)
 

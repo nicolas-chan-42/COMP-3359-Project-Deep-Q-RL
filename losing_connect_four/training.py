@@ -180,6 +180,7 @@ def load_model_to_players(config: Dict, params: Dict, players: Dict):
         # Preparations before loading model.
         if config["MODEL_DIR"]:
             directory_path = Path(config["MODEL_DIR"])
+            directory_path.mkdir(parents=True, exist_ok=True)
         else:
             directory_path = Path(".")
         model_path = directory_path / model_spec
@@ -218,6 +219,7 @@ def save_model_from_player(config: Dict, params: Dict, players: Dict):
     # Preparations before saving model.
     if config["MODEL_DIR"]:
         directory_path = Path(config["MODEL_DIR"])
+        directory_path.mkdir(parents=True, exist_ok=True)
     else:
         directory_path = Path(".")
     model_path = directory_path / save_model_spec
