@@ -178,7 +178,7 @@ def load_model_to_players(config: Dict, params: Dict, players: Dict):
             continue
 
         # Preparations before loading model.
-        if config["MODEL_DIR"]:
+        if config.get("MODEL_DIR", None):
             directory_path = Path(config["MODEL_DIR"])
             directory_path.mkdir(parents=True, exist_ok=True)
         else:
@@ -217,7 +217,7 @@ def save_model_from_player(config: Dict, params: Dict, players: Dict):
         return
 
     # Preparations before saving model.
-    if config["MODEL_DIR"]:
+    if config.get("MODEL_DIR", None):
         directory_path = Path(config["MODEL_DIR"])
         directory_path.mkdir(parents=True, exist_ok=True)
     else:
