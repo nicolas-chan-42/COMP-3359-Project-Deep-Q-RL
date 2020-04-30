@@ -161,9 +161,17 @@ def load_model_to_players(config: Dict, params: Dict, players: Dict):
         if not model_spec:
             continue
 
+        player = players[player_id]
+
         # Pre-trained player is not considered for loading.
-        if params["PRETRAIN"] and player_id == players["trainee_id"]:
-            print(f"{players[player_id]!r} is pre-trained and thus not loaded")
+        if params.get("PRETRAIN") and player_id == players["trainee_id"]:
+            print(f"{player!r} is pre-trained and thus not loaded")
+            continue
+
+        # Only DeepQPlayer can load model.
+        if not isinstance(players[player_id], DeepQPlayer):
+            print(f"Only Deep-Q Players can load model, "
+                  f"but {player!r} is not and thus not loaded")
             continue
 
         # Preparations before loading model.
@@ -188,6 +196,43 @@ def load_model_to_players(config: Dict, params: Dict, players: Dict):
             raise err
 
 
+def save_model_from_player(config: Dict, params: Dict, players: Dict):
+    """Save trained model of player."""
+    save_model_spec = config.get("SAVE_MODEL", None)
+
+    # If no model is requested to save, return.
+    if not save_model_spec:
+        return
+
+    player = players[players["trainee_id"]]
+
+    # Only DeepQPlayer can save model.
+    if not isinstance(player, DeepQPlayer):
+        print(f"Only Deep-Q Players can save model, "
+              f"but {player!r} is not and thus not saved")
+        return
+
+    # Preparations before saving model.
+    if config["MODEL_DIR"]:
+        directory_path = Path(config["MODEL_DIR"])
+    else:
+        directory_path = Path(".")
+    model_path = directory_path / save_model_spec
+
+    # Save trained model.
+    player.save_model(f"{model_path}")
+
+    # Save model summary
+    with open(f"{model_path.with_suffix('.txt')}", "w") as file:
+        file.write(f"{'Hyper-parameters'.center(65, '_')}\n")
+        for key, value in params.items():
+            file.write(f"{key}: {value}\n")
+        file.write("\n")
+        file.write(f"{'Model Summary'.center(65, '_')}\n")
+
+        player.write_summary(print_fn=lambda s: file.write(f"{s}\n"))
+
+
 class Record:
     """Class for storing episodic rewards and losses information."""
 
@@ -199,8 +244,6 @@ class Record:
         # Compute the window periods for moving averages.
         averaging_windows: np.ndarray = np.asarray([
             self.n_episode,
-            self.n_episode // 2,
-            self.n_episode // 4,
             self.period,
             self.period * 2,
             self.period // 2,

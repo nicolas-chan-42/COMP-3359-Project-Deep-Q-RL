@@ -10,7 +10,7 @@ from losing_connect_four.deep_q_networks import SimpleFCSgdDqn
 from losing_connect_four.player import RandomPlayer, DeepQPlayer, Player
 from losing_connect_four.training import (
     train_one_episode, pretrain, load_model_to_players,
-    Record, plot_records, create_plot_list
+    Record, plot_records, create_plot_list, save_model_from_player
 )
 
 # import tensorflow as tf
@@ -25,7 +25,7 @@ PARAMS = {
     "EPS_END": 0.01,
     "EPS_DECAY_STEPS": 10000,
     "GAMMA": 0.95,
-    "N_EPISODES": 500,
+    "N_EPISODES": 50,
     "EPOCHS_PER_LEARNING": 2,
     "EPOCHS_PER_PRETRAIN_LEARNING": 2,
     "N_STEPS_PER_TARGET_UPDATE": 1000,
@@ -50,7 +50,8 @@ print("\rConnect-Four Gym Environment Made")
 """Setup Players"""
 # with tf.device('/CPU:0'):
 # Setup players.
-player1: Player = DeepQPlayer(env, PARAMS, SimpleFCSgdDqn)
+player1: Player = DeepQPlayer(env, PARAMS,
+                              SimpleFCSgdDqn(momentum=0))
 player2: Player = RandomPlayer(env, seed=3407)
 players = {1: player1, 2: player2,
            "trainee_id": 1}
@@ -122,18 +123,4 @@ plot_list = create_plot_list([reward_records, loss_records])
 plot_records(plot_list)
 
 """Save Trained Models and Summary"""
-save_model = CONFIG.get("SAVE_MODEL", None)
-if save_model:
-    # Save trained model
-    player = players[players["trainee_id"]]
-    player.save_model(f"{CONFIG['MODEL_DIR']}{save_model}")
-
-    # Save model summary
-    with open(f"{CONFIG['MODEL_DIR']}{save_model}.txt", "w") as file:
-        file.write(f"{'Hyper-parameters'.center(65, '_')}\n")
-        for key, value in PARAMS.items():
-            file.write(f"{key}: {value}\n")
-        file.write("\n")
-        file.write(f"{'Model Summary'.center(65, '_')}\n")
-
-        player.write_summary(print_fn=lambda s: file.write(f"{s}\n"))
+save_model_from_player(CONFIG, PARAMS, players)
