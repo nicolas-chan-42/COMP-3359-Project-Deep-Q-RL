@@ -360,17 +360,27 @@ def create_plot_sublist(records: Record) -> List[Figure]:
     return plot_sublist
 
 
-def plot_records(plot_list: List[Figure]):
+def plot_records(config: Dict, plot_list: List[Figure]):
     """
     Plot records/data and corresponding average lines for each figure task in
     the plot list.
 
+    :param config: configuration dictionary.
     :param plot_list: A list of records/data to be plotted.
     """
     plt.rcParams["figure.facecolor"] = "white"
     for figure in plot_list:
+        # Preparation before plotting.
         plot_title = figure.title
 
+        if config.get("SAVE_PLOT", None):
+            directory_path = Path(config["SAVE_PLOT"])
+            directory_path.mkdir(parents=True, exist_ok=True)
+        else:
+            directory_path = Path(".")
+        plot_path = directory_path / plot_title
+
+        # Plotting.
         for plot_line in figure.lines:
             data_array = plot_line.data_array
             plt.plot(data_array, "-", label=plot_line.label)
@@ -378,7 +388,12 @@ def plot_records(plot_list: List[Figure]):
             plt.hlines(y=data_array.mean(), xmin=0, xmax=len(data_array) - 1,
                        colors=plt.gca().lines[-1].get_color(),
                        linestyles="dashed")
+
         plt.title(plot_title)
         plt.legend()
         plt.grid()
+
+        # Saving and showing plot.
+        plt.gcf().set_size_inches(8, 6)  # Set figure size as 8"x6"
+        plt.savefig(plot_path.with_suffix(".png"), bbox_inches="tight")
         plt.show()

@@ -40,6 +40,7 @@ CONFIG = {
     "LOAD_MODEL": ["DQPlayer_seed_3407", None],  # Input filename here.
     "SAVE_MODEL": "DQPlayer_seed_3407",  # Input filename here
     "N_EPISODE_PER_PRINT": 100,
+    "SAVE_PLOT": "saved_plots",  # Input directory path here.
 }
 
 """Set-up Environment"""
@@ -119,7 +120,7 @@ print("=" * 30)
 
 """Visualize the training results"""
 plot_list = create_plot_list([reward_records, loss_records])
-plot_records(plot_list)
+plot_records(CONFIG, plot_list)
 
 """Save Trained Models and Summary"""
 save_model_from_player(CONFIG, PARAMS, players)
