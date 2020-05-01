@@ -205,7 +205,7 @@ class HumanPlayer(Player):
     def __init__(self, env: ConnectFourEnv, name: str = "HumanPlayer"):
         super().__init__(env, name)
 
-    def get_next_action(self, state: np.ndarray, *args) -> int:
+    def get_next_action(self, state: np.ndarray, **kwargs) -> int:
         self.env.render()
         while True:
             action = int(input("Select your next action in 1-7: ")) - 1
