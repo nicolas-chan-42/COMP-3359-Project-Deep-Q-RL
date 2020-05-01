@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
-from tensorflow.keras.layers import Flatten, Dense, Conv2D, Activation
+from tensorflow.keras.layers import (
+    Flatten, Dense, ZeroPadding2D, Conv2D,
+    Activation, Dropout,
+)
 from tensorflow.keras.losses import mean_squared_error
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam, RMSprop, SGD
@@ -158,32 +161,42 @@ class CnnDqn(LossFuncMSEMixin, OptimizerMixinAdam, DeepQNetwork):
     """
     Architecture:
 
-    - Conv2D(16, kernel_size=4, strides=2, padding="valid",
-             input_shape=observation_space)
-    - Activation("relu")
-    - Conv2D(32, kernel_size=3, strides=2, padding="same")
-    - Activation("relu")
-    - Conv2D(32, kernel_size=3, strides=2, padding="same")
-    - Activation("relu")
-    - Dropout(0.25)
-    - Flatten()
-    - Dense(action_space, activation="softmax")
+    - ZeroPadding2D(padding=((1, 0), (0, 0)), input_shape=observation_space))
+    - Conv2D(16, kernel_size=2, strides=1, padding="valid"))
+    - Activation("relu"))
+    - Conv2D(32, kernel_size=2, strides=1, padding="valid"))
+    - Activation("relu"))
+    - Conv2D(64, kernel_size=2, strides=1, padding="valid"))
+    - Activation("relu"))
+    - Flatten())
+    - Dropout(0.25))
+    - Dense(256, activation="relu"))
+    - Dense(128, activation="relu"))
+    - Dense(64, activation="relu"))
+    - Dense(32, activation="relu"))
+    - Dense(action_space, activation="softmax"))
 
     Optimizer: Adam;
     Loss Function: MSE.
     """
     def _create_network(self, observation_space, action_space, params,
                         *args, **kwargs):
-        model = Sequential()
-        model.add(Conv2D(16, kernel_size=4, strides=2, padding="valid",
-                         input_shape=observation_space))
-        model.add(Activation("relu"))
-        # model.add(Conv2D(32, kernel_size=3, strides=2, padding="same"))
-        # model.add(Activation("relu"))
-        # model.add(Conv2D(32, kernel_size=3, strides=2, padding="same"))
-        # model.add(Activation("relu"))
-        # model.add(Dropout(0.25))
-        model.add(Flatten())
-        model.add(Dense(action_space, activation="softmax"))
+        net = Sequential()
+        # Zero-pad the top row: 6x7x1 -> 7x7x1.
+        net.add(ZeroPadding2D(padding=((1, 0), (0, 0)),
+                              input_shape=observation_space))
+        net.add(Conv2D(16, kernel_size=2, strides=1, padding="valid"))
+        net.add(Activation("relu"))  # -> 6x6x16
+        net.add(Conv2D(32, kernel_size=2, strides=1, padding="valid"))
+        net.add(Activation("relu"))  # -> 5x5x32
+        net.add(Conv2D(64, kernel_size=2, strides=1, padding="valid"))
+        net.add(Activation("relu"))  # -> 4x4x64
+        net.add(Flatten())  # -> 1024
+        net.add(Dropout(0.25))  # -> 768
+        net.add(Dense(256, activation="relu"))  # -> 256
+        net.add(Dense(128, activation="relu"))  # -> 128
+        net.add(Dense(64, activation="relu"))  # -> 64
+        net.add(Dense(32, activation="relu"))  # -> 32
+        net.add(Dense(action_space, activation="softmax"))  # -> 7
 
-        return model
+        return net
