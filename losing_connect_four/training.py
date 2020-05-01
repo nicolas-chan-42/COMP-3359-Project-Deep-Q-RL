@@ -9,7 +9,10 @@ import pandas as pd
 
 from gym_connect_four import ConnectFourEnv
 from losing_connect_four.deep_q_model import ReplayMemory
-from losing_connect_four.player import PretrainRandomPlayer, Player, DeepQPlayer
+from losing_connect_four.player import (
+    Player, DeepQPlayer,
+    PretrainRandomPlayer, PretrainRandomPlayerOnlyReward,
+)
 
 
 def train_one_episode(env: ConnectFourEnv, params: Dict, players: Dict,
@@ -126,6 +129,62 @@ def pretrain(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
     while total_step < memory_size:
         _, total_step = train_one_episode(env, params, players, total_step)
         print(f"\rPreparing Pre-train memory: {total_step + 1}", end="")
+    print()
+
+    # Pre-train starts here.
+    # Pass in generated memories to player to be pre-trained.
+    player.model.memory.memory = replay_memory.memory
+
+    # Prepare for experience replay.
+    batch_size = params["BATCH_SIZE"]
+    utilisation_rate = params["PRETRAIN_UTILISATION_RATE"]
+    utilisation_rate = min(1, max(0, utilisation_rate))  # clip within [0,1].
+    utilisation_rate = utilisation_rate if utilisation_rate < 1 else 0.9999
+
+    # Solving 1 - utilisation_rate = (1 - batch_size / memory)**n for n.
+    n_episode = int(
+        log(1 - utilisation_rate) / log(1 - batch_size / memory_size))
+    print(f"Pre-train {player!r} for {n_episode} episodes "
+          f"to achieve {utilisation_rate:.0%} utilisation of prepared memory")
+
+    # Experience replay.
+    epochs = params["EPOCHS_PER_PRETRAIN_LEARNING"]
+    for episode in range(int(n_episode)):
+        print(f"\rPre-training {player!r} for episode {episode + 1}", end="")
+        player.model.experience_replay(epochs=epochs)
+    print()
+
+    print(f"Pre-trained {player!r}")
+    print("=" * 30)
+
+
+def pretrain_v2(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
+    """
+    Generate memory and perform experience play to player.
+
+    Differ from pretrain() by saving only steps with non-zero reward.
+    """
+
+    # If the player is not deepQ player, it's meaningless to pre-train.
+    if not isinstance(player, DeepQPlayer):
+        return
+
+    print(f"Pre-train {player!r}")
+    print("-" * 30)
+    memory_size = params["REPLAY_BUFFER_MAX_LENGTH"]
+    replay_memory = ReplayMemory(memory_size)
+
+    # Setup random players generating the memories.
+    player1: Player = PretrainRandomPlayerOnlyReward(env, replay_memory,
+                                                     seed=3359)
+    player2: Player = PretrainRandomPlayerOnlyReward(env, replay_memory,
+                                                     seed=4904)
+    players = {1: player1, 2: player2}
+
+    total_step = 0
+    for i in range(memory_size // 2):
+        _, total_step = train_one_episode(env, params, players, total_step)
+        print(f"\rPreparing Pre-train memory: {2 * (i + 1)}", end="")
     print()
 
     # Pre-train starts here.

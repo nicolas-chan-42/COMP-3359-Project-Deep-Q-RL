@@ -9,8 +9,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from losing_connect_four.deep_q_networks import SimpleFCSgdDqn
 from losing_connect_four.player import RandomPlayer, DeepQPlayer, Player
 from losing_connect_four.training import (
-    train_one_episode, pretrain, load_model_to_players,
-    Record, plot_records, create_plot_list, save_model_from_player
+    train_one_episode, pretrain_v2, load_model_to_players,
+    Record, plot_records, create_plot_list, save_model_from_player,
 )
 
 # import tensorflow as tf
@@ -25,11 +25,11 @@ PARAMS = {
     "EPS_END": 0.01,
     "EPS_DECAY_STEPS": 10000,
     "GAMMA": 0.95,
-    "N_EPISODES": 500,
+    "N_EPISODES": 1000,
     "EPOCHS_PER_LEARNING": 2,
     "EPOCHS_PER_PRETRAIN_LEARNING": 2,
     "N_STEPS_PER_TARGET_UPDATE": 1000,
-    "PRETRAIN": False,
+    "PRETRAIN": True,
     "PRETRAIN_UTILISATION_RATE": 0.95,
 }
 
@@ -37,8 +37,8 @@ CONFIG = {
     # Please use "/" only for filepath and directory paths.
     # Use None as placeholder.
     "MODEL_DIR": "saved_models",  # Input directory path here.
-    "LOAD_MODEL": ["DQPlayer_seed_3407", None],  # Input filename here.
-    "SAVE_MODEL": "DQPlayer_seed_3407",  # Input filename here
+    "LOAD_MODEL": [None, None],  # Input filename here.
+    "SAVE_MODEL": None,  # Input filename here
     "N_EPISODE_PER_PRINT": 100,
     "SAVE_PLOT": "saved_plots",  # Input directory path here.
 }
@@ -59,7 +59,7 @@ players = {1: player1, 2: player2,
 """Pre-train Player"""
 if PARAMS.get("PRETRAIN"):
     # noinspection PyTypeChecker
-    pretrain(env, PARAMS, players[players["trainee_id"]])
+    pretrain_v2(env, PARAMS, players[players["trainee_id"]])
 
 """Load the saved player if requested"""
 load_model_to_players(CONFIG, PARAMS, players)

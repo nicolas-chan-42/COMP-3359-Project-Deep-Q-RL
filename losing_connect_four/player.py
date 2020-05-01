@@ -201,6 +201,14 @@ class PretrainRandomPlayer(RandomPlayer):
         self.memory.push(state, action, next_state, reward, done)
 
 
+class PretrainRandomPlayerOnlyReward(PretrainRandomPlayer):
+    def learn(self, state, action, next_state, reward, done,
+              **kwargs):
+        """Learning by simply memorizing"""
+        if abs(reward) > 0:
+            self.memory.push(state, action, next_state, reward, done)
+
+
 class HumanPlayer(Player):
     def __init__(self, env: ConnectFourEnv, name: str = "HumanPlayer"):
         super().__init__(env, name)
