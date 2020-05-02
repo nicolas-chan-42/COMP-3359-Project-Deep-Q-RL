@@ -167,7 +167,6 @@ class DeepQModel:
 
         with open(f"{filepath.with_suffix('.json')}", "w") as json_file:
             json_file.write(model_json)
-        json_file.close()
 
     def load_model(self, filepath: Union[Path, str]):
         """
@@ -177,7 +176,6 @@ class DeepQModel:
         """
 
         filepath = Path(filepath)
-        filepath.parent.mkdir(parents=True, exist_ok=True)
 
         loss_function = self.dqn_template.create_loss_function()
         optimizer = self.dqn_template.create_optimizer(self.params)

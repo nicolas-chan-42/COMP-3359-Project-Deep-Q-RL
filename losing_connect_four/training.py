@@ -239,11 +239,12 @@ def load_model_to_players(config: Dict, params: Dict, players: Dict):
         # Preparations before loading model.
         if config.get("MODEL_DIR", None):
             directory_path = Path(config["MODEL_DIR"])
-            directory_path.mkdir(parents=True, exist_ok=True)
         else:
             directory_path = Path(".")
         model_path = directory_path / model_spec
 
+        if not directory_path.is_dir():
+            raise Exception(f"{directory_path} is not found or not a directory")
         if not model_path.with_suffix(".json").is_file():
             raise Exception(f"{model_path.with_suffix('.json')} is not found")
         if not model_path.with_suffix(".h5").is_file():

@@ -197,14 +197,14 @@ class PretrainRandomPlayer(RandomPlayer):
 
     def learn(self, state, action, next_state, reward, done,
               **kwargs):
-        """Learning by simply memorizing"""
+        """Learning by simply memorizing."""
         self.memory.push(state, action, next_state, reward, done)
 
 
 class PretrainRandomPlayerOnlyReward(PretrainRandomPlayer):
     def learn(self, state, action, next_state, reward, done,
               **kwargs):
-        """Learning by simply memorizing"""
+        """Learning by simply memorizing (steps with reward only)."""
         if abs(reward) > 0:
             self.memory.push(state, action, next_state, reward, done)
 
