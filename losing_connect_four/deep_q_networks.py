@@ -170,10 +170,10 @@ class CnnDqn(LossFuncMSEMixin, OptimizerMixinSGD, DeepQNetwork):
     - Activation("relu"))
     - Flatten())
     - Dropout(0.25))
+    - Dense(512, activation="relu"))
     - Dense(256, activation="relu"))
     - Dense(128, activation="relu"))
     - Dense(64, activation="relu"))
-    - Dense(32, activation="relu"))
     - Dense(action_space, activation="softmax"))
 
     Optimizer: SGD;
