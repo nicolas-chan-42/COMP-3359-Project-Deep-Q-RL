@@ -370,9 +370,9 @@ class Record:
         # Print Moving Averages.
         for window in self.averaging_windows:
             print(f"{window}-Episode Moving-Average {name}: "
-                  f"{self.recent_average(episode=episode, period=window)}")
+                  f"{self.recent_average(episode=episode, period=window):.6f}")
         # Print Average.
-        print(f"Average {name}: {total / (episode + 1)}")
+        print(f"Average {name}: {total / (episode + 1):.6f}")
         # Print Total.
         print(f"Total {name}: {total}")
 
