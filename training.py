@@ -69,11 +69,11 @@ total_step = 0
 
 # Reward.
 total_reward = 0
-reward_records = Record(PARAMS, CONFIG, name="Rewards", dtype=np.float32)
+reward_records = Record(PARAMS, CONFIG, name="Rewards", dtype=np.float64)
 
 # Losses.
 total_losses = 0
-loss_records = Record(PARAMS, CONFIG, name="Losses", dtype=np.int32)
+loss_records = Record(PARAMS, CONFIG, name="Losses", dtype=np.int64)
 
 """Main training loop"""
 print(f"Training through {PARAMS['N_EPISODES']} episodes")

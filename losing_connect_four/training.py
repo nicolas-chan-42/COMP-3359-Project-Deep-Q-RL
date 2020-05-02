@@ -301,7 +301,7 @@ def save_model_from_player(config: Dict, params: Dict, players: Dict):
 class Record:
     """Class for storing episodic rewards and losses information."""
 
-    def __init__(self, params: Dict, config: Dict, name: str, dtype=np.float32):
+    def __init__(self, params: Dict, config: Dict, name: str, dtype=np.float64):
         self.name = name
         self.n_episode: int = params["N_EPISODES"]
         self.period: int = config["N_EPISODE_PER_PRINT"]
