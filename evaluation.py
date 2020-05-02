@@ -21,11 +21,7 @@ PARAMS = {
     "LR": 0.001,
     "REPLAY_BUFFER_MAX_LENGTH": 100_000,
     "BATCH_SIZE": 32,
-    "EPS_START": 1,
-    "EPS_END": 0.01,
-    "EPS_DECAY_STEPS": 10000,
-    "GAMMA": 0.95,
-    "N_EPISODES": 500,
+    "N_EPISODES": 1000,
 }
 
 CONFIG = {
