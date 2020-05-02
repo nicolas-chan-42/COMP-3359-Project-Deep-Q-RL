@@ -157,7 +157,7 @@ class SimpleFCSgdDqn(OptimizerMixinSGD, SimpleDeepFCQNetwork):
     pass
 
 
-class CnnDqn(LossFuncMSEMixin, OptimizerMixinAdam, DeepQNetwork):
+class CnnDqn(LossFuncMSEMixin, OptimizerMixinSGD, DeepQNetwork):
     """
     Architecture:
 
@@ -176,7 +176,7 @@ class CnnDqn(LossFuncMSEMixin, OptimizerMixinAdam, DeepQNetwork):
     - Dense(32, activation="relu"))
     - Dense(action_space, activation="softmax"))
 
-    Optimizer: Adam;
+    Optimizer: SGD;
     Loss Function: MSE.
     """
     def _create_network(self, observation_space, action_space, params,
@@ -185,18 +185,14 @@ class CnnDqn(LossFuncMSEMixin, OptimizerMixinAdam, DeepQNetwork):
         # Zero-pad the top row: 6x7x1 -> 7x7x1.
         net.add(ZeroPadding2D(padding=((1, 0), (0, 0)),
                               input_shape=observation_space))
-        net.add(Conv2D(16, kernel_size=2, strides=1, padding="valid"))
-        net.add(Activation("relu"))  # -> 6x6x16
-        net.add(Conv2D(32, kernel_size=2, strides=1, padding="valid"))
-        net.add(Activation("relu"))  # -> 5x5x32
         net.add(Conv2D(64, kernel_size=2, strides=1, padding="valid"))
-        net.add(Activation("relu"))  # -> 4x4x64
-        net.add(Flatten())  # -> 1024
-        net.add(Dropout(0.25))  # -> 768
+        net.add(Activation("relu"))  # -> 6x6x64
+        net.add(Flatten())  # -> 2304
+        net.add(Dropout(0.25))  # -> 1728
+        net.add(Dense(512, activation="relu"))  # -> 512
         net.add(Dense(256, activation="relu"))  # -> 256
         net.add(Dense(128, activation="relu"))  # -> 128
         net.add(Dense(64, activation="relu"))  # -> 64
-        net.add(Dense(32, activation="relu"))  # -> 32
         net.add(Dense(action_space, activation="softmax"))  # -> 7
 
         return net
