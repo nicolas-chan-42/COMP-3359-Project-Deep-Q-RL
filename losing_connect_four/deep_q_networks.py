@@ -190,9 +190,9 @@ class CnnDqn(LossFuncMSEMixin, OptimizerMixinSGD, DeepQNetwork):
         net.add(Flatten())  # -> 2304
         net.add(Dropout(0.25))  # -> 1728
         net.add(Dense(512, activation="relu"))  # -> 512
-        net.add(Dense(256, activation="relu"))  # -> 256
-        net.add(Dense(128, activation="relu"))  # -> 128
-        net.add(Dense(64, activation="relu"))  # -> 64
+        net.add(Dense(512, activation="relu"))  # -> 512
+        net.add(Dense(512, activation="relu"))  # -> 512
+        net.add(Dense(512, activation="relu"))  # -> 512
         net.add(Dense(action_space, activation="softmax"))  # -> 7
 
         return net
