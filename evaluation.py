@@ -53,13 +53,11 @@ load_model_to_players(CONFIG, PARAMS, players)
 """Logging"""
 total_step = 0
 
-# Reward.
+# Reward and Losses recording.
 total_reward = 0
-eval_reward_records = Record(PARAMS, CONFIG,
-                             name="Evaluation Rewards", dtype=np.float32)
-
-# Losses.
 total_losses = 0
+eval_reward_records = Record(PARAMS, CONFIG,
+                             name="Evaluation Rewards", dtype=np.int32)
 eval_loss_records = Record(PARAMS, CONFIG,
                            name="Evaluation Losses", dtype=np.int32)
 
