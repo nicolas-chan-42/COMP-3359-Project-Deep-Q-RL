@@ -128,7 +128,8 @@ def pretrain(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
     total_step = 0
     while total_step < memory_size:
         _, total_step = train_one_episode(env, params, players, total_step)
-        print(f"\rPreparing Pre-train memory: {total_step + 1}", end="")
+        print(f"\rPreparing Pre-train memory: {total_step + 1} / {memory_size}",
+              end="")
     print()
 
     # Pre-train starts here.
@@ -184,7 +185,8 @@ def pretrain_v2(env: ConnectFourEnv, params: Dict, player: DeepQPlayer):
     total_step = 0
     for i in range(memory_size // 2):
         _, total_step = train_one_episode(env, params, players, total_step)
-        print(f"\rPreparing Pre-train memory: {2 * (i + 1)}", end="")
+        print(f"\rPreparing Pre-train memory: {2 * (i + 1)} / {memory_size}",
+              end="")
     print()
 
     # Pre-train starts here.
