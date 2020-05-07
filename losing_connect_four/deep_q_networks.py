@@ -3,13 +3,13 @@ Integrate DQN components to build DQN here.
 DQN built here will then be used by deep_q_model as dqn_template.
 """
 
-from .deep_q_network_components.abc import DeepQNetwork
-from .deep_q_network_components.loss_functions import LossFuncMixinMse
-from .deep_q_network_components.networks import (
+from .dqn_components.abc import DeepQNetwork
+from .dqn_components.loss_functions import LossFuncMixinMse
+from .dqn_components.networks import (
     Simple512Net, SimpleDefaultNet, CnnShrinkNet, CnnNoShrinkNet,
     PlaceholderNet,
 )
-from .deep_q_network_components.optimizers import (
+from .dqn_components.optimizers import (
     OptimizerMixinAdam, OptimizerMixinRMSProp, OptimizerMixinSGD,
 )
 

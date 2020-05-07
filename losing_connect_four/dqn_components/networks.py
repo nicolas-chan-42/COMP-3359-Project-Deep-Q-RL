@@ -6,7 +6,7 @@ from tensorflow.keras.layers import (
 )
 from tensorflow.keras.models import Sequential
 
-from losing_connect_four.deep_q_network_components.abc import NetworkMixin
+from losing_connect_four.dqn_components.abc import NetworkMixin
 
 
 class PlaceholderNet(NetworkMixin):

@@ -8,7 +8,7 @@ import gym
 import numpy as np
 import tensorflow as tf
 
-from losing_connect_four.deep_q_network_components.abc import DeepQNetwork
+from losing_connect_four import DeepQNetwork
 
 # Tensorflow GPU allocation.
 physical_devices = tf.config.experimental.list_physical_devices('GPU')

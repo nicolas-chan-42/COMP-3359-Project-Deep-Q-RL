@@ -8,9 +8,8 @@ import numpy as np
 import tensorflow as tf
 
 from gym_connect_four import ConnectFourEnv
+from losing_connect_four import DeepQNetwork
 from losing_connect_four.deep_q_model import DeepQModel, ReplayMemory
-# TODO: Add Evaluation (Greedy-only) mode.
-from losing_connect_four.deep_q_network_components.abc import DeepQNetwork
 
 
 class Player(ABC):

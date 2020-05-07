@@ -2,7 +2,7 @@
 
 from tensorflow.keras.optimizers import Adam, RMSprop, SGD
 
-from losing_connect_four.deep_q_network_components.abc import OptimizerMixin
+from losing_connect_four.dqn_components.abc import OptimizerMixin
 
 
 # Optimizers.

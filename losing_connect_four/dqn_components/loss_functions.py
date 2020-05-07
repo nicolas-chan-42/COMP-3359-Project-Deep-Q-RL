@@ -2,7 +2,7 @@
 
 from tensorflow.keras.losses import mean_squared_error
 
-from losing_connect_four.deep_q_network_components.abc import LossFunctionMixin
+from losing_connect_four.dqn_components.abc import LossFunctionMixin
 
 
 # Loss Functions.
