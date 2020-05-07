@@ -6,7 +6,7 @@ import numpy as np
 # Must be put before any tensorflow import statement.
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-from losing_connect_four.deep_q_networks import SimpleFCSgdDqn
+from losing_connect_four.deep_q_networks import Simple512SgdDqn
 from losing_connect_four.player import RandomPlayer, DeepQPlayer, Player
 from losing_connect_four.training import (
     train_one_episode, pretrain_v2, load_model_to_players,
@@ -51,7 +51,7 @@ print("\rConnect-Four Gym Environment Made")
 """Setup Players"""
 # with tf.device('/CPU:0'):
 # Setup players.
-player1: Player = DeepQPlayer(env, PARAMS, SimpleFCSgdDqn(momentum=0))
+player1: Player = DeepQPlayer(env, PARAMS, Simple512SgdDqn(momentum=0))
 player2: Player = RandomPlayer(env, seed=3407)
 players = {1: player1, 2: player2,
            "trainee_id": 1}
