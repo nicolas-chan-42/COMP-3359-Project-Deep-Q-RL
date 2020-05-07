@@ -9,6 +9,17 @@ from tensorflow.keras.models import Sequential
 from losing_connect_four.deep_q_network_components.abc import NetworkMixin
 
 
+class PlaceholderNet(NetworkMixin):
+    """Placeholder network for loading model."""
+
+    def _create_network(self, observation_space, action_space, params,
+                        *args, **kwargs):
+        net = Sequential()
+        net.add(Flatten(input_shape=observation_space))
+        net.add(Dense(action_space, activation="linear"))
+        return net
+
+
 class SimpleDefaultNet(NetworkMixin):
     """
     Architecture:

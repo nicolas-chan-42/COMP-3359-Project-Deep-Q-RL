@@ -7,14 +7,26 @@ from .deep_q_network_components.abc import DeepQNetwork
 from .deep_q_network_components.loss_functions import LossFuncMixinMse
 from .deep_q_network_components.networks import (
     Simple512Net, SimpleDefaultNet, CnnShrinkNet, CnnNoShrinkNet,
+    PlaceholderNet,
 )
 from .deep_q_network_components.optimizers import (
     OptimizerMixinAdam, OptimizerMixinRMSProp, OptimizerMixinSGD,
 )
 
 
-class SimpleDefaultAdamDqn(
-    SimpleDefaultNet, OptimizerMixinAdam, LossFuncMixinMse, DeepQNetwork):
+class PlaceholderSgdDqn(PlaceholderNet,
+                        OptimizerMixinSGD, LossFuncMixinMse, DeepQNetwork):
+    """
+    Placeholder network for loading model use.
+
+    Optimizer: Adam;
+    Loss Function: MSE.
+    """
+    pass
+
+
+class SimpleDefaultAdamDqn(SimpleDefaultNet,
+                           OptimizerMixinAdam, LossFuncMixinMse, DeepQNetwork):
     """
     Architecture:
 
@@ -28,8 +40,9 @@ class SimpleDefaultAdamDqn(
     pass
 
 
-class Simple512RmsPropDqn(
-    Simple512Net, OptimizerMixinRMSProp, LossFuncMixinMse, DeepQNetwork):
+class Simple512RmsPropDqn(Simple512Net,
+                          OptimizerMixinRMSProp, LossFuncMixinMse,
+                          DeepQNetwork):
     """
     Architecture:
 
@@ -43,8 +56,8 @@ class Simple512RmsPropDqn(
     pass
 
 
-class Simple512SgdDqn(
-    Simple512Net, OptimizerMixinSGD, LossFuncMixinMse, DeepQNetwork):
+class Simple512SgdDqn(Simple512Net,
+                      OptimizerMixinSGD, LossFuncMixinMse, DeepQNetwork):
     """
     Architecture:
 
@@ -58,8 +71,8 @@ class Simple512SgdDqn(
     pass
 
 
-class CnnShrinkSgdDqn(
-    CnnShrinkNet, OptimizerMixinSGD, LossFuncMixinMse, DeepQNetwork):
+class CnnShrinkSgdDqn(CnnShrinkNet,
+                      OptimizerMixinSGD, LossFuncMixinMse, DeepQNetwork):
     """
     Architecture:
 
@@ -84,8 +97,8 @@ class CnnShrinkSgdDqn(
     pass
 
 
-class CnnNoShrinkageSgdDqn(
-    CnnNoShrinkNet, OptimizerMixinSGD, LossFuncMixinMse, DeepQNetwork):
+class CnnNoShrinkageSgdDqn(CnnNoShrinkNet,
+                           OptimizerMixinSGD, LossFuncMixinMse, DeepQNetwork):
     """
     Architecture:
 
@@ -107,3 +120,4 @@ class CnnNoShrinkageSgdDqn(
     Optimizer: SGD;
     Loss Function: MSE.
     """
+    pass
