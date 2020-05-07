@@ -16,7 +16,7 @@ class PlaceholderNet(NetworkMixin):
                         *args, **kwargs):
         net = Sequential()
         net.add(Flatten(input_shape=observation_space))
-        net.add(Dense(action_space, activation="linear"))
+        net.add(Dense(action_space, activation="softmax"))
         return net
 
 
@@ -40,7 +40,7 @@ class SimpleDefaultNet(NetworkMixin):
         net.add(Dense(obs_space_card * 2, activation="relu"))
         net.add(Dense(obs_space_card * 2, activation="relu"))
         net.add(Dense(obs_space_card * 2, activation="relu"))
-        net.add(Dense(action_space, activation="linear"))
+        net.add(Dense(action_space, activation="softmax"))
         return net
 
 
@@ -61,7 +61,7 @@ class Simple512Net(NetworkMixin):
         net.add(Dense(512, activation="relu"))
         net.add(Dense(512, activation="relu"))
         net.add(Dense(512, activation="relu"))
-        net.add(Dense(action_space, activation="linear"))
+        net.add(Dense(action_space, activation="softmax"))
         return net
 
 
