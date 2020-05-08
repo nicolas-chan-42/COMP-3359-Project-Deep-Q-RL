@@ -216,7 +216,11 @@ class HumanPlayer(Player):
         self.env.render()
         available_moves = self.env.available_moves()
         while True:
-            action = int(input("Select your next action in 1-7: ")) - 1
+            try:
+                action = int(input("Select your next action in 1-7: ")) - 1
+            except ValueError:
+                action = -1
+
             if action in list(available_moves):
                 return action
             else:
