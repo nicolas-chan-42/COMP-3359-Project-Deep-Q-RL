@@ -13,7 +13,8 @@ from losing_connect_four import DeepQNetwork
 # Tensorflow GPU allocation.
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
 print(f"Number of physical_devices detected: {len(physical_devices)}")
-tf.config.experimental.set_memory_growth(physical_devices[0], True)
+for physical_device in physical_devices:
+    tf.config.experimental.set_memory_growth(physical_device, True)
 
 # Python type hinting.
 State = Union[tf.Tensor, np.ndarray]
