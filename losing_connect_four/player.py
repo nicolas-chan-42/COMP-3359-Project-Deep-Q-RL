@@ -214,9 +214,10 @@ class HumanPlayer(Player):
 
     def get_next_action(self, state: np.ndarray, **kwargs) -> int:
         self.env.render()
+        available_moves = self.env.available_moves()
         while True:
             action = int(input("Select your next action in 1-7: ")) - 1
-            if self.env.is_valid_action(action):
+            if action in list(available_moves):
                 return action
             else:
                 print("Action is not valid, please try again: ")
