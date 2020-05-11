@@ -1,3 +1,8 @@
+"""
+Supplementary classes, functions, and containers 
+used for training and evaluation.
+"""
+
 from collections import deque
 from math import log
 from pathlib import Path
