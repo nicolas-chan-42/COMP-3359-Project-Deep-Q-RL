@@ -1,3 +1,5 @@
+""" Player classes """
+
 import random
 from abc import ABC, abstractmethod
 from operator import itemgetter
