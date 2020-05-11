@@ -1,4 +1,7 @@
-""" Deep Q Network """
+"""
+Deep-Q model class incorporates the DeepQNetwork class from deep_q_network.py
+as a component of the model.
+"""
 import random
 from collections import deque
 from pathlib import Path
