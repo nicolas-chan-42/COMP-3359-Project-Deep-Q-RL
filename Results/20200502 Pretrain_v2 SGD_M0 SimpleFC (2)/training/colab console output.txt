@@ -1,0 +1,2126 @@
+pygame 1.9.6
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Number of physical_devices detected: 1
+Connect-Four Gym Environment Made
+Pre-train DeepQPlayer
+------------------------------
+Preparing Pre-train memory: 100000
+Pre-train DeepQPlayer for 9360 episodes to achieve 95% utilisation of prepared memory
+Pre-training DeepQPlayer for episode 9360
+Pre-trained DeepQPlayer
+==============================
+Training through 10000 episodes
+------------------------------
+Episode: 100
+Total Steps: 2177
+-------------------------
+50-Episode Moving-Average Rewards: -0.30612245202064514
+100-Episode Moving-Average Rewards: -0.1515151560306549
+200-Episode Moving-Average Rewards: -0.1515151560306549
+500-Episode Moving-Average Rewards: -0.1515151560306549
+1000-Episode Moving-Average Rewards: -0.1515151560306549
+10000-Episode Moving-Average Rewards: -0.1515151560306549
+Average Rewards: -0.15
+Total Rewards: -15.0
+-------------------------
+50-Episode Moving-Average Losses: 0.3469387755102041
+100-Episode Moving-Average Losses: 0.42424242424242425
+200-Episode Moving-Average Losses: 0.42424242424242425
+500-Episode Moving-Average Losses: 0.42424242424242425
+1000-Episode Moving-Average Losses: 0.42424242424242425
+10000-Episode Moving-Average Losses: 0.42424242424242425
+Average Losses: 0.42
+Total Losses: 42
+=========================
+Episode: 200
+Total Steps: 4485
+-------------------------
+50-Episode Moving-Average Rewards: 0.10204081982374191
+100-Episode Moving-Average Rewards: 0.020202020183205605
+200-Episode Moving-Average Rewards: -0.060301508754491806
+500-Episode Moving-Average Rewards: -0.060301508754491806
+1000-Episode Moving-Average Rewards: -0.060301508754491806
+10000-Episode Moving-Average Rewards: -0.060301508754491806
+Average Rewards: -0.06
+Total Rewards: -12.0
+-------------------------
+50-Episode Moving-Average Losses: 0.5510204081632653
+100-Episode Moving-Average Losses: 0.5050505050505051
+200-Episode Moving-Average Losses: 0.46733668341708545
+500-Episode Moving-Average Losses: 0.46733668341708545
+1000-Episode Moving-Average Losses: 0.46733668341708545
+10000-Episode Moving-Average Losses: 0.46733668341708545
+Average Losses: 0.465
+Total Losses: 93
+=========================
+Episode: 300
+Total Steps: 6685
+-------------------------
+50-Episode Moving-Average Rewards: 0.30612245202064514
+100-Episode Moving-Average Rewards: 0.19191919267177582
+200-Episode Moving-Average Rewards: 0.11055276542901993
+500-Episode Moving-Average Rewards: 0.02675585262477398
+1000-Episode Moving-Average Rewards: 0.02675585262477398
+10000-Episode Moving-Average Rewards: 0.02675585262477398
+Average Rewards: 0.02666666666666667
+Total Rewards: 8.0
+-------------------------
+50-Episode Moving-Average Losses: 0.6530612244897959
+100-Episode Moving-Average Losses: 0.5959595959595959
+200-Episode Moving-Average Losses: 0.5527638190954773
+500-Episode Moving-Average Losses: 0.5117056856187291
+1000-Episode Moving-Average Losses: 0.5117056856187291
+10000-Episode Moving-Average Losses: 0.5117056856187291
+Average Losses: 0.51
+Total Losses: 153
+=========================
+Episode: 400
+Total Steps: 8945
+-------------------------
+50-Episode Moving-Average Rewards: 0.18367347121238708
+100-Episode Moving-Average Rewards: 0.1111111119389534
+200-Episode Moving-Average Rewards: 0.1557788997888565
+500-Episode Moving-Average Rewards: 0.05012531206011772
+1000-Episode Moving-Average Rewards: 0.05012531206011772
+10000-Episode Moving-Average Rewards: 0.05012531206011772
+Average Rewards: 0.05
+Total Rewards: 20.0
+-------------------------
+50-Episode Moving-Average Losses: 0.5918367346938775
+100-Episode Moving-Average Losses: 0.5555555555555556
+200-Episode Moving-Average Losses: 0.5778894472361809
+500-Episode Moving-Average Losses: 0.5238095238095238
+1000-Episode Moving-Average Losses: 0.5238095238095238
+10000-Episode Moving-Average Losses: 0.5238095238095238
+Average Losses: 0.5225
+Total Losses: 209
+=========================
+Episode: 500
+Total Steps: 11120
+-------------------------
+50-Episode Moving-Average Rewards: 0.1428571492433548
+100-Episode Moving-Average Rewards: 0.13131313025951385
+200-Episode Moving-Average Rewards: 0.12562814354896545
+500-Episode Moving-Average Rewards: 0.06813627481460571
+1000-Episode Moving-Average Rewards: 0.06813627481460571
+10000-Episode Moving-Average Rewards: 0.06813627481460571
+Average Rewards: 0.068
+Total Rewards: 34.0
+-------------------------
+50-Episode Moving-Average Losses: 0.5714285714285714
+100-Episode Moving-Average Losses: 0.5656565656565656
+200-Episode Moving-Average Losses: 0.5628140703517588
+500-Episode Moving-Average Losses: 0.533066132264529
+1000-Episode Moving-Average Losses: 0.533066132264529
+10000-Episode Moving-Average Losses: 0.533066132264529
+Average Losses: 0.532
+Total Losses: 266
+=========================
+Episode: 600
+Total Steps: 13252
+-------------------------
+50-Episode Moving-Average Rewards: 0.3469387888908386
+100-Episode Moving-Average Rewards: 0.23232322931289673
+200-Episode Moving-Average Rewards: 0.18592964112758636
+500-Episode Moving-Average Rewards: 0.1442885845899582
+1000-Episode Moving-Average Rewards: 0.09682804346084595
+10000-Episode Moving-Average Rewards: 0.09682804346084595
+Average Rewards: 0.09666666666666666
+Total Rewards: 58.0
+-------------------------
+50-Episode Moving-Average Losses: 0.673469387755102
+100-Episode Moving-Average Losses: 0.6161616161616161
+200-Episode Moving-Average Losses: 0.592964824120603
+500-Episode Moving-Average Losses: 0.5711422845691383
+1000-Episode Moving-Average Losses: 0.5475792988313857
+10000-Episode Moving-Average Losses: 0.5475792988313857
+Average Losses: 0.5466666666666666
+Total Losses: 328
+=========================
+Episode: 700
+Total Steps: 15351
+-------------------------
+50-Episode Moving-Average Rewards: 0.3469387888908386
+100-Episode Moving-Average Rewards: 0.35353535413742065
+200-Episode Moving-Average Rewards: 0.2964824140071869
+500-Episode Moving-Average Rewards: 0.21042084693908691
+1000-Episode Moving-Average Rewards: 0.13447782397270203
+10000-Episode Moving-Average Rewards: 0.13447782397270203
+Average Rewards: 0.13428571428571429
+Total Rewards: 94.0
+-------------------------
+50-Episode Moving-Average Losses: 0.673469387755102
+100-Episode Moving-Average Losses: 0.6767676767676768
+200-Episode Moving-Average Losses: 0.6482412060301508
+500-Episode Moving-Average Losses: 0.6052104208416834
+1000-Episode Moving-Average Losses: 0.5665236051502146
+10000-Episode Moving-Average Losses: 0.5665236051502146
+Average Losses: 0.5657142857142857
+Total Losses: 396
+=========================
+Episode: 800
+Total Steps: 17604
+-------------------------
+50-Episode Moving-Average Rewards: 0.22448979318141937
+100-Episode Moving-Average Rewards: 0.2525252401828766
+200-Episode Moving-Average Rewards: 0.2964824140071869
+500-Episode Moving-Average Rewards: 0.21843686699867249
+1000-Episode Moving-Average Rewards: 0.14768460392951965
+10000-Episode Moving-Average Rewards: 0.14768460392951965
+Average Rewards: 0.1475
+Total Rewards: 118.0
+-------------------------
+50-Episode Moving-Average Losses: 0.6122448979591837
+100-Episode Moving-Average Losses: 0.6262626262626263
+200-Episode Moving-Average Losses: 0.6482412060301508
+500-Episode Moving-Average Losses: 0.6092184368737475
+1000-Episode Moving-Average Losses: 0.5732165206508135
+10000-Episode Moving-Average Losses: 0.5732165206508135
+Average Losses: 0.5725
+Total Losses: 458
+=========================
+Episode: 900
+Total Steps: 19693
+-------------------------
+50-Episode Moving-Average Rewards: 0.22448979318141937
+100-Episode Moving-Average Rewards: 0.1515151560306549
+200-Episode Moving-Average Rewards: 0.20603014528751373
+500-Episode Moving-Average Rewards: 0.22645290195941925
+1000-Episode Moving-Average Rewards: 0.14905451238155365
+10000-Episode Moving-Average Rewards: 0.14905451238155365
+Average Rewards: 0.14888888888888888
+Total Rewards: 134.0
+-------------------------
+50-Episode Moving-Average Losses: 0.6122448979591837
+100-Episode Moving-Average Losses: 0.5757575757575758
+200-Episode Moving-Average Losses: 0.6030150753768844
+500-Episode Moving-Average Losses: 0.6132264529058116
+1000-Episode Moving-Average Losses: 0.5739710789766407
+10000-Episode Moving-Average Losses: 0.5739710789766407
+Average Losses: 0.5733333333333334
+Total Losses: 516
+=========================
+Episode: 1000
+Total Steps: 21976
+-------------------------
+50-Episode Moving-Average Rewards: 0.4693877696990967
+100-Episode Moving-Average Rewards: 0.4545454680919647
+200-Episode Moving-Average Rewards: 0.2964824140071869
+500-Episode Moving-Average Rewards: 0.2865731418132782
+1000-Episode Moving-Average Rewards: 0.17817817628383636
+10000-Episode Moving-Average Rewards: 0.17817817628383636
+Average Rewards: 0.178
+Total Rewards: 178.0
+-------------------------
+50-Episode Moving-Average Losses: 0.7346938775510204
+100-Episode Moving-Average Losses: 0.7272727272727273
+200-Episode Moving-Average Losses: 0.6482412060301508
+500-Episode Moving-Average Losses: 0.6432865731462926
+1000-Episode Moving-Average Losses: 0.5885885885885885
+10000-Episode Moving-Average Losses: 0.5885885885885885
+Average Losses: 0.588
+Total Losses: 588
+=========================
+Episode: 1100
+Total Steps: 24292
+-------------------------
+50-Episode Moving-Average Rewards: 0.6326530575752258
+100-Episode Moving-Average Rewards: 0.4343434274196625
+200-Episode Moving-Average Rewards: 0.44723618030548096
+500-Episode Moving-Average Rewards: 0.32665330171585083
+1000-Episode Moving-Average Rewards: 0.23623622953891754
+10000-Episode Moving-Average Rewards: 0.20200182497501373
+Average Rewards: 0.2018181818181818
+Total Rewards: 222.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8163265306122449
+100-Episode Moving-Average Losses: 0.7171717171717171
+200-Episode Moving-Average Losses: 0.7236180904522613
+500-Episode Moving-Average Losses: 0.6633266533066132
+1000-Episode Moving-Average Losses: 0.6176176176176176
+10000-Episode Moving-Average Losses: 0.6005459508644222
+Average Losses: 0.6
+Total Losses: 660
+=========================
+Episode: 1200
+Total Steps: 26548
+-------------------------
+50-Episode Moving-Average Rewards: 0.5510203838348389
+100-Episode Moving-Average Rewards: 0.5555555820465088
+200-Episode Moving-Average Rewards: 0.4974874258041382
+500-Episode Moving-Average Rewards: 0.37074148654937744
+1000-Episode Moving-Average Rewards: 0.28928929567337036
+10000-Episode Moving-Average Rewards: 0.23185987770557404
+Average Rewards: 0.23166666666666666
+Total Rewards: 278.0
+-------------------------
+50-Episode Moving-Average Losses: 0.7755102040816326
+100-Episode Moving-Average Losses: 0.7777777777777778
+200-Episode Moving-Average Losses: 0.7487437185929648
+500-Episode Moving-Average Losses: 0.685370741482966
+1000-Episode Moving-Average Losses: 0.6446446446446447
+10000-Episode Moving-Average Losses: 0.6155129274395329
+Average Losses: 0.615
+Total Losses: 738
+=========================
+Episode: 1300
+Total Steps: 28789
+-------------------------
+50-Episode Moving-Average Rewards: 0.6326530575752258
+100-Episode Moving-Average Rewards: 0.5353535413742065
+200-Episode Moving-Average Rewards: 0.5477386713027954
+500-Episode Moving-Average Rewards: 0.4268537163734436
+1000-Episode Moving-Average Rewards: 0.3233233094215393
+10000-Episode Moving-Average Rewards: 0.25558122992515564
+Average Rewards: 0.2553846153846154
+Total Rewards: 332.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8163265306122449
+100-Episode Moving-Average Losses: 0.7676767676767676
+200-Episode Moving-Average Losses: 0.7738693467336684
+500-Episode Moving-Average Losses: 0.7134268537074149
+1000-Episode Moving-Average Losses: 0.6616616616616616
+10000-Episode Moving-Average Losses: 0.6274056966897613
+Average Losses: 0.6269230769230769
+Total Losses: 815
+=========================
+Episode: 1400
+Total Steps: 31211
+-------------------------
+50-Episode Moving-Average Rewards: 0.5510203838348389
+100-Episode Moving-Average Rewards: 0.5959596037864685
+200-Episode Moving-Average Rewards: 0.5678392052650452
+500-Episode Moving-Average Rewards: 0.5190380811691284
+1000-Episode Moving-Average Rewards: 0.3713713586330414
+10000-Episode Moving-Average Rewards: 0.28020015358924866
+Average Rewards: 0.28
+Total Rewards: 392.0
+-------------------------
+50-Episode Moving-Average Losses: 0.7755102040816326
+100-Episode Moving-Average Losses: 0.797979797979798
+200-Episode Moving-Average Losses: 0.7839195979899497
+500-Episode Moving-Average Losses: 0.7595190380761523
+1000-Episode Moving-Average Losses: 0.6856856856856857
+10000-Episode Moving-Average Losses: 0.6397426733380986
+Average Losses: 0.6392857142857142
+Total Losses: 895
+=========================
+Episode: 1500
+Total Steps: 33452
+-------------------------
+50-Episode Moving-Average Rewards: 0.3469387888908386
+100-Episode Moving-Average Rewards: 0.3737373650074005
+200-Episode Moving-Average Rewards: 0.4874371886253357
+500-Episode Moving-Average Rewards: 0.5030060410499573
+1000-Episode Moving-Average Rewards: 0.3953953981399536
+10000-Episode Moving-Average Rewards: 0.2868579030036926
+Average Rewards: 0.2866666666666667
+Total Rewards: 430.0
+-------------------------
+50-Episode Moving-Average Losses: 0.673469387755102
+100-Episode Moving-Average Losses: 0.6868686868686869
+200-Episode Moving-Average Losses: 0.7437185929648241
+500-Episode Moving-Average Losses: 0.751503006012024
+1000-Episode Moving-Average Losses: 0.6976976976976977
+10000-Episode Moving-Average Losses: 0.6430953969312875
+Average Losses: 0.6426666666666667
+Total Losses: 964
+=========================
+Episode: 1600
+Total Steps: 35749
+-------------------------
+50-Episode Moving-Average Rewards: 0.7142857313156128
+100-Episode Moving-Average Rewards: 0.5757575631141663
+200-Episode Moving-Average Rewards: 0.4773869216442108
+500-Episode Moving-Average Rewards: 0.531062126159668
+1000-Episode Moving-Average Rewards: 0.42942944169044495
+10000-Episode Moving-Average Rewards: 0.3051907420158386
+Average Rewards: 0.305
+Total Rewards: 488.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8571428571428571
+100-Episode Moving-Average Losses: 0.7878787878787878
+200-Episode Moving-Average Losses: 0.7386934673366834
+500-Episode Moving-Average Losses: 0.7655310621242485
+1000-Episode Moving-Average Losses: 0.7147147147147147
+10000-Episode Moving-Average Losses: 0.6522826766729206
+Average Losses: 0.651875
+Total Losses: 1043
+=========================
+Episode: 1700
+Total Steps: 38103
+-------------------------
+50-Episode Moving-Average Rewards: 0.26530611515045166
+100-Episode Moving-Average Rewards: 0.4343434274196625
+200-Episode Moving-Average Rewards: 0.5075376629829407
+500-Episode Moving-Average Rewards: 0.5070140361785889
+1000-Episode Moving-Average Rewards: 0.43943944573402405
+10000-Episode Moving-Average Rewards: 0.3131253719329834
+Average Rewards: 0.3129411764705882
+Total Rewards: 532.0
+-------------------------
+50-Episode Moving-Average Losses: 0.6326530612244898
+100-Episode Moving-Average Losses: 0.7171717171717171
+200-Episode Moving-Average Losses: 0.7537688442211056
+500-Episode Moving-Average Losses: 0.7535070140280561
+1000-Episode Moving-Average Losses: 0.7197197197197197
+10000-Episode Moving-Average Losses: 0.6562683931724543
+Average Losses: 0.6558823529411765
+Total Losses: 1115
+=========================
+Episode: 1800
+Total Steps: 40398
+-------------------------
+50-Episode Moving-Average Rewards: 0.6326530575752258
+100-Episode Moving-Average Rewards: 0.7777777910232544
+200-Episode Moving-Average Rewards: 0.6080402135848999
+500-Episode Moving-Average Rewards: 0.5551102161407471
+1000-Episode Moving-Average Rewards: 0.49149149656295776
+10000-Episode Moving-Average Rewards: 0.33907726407051086
+Average Rewards: 0.3388888888888889
+Total Rewards: 610.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8163265306122449
+100-Episode Moving-Average Losses: 0.8888888888888888
+200-Episode Moving-Average Losses: 0.8040201005025126
+500-Episode Moving-Average Losses: 0.7775551102204409
+1000-Episode Moving-Average Losses: 0.7457457457457457
+10000-Episode Moving-Average Losses: 0.669260700389105
+Average Losses: 0.6688888888888889
+Total Losses: 1204
+=========================
+Episode: 1900
+Total Steps: 42750
+-------------------------
+50-Episode Moving-Average Rewards: 0.795918345451355
+100-Episode Moving-Average Rewards: 0.6969696879386902
+200-Episode Moving-Average Rewards: 0.7386934757232666
+500-Episode Moving-Average Rewards: 0.5751503109931946
+1000-Episode Moving-Average Rewards: 0.5475475192070007
+10000-Episode Moving-Average Rewards: 0.35808318853378296
+Average Rewards: 0.35789473684210527
+Total Rewards: 680.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8979591836734694
+100-Episode Moving-Average Losses: 0.8484848484848485
+200-Episode Moving-Average Losses: 0.8693467336683417
+500-Episode Moving-Average Losses: 0.7875751503006012
+1000-Episode Moving-Average Losses: 0.7737737737737738
+10000-Episode Moving-Average Losses: 0.6787783043707214
+Average Losses: 0.6784210526315789
+Total Losses: 1289
+=========================
+Episode: 2000
+Total Steps: 45096
+-------------------------
+50-Episode Moving-Average Rewards: 0.7142857313156128
+100-Episode Moving-Average Rewards: 0.6565656661987305
+200-Episode Moving-Average Rewards: 0.6683416962623596
+500-Episode Moving-Average Rewards: 0.6272544860839844
+1000-Episode Moving-Average Rewards: 0.5655655860900879
+10000-Episode Moving-Average Rewards: 0.3721860945224762
+Average Rewards: 0.372
+Total Rewards: 744.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8571428571428571
+100-Episode Moving-Average Losses: 0.8282828282828283
+200-Episode Moving-Average Losses: 0.8341708542713567
+500-Episode Moving-Average Losses: 0.8136272545090181
+1000-Episode Moving-Average Losses: 0.7827827827827828
+10000-Episode Moving-Average Losses: 0.6858429214607303
+Average Losses: 0.6855
+Total Losses: 1371
+=========================
+Episode: 2100
+Total Steps: 47427
+-------------------------
+50-Episode Moving-Average Rewards: 0.7551020383834839
+100-Episode Moving-Average Rewards: 0.7777777910232544
+200-Episode Moving-Average Rewards: 0.7085427045822144
+500-Episode Moving-Average Rewards: 0.6633266806602478
+1000-Episode Moving-Average Rewards: 0.597597599029541
+10000-Episode Moving-Average Rewards: 0.39066222310066223
+Average Rewards: 0.3904761904761905
+Total Rewards: 820.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8775510204081632
+100-Episode Moving-Average Losses: 0.8888888888888888
+200-Episode Moving-Average Losses: 0.8542713567839196
+500-Episode Moving-Average Losses: 0.8316633266533067
+1000-Episode Moving-Average Losses: 0.7987987987987988
+10000-Episode Moving-Average Losses: 0.6950929013816103
+Average Losses: 0.6947619047619048
+Total Losses: 1459
+=========================
+Episode: 2200
+Total Steps: 49804
+-------------------------
+50-Episode Moving-Average Rewards: 0.7142857313156128
+100-Episode Moving-Average Rewards: 0.7373737096786499
+200-Episode Moving-Average Rewards: 0.7587939500808716
+500-Episode Moving-Average Rewards: 0.7234469056129456
+1000-Episode Moving-Average Rewards: 0.6156156063079834
+10000-Episode Moving-Average Rewards: 0.4065484404563904
+Average Rewards: 0.40636363636363637
+Total Rewards: 894.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8571428571428571
+100-Episode Moving-Average Losses: 0.8686868686868687
+200-Episode Moving-Average Losses: 0.8793969849246231
+500-Episode Moving-Average Losses: 0.8617234468937875
+1000-Episode Moving-Average Losses: 0.8078078078078078
+10000-Episode Moving-Average Losses: 0.7030468394724875
+Average Losses: 0.7027272727272728
+Total Losses: 1546
+=========================
+Episode: 2300
+Total Steps: 52120
+-------------------------
+50-Episode Moving-Average Rewards: 0.6734693646430969
+100-Episode Moving-Average Rewards: 0.6969696879386902
+200-Episode Moving-Average Rewards: 0.7185929417610168
+500-Episode Moving-Average Rewards: 0.7074148058891296
+1000-Episode Moving-Average Rewards: 0.63163161277771
+10000-Episode Moving-Average Rewards: 0.4193127453327179
+Average Rewards: 0.4191304347826087
+Total Rewards: 964.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8367346938775511
+100-Episode Moving-Average Losses: 0.8484848484848485
+200-Episode Moving-Average Losses: 0.8592964824120602
+500-Episode Moving-Average Losses: 0.8537074148296593
+1000-Episode Moving-Average Losses: 0.8158158158158159
+10000-Episode Moving-Average Losses: 0.7094388864723793
+Average Losses: 0.7091304347826087
+Total Losses: 1631
+=========================
+Episode: 2400
+Total Steps: 54511
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8181818127632141
+200-Episode Moving-Average Rewards: 0.7487437129020691
+500-Episode Moving-Average Rewards: 0.7314629554748535
+1000-Episode Moving-Average Rewards: 0.6516516804695129
+10000-Episode Moving-Average Rewards: 0.43518131971359253
+Average Rewards: 0.435
+Total Rewards: 1044.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9090909090909091
+200-Episode Moving-Average Losses: 0.8743718592964824
+500-Episode Moving-Average Losses: 0.8657314629258517
+1000-Episode Moving-Average Losses: 0.8258258258258259
+10000-Episode Moving-Average Losses: 0.7173822426010837
+Average Losses: 0.7170833333333333
+Total Losses: 1721
+=========================
+Episode: 2500
+Total Steps: 56940
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.7373737096786499
+200-Episode Moving-Average Rewards: 0.7788944840431213
+500-Episode Moving-Average Rewards: 0.7515029907226562
+1000-Episode Moving-Average Rewards: 0.6876876950263977
+10000-Episode Moving-Average Rewards: 0.4473789632320404
+Average Rewards: 0.4472
+Total Rewards: 1118.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.8686868686868687
+200-Episode Moving-Average Losses: 0.8894472361809045
+500-Episode Moving-Average Losses: 0.875751503006012
+1000-Episode Moving-Average Losses: 0.8438438438438438
+10000-Episode Moving-Average Losses: 0.7234893957583033
+Average Losses: 0.7232
+Total Losses: 1808
+=========================
+Episode: 2600
+Total Steps: 59357
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.8181818127632141
+200-Episode Moving-Average Rewards: 0.7788944840431213
+500-Episode Moving-Average Rewards: 0.7595190405845642
+1000-Episode Moving-Average Rewards: 0.7117117047309875
+10000-Episode Moving-Average Rewards: 0.46171605587005615
+Average Rewards: 0.46153846153846156
+Total Rewards: 1200.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9090909090909091
+200-Episode Moving-Average Losses: 0.8894472361809045
+500-Episode Moving-Average Losses: 0.8797595190380761
+1000-Episode Moving-Average Losses: 0.8558558558558559
+10000-Episode Moving-Average Losses: 0.7306656406310119
+Average Losses: 0.7303846153846154
+Total Losses: 1899
+=========================
+Episode: 2700
+Total Steps: 61833
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.8383838534355164
+200-Episode Moving-Average Rewards: 0.8291457295417786
+500-Episode Moving-Average Rewards: 0.7795591354370117
+1000-Episode Moving-Average Rewards: 0.7517517805099487
+10000-Episode Moving-Average Rewards: 0.475731760263443
+Average Rewards: 0.47555555555555556
+Total Rewards: 1284.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9191919191919192
+200-Episode Moving-Average Losses: 0.914572864321608
+500-Episode Moving-Average Losses: 0.8897795591182365
+1000-Episode Moving-Average Losses: 0.8758758758758759
+10000-Episode Moving-Average Losses: 0.7376806224527602
+Average Losses: 0.7374074074074074
+Total Losses: 1991
+=========================
+Episode: 2800
+Total Steps: 64212
+-------------------------
+50-Episode Moving-Average Rewards: 0.7142857313156128
+100-Episode Moving-Average Rewards: 0.7777777910232544
+200-Episode Moving-Average Rewards: 0.8090452551841736
+500-Episode Moving-Average Rewards: 0.7995991706848145
+1000-Episode Moving-Average Rewards: 0.7517517805099487
+10000-Episode Moving-Average Rewards: 0.4866023659706116
+Average Rewards: 0.48642857142857143
+Total Rewards: 1362.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8571428571428571
+100-Episode Moving-Average Losses: 0.8888888888888888
+200-Episode Moving-Average Losses: 0.9045226130653267
+500-Episode Moving-Average Losses: 0.8997995991983968
+1000-Episode Moving-Average Losses: 0.8758758758758759
+10000-Episode Moving-Average Losses: 0.7431225437656306
+Average Losses: 0.7428571428571429
+Total Losses: 2080
+=========================
+Episode: 2900
+Total Steps: 66641
+-------------------------
+50-Episode Moving-Average Rewards: 0.6734693646430969
+100-Episode Moving-Average Rewards: 0.6969696879386902
+200-Episode Moving-Average Rewards: 0.7386934757232666
+500-Episode Moving-Average Rewards: 0.7755510807037354
+1000-Episode Moving-Average Rewards: 0.7537537813186646
+10000-Episode Moving-Average Rewards: 0.49396345019340515
+Average Rewards: 0.49379310344827587
+Total Rewards: 1432.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8367346938775511
+100-Episode Moving-Average Losses: 0.8484848484848485
+200-Episode Moving-Average Losses: 0.8693467336683417
+500-Episode Moving-Average Losses: 0.8877755511022044
+1000-Episode Moving-Average Losses: 0.8768768768768769
+10000-Episode Moving-Average Losses: 0.7468092445670921
+Average Losses: 0.746551724137931
+Total Losses: 2165
+=========================
+Episode: 3000
+Total Steps: 68953
+-------------------------
+50-Episode Moving-Average Rewards: 0.795918345451355
+100-Episode Moving-Average Rewards: 0.8383838534355164
+200-Episode Moving-Average Rewards: 0.7688442468643188
+500-Episode Moving-Average Rewards: 0.7955911755561829
+1000-Episode Moving-Average Rewards: 0.7737737894058228
+10000-Episode Moving-Average Rewards: 0.5055018067359924
+Average Rewards: 0.5053333333333333
+Total Rewards: 1516.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8979591836734694
+100-Episode Moving-Average Losses: 0.9191919191919192
+200-Episode Moving-Average Losses: 0.8844221105527639
+500-Episode Moving-Average Losses: 0.8977955911823647
+1000-Episode Moving-Average Losses: 0.8868868868868869
+10000-Episode Moving-Average Losses: 0.7525841947315772
+Average Losses: 0.7523333333333333
+Total Losses: 2257
+=========================
+Episode: 3100
+Total Steps: 71279
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.8156312704086304
+1000-Episode Moving-Average Rewards: 0.7877877950668335
+10000-Episode Moving-Average Rewards: 0.5188770294189453
+Average Rewards: 0.5187096774193548
+Total Rewards: 1608.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9078156312625251
+1000-Episode Moving-Average Losses: 0.8938938938938938
+10000-Episode Moving-Average Losses: 0.7592771861890932
+Average Losses: 0.7590322580645161
+Total Losses: 2353
+=========================
+Episode: 3200
+Total Steps: 73685
+-------------------------
+50-Episode Moving-Average Rewards: 0.795918345451355
+100-Episode Moving-Average Rewards: 0.8383838534355164
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.8156312704086304
+1000-Episode Moving-Average Rewards: 0.7977977991104126
+10000-Episode Moving-Average Rewards: 0.528915286064148
+Average Rewards: 0.52875
+Total Rewards: 1692.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8979591836734694
+100-Episode Moving-Average Losses: 0.9191919191919192
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9078156312625251
+1000-Episode Moving-Average Losses: 0.8988988988988988
+10000-Episode Moving-Average Losses: 0.7643013441700531
+Average Losses: 0.7640625
+Total Losses: 2445
+=========================
+Episode: 3300
+Total Steps: 76121
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.8436873555183411
+1000-Episode Moving-Average Rewards: 0.8218218088150024
+10000-Episode Moving-Average Rewards: 0.5407699346542358
+Average Rewards: 0.5406060606060606
+Total Rewards: 1784.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9218436873747495
+1000-Episode Moving-Average Losses: 0.9109109109109109
+10000-Episode Moving-Average Losses: 0.7702334040618369
+Average Losses: 0.77
+Total Losses: 2541
+=========================
+Episode: 3400
+Total Steps: 78411
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.8994975090026855
+500-Episode Moving-Average Rewards: 0.8797594904899597
+1000-Episode Moving-Average Rewards: 0.8278278112411499
+10000-Episode Moving-Average Rewards: 0.550750195980072
+Average Rewards: 0.5505882352941176
+Total Rewards: 1872.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9398797595190381
+1000-Episode Moving-Average Losses: 0.913913913913914
+10000-Episode Moving-Average Losses: 0.775228008237717
+Average Losses: 0.775
+Total Losses: 2635
+=========================
+Episode: 3500
+Total Steps: 80852
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.8888888955116272
+200-Episode Moving-Average Rewards: 0.8844221234321594
+500-Episode Moving-Average Rewards: 0.8897795677185059
+1000-Episode Moving-Average Rewards: 0.8428428173065186
+10000-Episode Moving-Average Rewards: 0.5604458451271057
+Average Rewards: 0.5602857142857143
+Total Rewards: 1961.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9438877755511023
+1000-Episode Moving-Average Losses: 0.9209209209209209
+10000-Episode Moving-Average Losses: 0.7799371248928265
+Average Losses: 0.7797142857142857
+Total Losses: 2729
+=========================
+Episode: 3600
+Total Steps: 83279
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.8181818127632141
+200-Episode Moving-Average Rewards: 0.8542713522911072
+500-Episode Moving-Average Rewards: 0.8697394728660583
+1000-Episode Moving-Average Rewards: 0.8428428173065186
+10000-Episode Moving-Average Rewards: 0.5676577091217041
+Average Rewards: 0.5675
+Total Rewards: 2043.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9090909090909091
+200-Episode Moving-Average Losses: 0.9246231155778895
+500-Episode Moving-Average Losses: 0.9338677354709419
+1000-Episode Moving-Average Losses: 0.9209209209209209
+10000-Episode Moving-Average Losses: 0.783550986385107
+Average Losses: 0.7833333333333333
+Total Losses: 2820
+=========================
+Episode: 3700
+Total Steps: 85725
+-------------------------
+50-Episode Moving-Average Rewards: 0.9795918464660645
+100-Episode Moving-Average Rewards: 0.9494949579238892
+200-Episode Moving-Average Rewards: 0.8844221234321594
+500-Episode Moving-Average Rewards: 0.891783595085144
+1000-Episode Moving-Average Rewards: 0.8538538813591003
+10000-Episode Moving-Average Rewards: 0.5779940485954285
+Average Rewards: 0.5778378378378378
+Total Rewards: 2138.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9438877755511023
+1000-Episode Moving-Average Losses: 0.9259259259259259
+10000-Episode Moving-Average Losses: 0.7885915112192484
+Average Losses: 0.7883783783783784
+Total Losses: 2917
+=========================
+Episode: 3800
+Total Steps: 88113
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.9346733689308167
+500-Episode Moving-Average Rewards: 0.891783595085144
+1000-Episode Moving-Average Rewards: 0.8678678870201111
+10000-Episode Moving-Average Rewards: 0.5869965553283691
+Average Rewards: 0.5868421052631579
+Total Rewards: 2230.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.964824120603015
+500-Episode Moving-Average Losses: 0.9438877755511023
+1000-Episode Moving-Average Losses: 0.9329329329329329
+10000-Episode Moving-Average Losses: 0.7931034482758621
+Average Losses: 0.7928947368421052
+Total Losses: 3013
+=========================
+Episode: 3900
+Total Steps: 90559
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.8997995853424072
+1000-Episode Moving-Average Rewards: 0.8898898959159851
+10000-Episode Moving-Average Rewards: 0.5955373048782349
+Average Rewards: 0.5953846153846154
+Total Rewards: 2322.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9478957915831663
+1000-Episode Moving-Average Losses: 0.943943943943944
+10000-Episode Moving-Average Losses: 0.7973839446011798
+Average Losses: 0.7971794871794872
+Total Losses: 3109
+=========================
+Episode: 4000
+Total Steps: 92988
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.909547746181488
+500-Episode Moving-Average Rewards: 0.9018036127090454
+1000-Episode Moving-Average Rewards: 0.8958958983421326
+10000-Episode Moving-Average Rewards: 0.6031507849693298
+Average Rewards: 0.603
+Total Rewards: 2412.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9547738693467337
+500-Episode Moving-Average Losses: 0.9498997995991983
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8012003000750187
+Average Losses: 0.801
+Total Losses: 3204
+=========================
+Episode: 4100
+Total Steps: 95384
+-------------------------
+50-Episode Moving-Average Rewards: 1.0
+100-Episode Moving-Average Rewards: 0.9595959782600403
+200-Episode Moving-Average Rewards: 0.929648220539093
+500-Episode Moving-Average Rewards: 0.9298596978187561
+1000-Episode Moving-Average Rewards: 0.8998998999595642
+10000-Episode Moving-Average Rewards: 0.6118565797805786
+Average Rewards: 0.6117073170731707
+Total Rewards: 2508.0
+-------------------------
+50-Episode Moving-Average Losses: 1.0
+100-Episode Moving-Average Losses: 0.9797979797979798
+200-Episode Moving-Average Losses: 0.964824120603015
+500-Episode Moving-Average Losses: 0.9639278557114228
+1000-Episode Moving-Average Losses: 0.948948948948949
+10000-Episode Moving-Average Losses: 0.8055623322761649
+Average Losses: 0.8053658536585366
+Total Losses: 3302
+=========================
+Episode: 4200
+Total Steps: 97824
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.9158316850662231
+1000-Episode Moving-Average Rewards: 0.9039039015769958
+10000-Episode Moving-Average Rewards: 0.6182424426078796
+Average Rewards: 0.6180952380952381
+Total Rewards: 2596.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9579158316633266
+1000-Episode Moving-Average Losses: 0.950950950950951
+10000-Episode Moving-Average Losses: 0.8087639914265301
+Average Losses: 0.8085714285714286
+Total Losses: 3396
+=========================
+Episode: 4300
+Total Steps: 100362
+-------------------------
+50-Episode Moving-Average Rewards: 1.0
+100-Episode Moving-Average Rewards: 0.9595959782600403
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.9238476753234863
+1000-Episode Moving-Average Rewards: 0.9079079031944275
+10000-Episode Moving-Average Rewards: 0.6261921525001526
+Average Rewards: 0.626046511627907
+Total Rewards: 2692.0
+-------------------------
+50-Episode Moving-Average Losses: 1.0
+100-Episode Moving-Average Losses: 0.9797979797979798
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9619238476953907
+1000-Episode Moving-Average Losses: 0.9529529529529529
+10000-Episode Moving-Average Losses: 0.8127471505001163
+Average Losses: 0.8125581395348838
+Total Losses: 3494
+=========================
+Episode: 4400
+Total Steps: 102819
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.9497487545013428
+500-Episode Moving-Average Rewards: 0.9278557300567627
+1000-Episode Moving-Average Rewards: 0.913913905620575
+10000-Episode Moving-Average Rewards: 0.6333257555961609
+Average Rewards: 0.6331818181818182
+Total Rewards: 2786.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.9748743718592965
+500-Episode Moving-Average Losses: 0.9639278557114228
+1000-Episode Moving-Average Losses: 0.955955955955956
+10000-Episode Moving-Average Losses: 0.8163218913389406
+Average Losses: 0.8161363636363637
+Total Losses: 3591
+=========================
+Episode: 4500
+Total Steps: 105278
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.9396985173225403
+500-Episode Moving-Average Rewards: 0.9358717203140259
+1000-Episode Moving-Average Rewards: 0.9189189076423645
+10000-Episode Moving-Average Rewards: 0.6401422619819641
+Average Rewards: 0.64
+Total Rewards: 2880.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.9698492462311558
+500-Episode Moving-Average Losses: 0.9679358717434869
+1000-Episode Moving-Average Losses: 0.958958958958959
+10000-Episode Moving-Average Losses: 0.8197377194932207
+Average Losses: 0.8195555555555556
+Total Losses: 3688
+=========================
+Episode: 4600
+Total Steps: 107701
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.8585858345031738
+200-Episode Moving-Average Rewards: 0.8994975090026855
+500-Episode Moving-Average Rewards: 0.9158316850662231
+1000-Episode Moving-Average Rewards: 0.9229229092597961
+10000-Episode Moving-Average Rewards: 0.6449227929115295
+Average Rewards: 0.6447826086956522
+Total Rewards: 2966.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9579158316633266
+1000-Episode Moving-Average Losses: 0.960960960960961
+10000-Episode Moving-Average Losses: 0.822135246792781
+Average Losses: 0.8219565217391305
+Total Losses: 3781
+=========================
+Episode: 4700
+Total Steps: 110197
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.8894472122192383
+500-Episode Moving-Average Rewards: 0.9238476753234863
+1000-Episode Moving-Average Rewards: 0.9199199080467224
+10000-Episode Moving-Average Rewards: 0.650776743888855
+Average Rewards: 0.6506382978723404
+Total Rewards: 3058.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9447236180904522
+500-Episode Moving-Average Losses: 0.9619238476953907
+1000-Episode Moving-Average Losses: 0.95995995995996
+10000-Episode Moving-Average Losses: 0.8250691636518408
+Average Losses: 0.8248936170212766
+Total Losses: 3877
+=========================
+Episode: 4800
+Total Steps: 112549
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.9595959782600403
+200-Episode Moving-Average Rewards: 0.9396985173225403
+500-Episode Moving-Average Rewards: 0.9238476753234863
+1000-Episode Moving-Average Rewards: 0.923923909664154
+10000-Episode Moving-Average Rewards: 0.6572202444076538
+Average Rewards: 0.6570833333333334
+Total Rewards: 3154.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9797979797979798
+200-Episode Moving-Average Losses: 0.9698492462311558
+500-Episode Moving-Average Losses: 0.9619238476953907
+1000-Episode Moving-Average Losses: 0.9619619619619619
+10000-Episode Moving-Average Losses: 0.8282975619920817
+Average Losses: 0.828125
+Total Losses: 3975
+=========================
+Episode: 4900
+Total Steps: 114853
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.9396985173225403
+500-Episode Moving-Average Rewards: 0.9198396801948547
+1000-Episode Moving-Average Rewards: 0.923923909664154
+10000-Episode Moving-Average Rewards: 0.6625841856002808
+Average Rewards: 0.6624489795918367
+Total Rewards: 3246.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9698492462311558
+500-Episode Moving-Average Losses: 0.9599198396793587
+1000-Episode Moving-Average Losses: 0.9619619619619619
+10000-Episode Moving-Average Losses: 0.8309859154929577
+Average Losses: 0.8308163265306122
+Total Losses: 4071
+=========================
+Episode: 5000
+Total Steps: 117432
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8888888955116272
+200-Episode Moving-Average Rewards: 0.9045225977897644
+500-Episode Moving-Average Rewards: 0.9098196625709534
+1000-Episode Moving-Average Rewards: 0.9229229092597961
+10000-Episode Moving-Average Rewards: 0.6671334505081177
+Average Rewards: 0.667
+Total Rewards: 3335.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9539078156312625
+1000-Episode Moving-Average Losses: 0.960960960960961
+10000-Episode Moving-Average Losses: 0.8331666333266653
+Average Losses: 0.833
+Total Losses: 4165
+=========================
+Episode: 5100
+Total Steps: 119944
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.9045225977897644
+500-Episode Moving-Average Rewards: 0.9218437075614929
+1000-Episode Moving-Average Rewards: 0.9189189076423645
+10000-Episode Moving-Average Rewards: 0.6720925569534302
+Average Rewards: 0.6719607843137255
+Total Rewards: 3427.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9599198396793587
+1000-Episode Moving-Average Losses: 0.958958958958959
+10000-Episode Moving-Average Losses: 0.835654049813689
+Average Losses: 0.8354901960784313
+Total Losses: 4261
+=========================
+Episode: 5200
+Total Steps: 122528
+-------------------------
+50-Episode Moving-Average Rewards: 0.8571428656578064
+100-Episode Moving-Average Rewards: 0.868686854839325
+200-Episode Moving-Average Rewards: 0.8944723606109619
+500-Episode Moving-Average Rewards: 0.9118236303329468
+1000-Episode Moving-Average Rewards: 0.9179179072380066
+10000-Episode Moving-Average Rewards: 0.6758992075920105
+Average Rewards: 0.6757692307692308
+Total Rewards: 3514.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.9447236180904522
+500-Episode Moving-Average Losses: 0.9539078156312625
+1000-Episode Moving-Average Losses: 0.9579579579579579
+10000-Episode Moving-Average Losses: 0.8374687439892287
+Average Losses: 0.8373076923076923
+Total Losses: 4354
+=========================
+Episode: 5300
+Total Steps: 125073
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.8844221234321594
+500-Episode Moving-Average Rewards: 0.8997995853424072
+1000-Episode Moving-Average Rewards: 0.9119119048118591
+10000-Episode Moving-Average Rewards: 0.6801283359527588
+Average Rewards: 0.68
+Total Rewards: 3604.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9478957915831663
+1000-Episode Moving-Average Losses: 0.954954954954955
+10000-Episode Moving-Average Losses: 0.8395923759199849
+Average Losses: 0.8394339622641509
+Total Losses: 4449
+=========================
+Episode: 5400
+Total Steps: 127692
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.9038076400756836
+1000-Episode Moving-Average Rewards: 0.9119119048118591
+10000-Episode Moving-Average Rewards: 0.6849416494369507
+Average Rewards: 0.6848148148148148
+Total Rewards: 3698.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9498997995991983
+1000-Episode Moving-Average Losses: 0.954954954954955
+10000-Episode Moving-Average Losses: 0.8420077792183738
+Average Losses: 0.8418518518518519
+Total Losses: 4546
+=========================
+Episode: 5500
+Total Steps: 130364
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.7979797720909119
+200-Episode Moving-Average Rewards: 0.8693467378616333
+500-Episode Moving-Average Rewards: 0.8857715725898743
+1000-Episode Moving-Average Rewards: 0.8978978991508484
+10000-Episode Moving-Average Rewards: 0.687034010887146
+Average Rewards: 0.6869090909090909
+Total Rewards: 3778.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.898989898989899
+200-Episode Moving-Average Losses: 0.9346733668341709
+500-Episode Moving-Average Losses: 0.9418837675350702
+1000-Episode Moving-Average Losses: 0.9479479479479479
+10000-Episode Moving-Average Losses: 0.8430623749772685
+Average Losses: 0.8429090909090909
+Total Losses: 4636
+=========================
+Episode: 5600
+Total Steps: 133020
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.839195966720581
+500-Episode Moving-Average Rewards: 0.8777555227279663
+1000-Episode Moving-Average Rewards: 0.8998998999595642
+10000-Episode Moving-Average Rewards: 0.6904804706573486
+Average Rewards: 0.6903571428571429
+Total Rewards: 3866.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.9195979899497487
+500-Episode Moving-Average Losses: 0.9378757515030061
+1000-Episode Moving-Average Losses: 0.948948948948949
+10000-Episode Moving-Average Losses: 0.8447937131630648
+Average Losses: 0.8446428571428571
+Total Losses: 4730
+=========================
+Episode: 5700
+Total Steps: 135684
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.8797594904899597
+1000-Episode Moving-Average Rewards: 0.8958958983421326
+10000-Episode Moving-Average Rewards: 0.6938059329986572
+Average Rewards: 0.6936842105263158
+Total Rewards: 3954.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9398797595190381
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8464642919810493
+Average Losses: 0.8463157894736842
+Total Losses: 4824
+=========================
+Episode: 5800
+Total Steps: 138207
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.909547746181488
+500-Episode Moving-Average Rewards: 0.8877755403518677
+1000-Episode Moving-Average Rewards: 0.8938938975334167
+10000-Episode Moving-Average Rewards: 0.698051393032074
+Average Rewards: 0.6979310344827586
+Total Rewards: 4048.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.9547738693467337
+500-Episode Moving-Average Losses: 0.9438877755511023
+1000-Episode Moving-Average Losses: 0.9459459459459459
+10000-Episode Moving-Average Losses: 0.848594585273323
+Average Losses: 0.848448275862069
+Total Losses: 4921
+=========================
+Episode: 5900
+Total Steps: 140930
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.8797594904899597
+1000-Episode Moving-Average Rewards: 0.8918918967247009
+10000-Episode Moving-Average Rewards: 0.7014748454093933
+Average Rewards: 0.7013559322033899
+Total Rewards: 4138.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9398797595190381
+1000-Episode Moving-Average Losses: 0.944944944944945
+10000-Episode Moving-Average Losses: 0.850313612476691
+Average Losses: 0.8501694915254238
+Total Losses: 5016
+=========================
+Episode: 6000
+Total Steps: 143563
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.8585858345031738
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.891783595085144
+1000-Episode Moving-Average Rewards: 0.8888888955116272
+10000-Episode Moving-Average Rewards: 0.7041173577308655
+Average Rewards: 0.704
+Total Rewards: 4224.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9458917835671342
+1000-Episode Moving-Average Losses: 0.943943943943944
+10000-Episode Moving-Average Losses: 0.8516419403233872
+Average Losses: 0.8515
+Total Losses: 5109
+=========================
+Episode: 6100
+Total Steps: 146075
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.8894472122192383
+500-Episode Moving-Average Rewards: 0.8997995853424072
+1000-Episode Moving-Average Rewards: 0.8888888955116272
+10000-Episode Moving-Average Rewards: 0.707656979560852
+Average Rewards: 0.7075409836065574
+Total Rewards: 4316.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9447236180904522
+500-Episode Moving-Average Losses: 0.9498997995991983
+1000-Episode Moving-Average Losses: 0.943943943943944
+10000-Episode Moving-Average Losses: 0.853418593212002
+Average Losses: 0.8532786885245902
+Total Losses: 5205
+=========================
+Episode: 6200
+Total Steps: 148757
+-------------------------
+50-Episode Moving-Average Rewards: 1.0
+100-Episode Moving-Average Rewards: 0.9595959782600403
+200-Episode Moving-Average Rewards: 0.9396985173225403
+500-Episode Moving-Average Rewards: 0.9158316850662231
+1000-Episode Moving-Average Rewards: 0.8978978991508484
+10000-Episode Moving-Average Rewards: 0.7117276787757874
+Average Rewards: 0.7116129032258065
+Total Rewards: 4412.0
+-------------------------
+50-Episode Moving-Average Losses: 1.0
+100-Episode Moving-Average Losses: 0.9797979797979798
+200-Episode Moving-Average Losses: 0.9698492462311558
+500-Episode Moving-Average Losses: 0.9579158316633266
+1000-Episode Moving-Average Losses: 0.948948948948949
+10000-Episode Moving-Average Losses: 0.855460558154541
+Average Losses: 0.8553225806451613
+Total Losses: 5303
+=========================
+Episode: 6300
+Total Steps: 151333
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.9038076400756836
+1000-Episode Moving-Average Rewards: 0.8958958983421326
+10000-Episode Moving-Average Rewards: 0.7143990993499756
+Average Rewards: 0.7142857142857143
+Total Rewards: 4500.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9519038076152304
+1000-Episode Moving-Average Losses: 0.9479479479479479
+10000-Episode Moving-Average Losses: 0.8568026670900143
+Average Losses: 0.8566666666666667
+Total Losses: 5397
+=========================
+Episode: 6400
+Total Steps: 153895
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.8997995853424072
+1000-Episode Moving-Average Rewards: 0.8898898959159851
+10000-Episode Moving-Average Rewards: 0.7169870138168335
+Average Rewards: 0.716875
+Total Rewards: 4588.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9498997995991983
+1000-Episode Moving-Average Losses: 0.944944944944945
+10000-Episode Moving-Average Losses: 0.8581028285669636
+Average Losses: 0.85796875
+Total Losses: 5491
+=========================
+Episode: 6500
+Total Steps: 156540
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.8894472122192383
+500-Episode Moving-Average Rewards: 0.9078156352043152
+1000-Episode Moving-Average Rewards: 0.8998998999595642
+10000-Episode Moving-Average Rewards: 0.7198030352592468
+Average Rewards: 0.7196923076923077
+Total Rewards: 4678.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9447236180904522
+500-Episode Moving-Average Losses: 0.9539078156312625
+1000-Episode Moving-Average Losses: 0.94994994994995
+10000-Episode Moving-Average Losses: 0.8595168487459609
+Average Losses: 0.8593846153846154
+Total Losses: 5586
+=========================
+Episode: 6600
+Total Steps: 159204
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.8894472122192383
+500-Episode Moving-Average Rewards: 0.8997995853424072
+1000-Episode Moving-Average Rewards: 0.8998998999595642
+10000-Episode Moving-Average Rewards: 0.7222306132316589
+Average Rewards: 0.7221212121212122
+Total Rewards: 4766.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.9447236180904522
+500-Episode Moving-Average Losses: 0.9498997995991983
+1000-Episode Moving-Average Losses: 0.94994994994995
+10000-Episode Moving-Average Losses: 0.8607364752235187
+Average Losses: 0.8606060606060606
+Total Losses: 5680
+=========================
+Episode: 6700
+Total Steps: 161915
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.8585858345031738
+200-Episode Moving-Average Rewards: 0.8693467378616333
+500-Episode Moving-Average Rewards: 0.8797594904899597
+1000-Episode Moving-Average Rewards: 0.8978978991508484
+10000-Episode Moving-Average Rewards: 0.724287211894989
+Average Rewards: 0.7241791044776119
+Total Rewards: 4852.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.9346733668341709
+500-Episode Moving-Average Losses: 0.9398797595190381
+1000-Episode Moving-Average Losses: 0.948948948948949
+10000-Episode Moving-Average Losses: 0.8617704134945514
+Average Losses: 0.8616417910447761
+Total Losses: 5773
+=========================
+Episode: 6800
+Total Steps: 164516
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.8994975090026855
+500-Episode Moving-Average Rewards: 0.891783595085144
+1000-Episode Moving-Average Rewards: 0.8978978991508484
+10000-Episode Moving-Average Rewards: 0.7274599075317383
+Average Rewards: 0.7273529411764705
+Total Rewards: 4946.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9458917835671342
+1000-Episode Moving-Average Losses: 0.948948948948949
+10000-Episode Moving-Average Losses: 0.8633622591557581
+Average Losses: 0.8632352941176471
+Total Losses: 5870
+=========================
+Episode: 6900
+Total Steps: 167264
+-------------------------
+50-Episode Moving-Average Rewards: 1.0
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.929648220539093
+500-Episode Moving-Average Rewards: 0.8997995853424072
+1000-Episode Moving-Average Rewards: 0.8998998999595642
+10000-Episode Moving-Average Rewards: 0.7302507758140564
+Average Rewards: 0.7301449275362318
+Total Rewards: 5038.0
+-------------------------
+50-Episode Moving-Average Losses: 1.0
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.964824120603015
+500-Episode Moving-Average Losses: 0.9498997995991983
+1000-Episode Moving-Average Losses: 0.94994994994995
+10000-Episode Moving-Average Losses: 0.8647630091317582
+Average Losses: 0.8646376811594203
+Total Losses: 5966
+=========================
+Episode: 7000
+Total Steps: 169992
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.7979797720909119
+200-Episode Moving-Average Rewards: 0.8592965006828308
+500-Episode Moving-Average Rewards: 0.8797594904899597
+1000-Episode Moving-Average Rewards: 0.8938938975334167
+10000-Episode Moving-Average Rewards: 0.7312473058700562
+Average Rewards: 0.7311428571428571
+Total Rewards: 5118.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.898989898989899
+200-Episode Moving-Average Losses: 0.9296482412060302
+500-Episode Moving-Average Losses: 0.9398797595190381
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8652664666380911
+Average Losses: 0.8651428571428571
+Total Losses: 6056
+=========================
+Episode: 7100
+Total Steps: 172649
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.8585858345031738
+200-Episode Moving-Average Rewards: 0.8291457295417786
+500-Episode Moving-Average Rewards: 0.8757514953613281
+1000-Episode Moving-Average Rewards: 0.8878878951072693
+10000-Episode Moving-Average Rewards: 0.7330610156059265
+Average Rewards: 0.7329577464788732
+Total Rewards: 5204.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.914572864321608
+500-Episode Moving-Average Losses: 0.9378757515030061
+1000-Episode Moving-Average Losses: 0.943943943943944
+10000-Episode Moving-Average Losses: 0.8661783349767573
+Average Losses: 0.8660563380281691
+Total Losses: 6149
+=========================
+Episode: 7200
+Total Steps: 175321
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.8994975090026855
+500-Episode Moving-Average Rewards: 0.891783595085144
+1000-Episode Moving-Average Rewards: 0.8858858942985535
+10000-Episode Moving-Average Rewards: 0.7359355688095093
+Average Rewards: 0.7358333333333333
+Total Rewards: 5298.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9447236180904522
+500-Episode Moving-Average Losses: 0.9438877755511023
+1000-Episode Moving-Average Losses: 0.9419419419419419
+10000-Episode Moving-Average Losses: 0.8674815946659258
+Average Losses: 0.8673611111111111
+Total Losses: 6245
+=========================
+Episode: 7300
+Total Steps: 177999
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.909547746181488
+500-Episode Moving-Average Rewards: 0.8797594904899597
+1000-Episode Moving-Average Rewards: 0.8858858942985535
+10000-Episode Moving-Average Rewards: 0.7379093170166016
+Average Rewards: 0.7378082191780821
+Total Rewards: 5386.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9378757515030061
+1000-Episode Moving-Average Losses: 0.9419419419419419
+10000-Episode Moving-Average Losses: 0.8684751335799424
+Average Losses: 0.8683561643835617
+Total Losses: 6339
+=========================
+Episode: 7400
+Total Steps: 180558
+-------------------------
+50-Episode Moving-Average Rewards: 1.0
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.8894472122192383
+500-Episode Moving-Average Rewards: 0.8757514953613281
+1000-Episode Moving-Average Rewards: 0.8878878951072693
+10000-Episode Moving-Average Rewards: 0.7401000261306763
+Average Rewards: 0.74
+Total Rewards: 5476.0
+-------------------------
+50-Episode Moving-Average Losses: 1.0
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9447236180904522
+500-Episode Moving-Average Losses: 0.935871743486974
+1000-Episode Moving-Average Losses: 0.9429429429429429
+10000-Episode Moving-Average Losses: 0.869576969860792
+Average Losses: 0.8694594594594595
+Total Losses: 6434
+=========================
+Episode: 7500
+Total Steps: 183114
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.868686854839325
+200-Episode Moving-Average Rewards: 0.8844221234321594
+500-Episode Moving-Average Rewards: 0.8897795677185059
+1000-Episode Moving-Average Rewards: 0.8848848938941956
+10000-Episode Moving-Average Rewards: 0.7418322563171387
+Average Rewards: 0.7417333333333334
+Total Rewards: 5563.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9418837675350702
+1000-Episode Moving-Average Losses: 0.9409409409409409
+10000-Episode Moving-Average Losses: 0.8703827176956928
+Average Losses: 0.8702666666666666
+Total Losses: 6527
+=========================
+Episode: 7600
+Total Steps: 185740
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.8787878751754761
+200-Episode Moving-Average Rewards: 0.8743718862533569
+500-Episode Moving-Average Rewards: 0.8937875628471375
+1000-Episode Moving-Average Rewards: 0.8848848938941956
+10000-Episode Moving-Average Rewards: 0.743650496006012
+Average Rewards: 0.7435526315789474
+Total Rewards: 5651.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9393939393939394
+200-Episode Moving-Average Losses: 0.9346733668341709
+500-Episode Moving-Average Losses: 0.9438877755511023
+1000-Episode Moving-Average Losses: 0.9409409409409409
+10000-Episode Moving-Average Losses: 0.8712988551125148
+Average Losses: 0.8711842105263158
+Total Losses: 6621
+=========================
+Episode: 7700
+Total Steps: 188364
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.9494949579238892
+200-Episode Moving-Average Rewards: 0.9145728349685669
+500-Episode Moving-Average Rewards: 0.8957915902137756
+1000-Episode Moving-Average Rewards: 0.8938938975334167
+10000-Episode Moving-Average Rewards: 0.7463306784629822
+Average Rewards: 0.7462337662337662
+Total Rewards: 5746.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.9547738693467337
+500-Episode Moving-Average Losses: 0.9458917835671342
+1000-Episode Moving-Average Losses: 0.944944944944945
+10000-Episode Moving-Average Losses: 0.8725808546564489
+Average Losses: 0.8724675324675325
+Total Losses: 6718
+=========================
+Episode: 7800
+Total Steps: 191032
+-------------------------
+50-Episode Moving-Average Rewards: 0.8163265585899353
+100-Episode Moving-Average Rewards: 0.868686854839325
+200-Episode Moving-Average Rewards: 0.909547746181488
+500-Episode Moving-Average Rewards: 0.8937875628471375
+1000-Episode Moving-Average Rewards: 0.8868868947029114
+10000-Episode Moving-Average Rewards: 0.7479164004325867
+Average Rewards: 0.7478205128205129
+Total Rewards: 5833.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8979591836734694
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9438877755511023
+1000-Episode Moving-Average Losses: 0.9409409409409409
+10000-Episode Moving-Average Losses: 0.8733170919348634
+Average Losses: 0.8732051282051282
+Total Losses: 6811
+=========================
+Episode: 7900
+Total Steps: 193545
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.9045225977897644
+500-Episode Moving-Average Rewards: 0.9018036127090454
+1000-Episode Moving-Average Rewards: 0.8888888955116272
+10000-Episode Moving-Average Rewards: 0.7503481507301331
+Average Rewards: 0.750253164556962
+Total Rewards: 5927.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9478957915831663
+1000-Episode Moving-Average Losses: 0.9419419419419419
+10000-Episode Moving-Average Losses: 0.8745410811495126
+Average Losses: 0.8744303797468355
+Total Losses: 6908
+=========================
+Episode: 8000
+Total Steps: 196216
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.9078156352043152
+1000-Episode Moving-Average Rewards: 0.8988988995552063
+10000-Episode Moving-Average Rewards: 0.752219021320343
+Average Rewards: 0.752125
+Total Rewards: 6017.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9519038076152304
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8754844355544443
+Average Losses: 0.875375
+Total Losses: 7003
+=========================
+Episode: 8100
+Total Steps: 198852
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.8383838534355164
+200-Episode Moving-Average Rewards: 0.8693467378616333
+500-Episode Moving-Average Rewards: 0.8997995853424072
+1000-Episode Moving-Average Rewards: 0.8968968987464905
+10000-Episode Moving-Average Rewards: 0.7533028721809387
+Average Rewards: 0.7532098765432099
+Total Rewards: 6101.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9191919191919192
+200-Episode Moving-Average Losses: 0.9346733668341709
+500-Episode Moving-Average Losses: 0.9478957915831663
+1000-Episode Moving-Average Losses: 0.9459459459459459
+10000-Episode Moving-Average Losses: 0.8760340782812693
+Average Losses: 0.8759259259259259
+Total Losses: 7095
+=========================
+Episode: 8200
+Total Steps: 201504
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.8937875628471375
+1000-Episode Moving-Average Rewards: 0.8948948979377747
+10000-Episode Moving-Average Rewards: 0.7553360462188721
+Average Rewards: 0.7552439024390244
+Total Rewards: 6193.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9458917835671342
+1000-Episode Moving-Average Losses: 0.9459459459459459
+10000-Episode Moving-Average Losses: 0.8770581778265643
+Average Losses: 0.8769512195121951
+Total Losses: 7191
+=========================
+Episode: 8300
+Total Steps: 204217
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.909547746181488
+500-Episode Moving-Average Rewards: 0.8997995853424072
+1000-Episode Moving-Average Rewards: 0.8968968987464905
+10000-Episode Moving-Average Rewards: 0.7570791840553284
+Average Rewards: 0.7569879518072289
+Total Rewards: 6283.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9547738693467337
+500-Episode Moving-Average Losses: 0.9498997995991983
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8779371008555248
+Average Losses: 0.8778313253012048
+Total Losses: 7286
+=========================
+Episode: 8400
+Total Steps: 207004
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.8994975090026855
+500-Episode Moving-Average Rewards: 0.891783595085144
+1000-Episode Moving-Average Rewards: 0.8968968987464905
+10000-Episode Moving-Average Rewards: 0.7587807774543762
+Average Rewards: 0.7586904761904761
+Total Rewards: 6373.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9458917835671342
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8787950946541255
+Average Losses: 0.8786904761904762
+Total Losses: 7381
+=========================
+Episode: 8500
+Total Steps: 209649
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.868686854839325
+200-Episode Moving-Average Rewards: 0.8844221234321594
+500-Episode Moving-Average Rewards: 0.8857715725898743
+1000-Episode Moving-Average Rewards: 0.8968968987464905
+10000-Episode Moving-Average Rewards: 0.7600893974304199
+Average Rewards: 0.76
+Total Rewards: 6460.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9418837675350702
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8793975761854336
+Average Losses: 0.8792941176470588
+Total Losses: 7474
+=========================
+Episode: 8600
+Total Steps: 212378
+-------------------------
+50-Episode Moving-Average Rewards: 0.7755101919174194
+100-Episode Moving-Average Rewards: 0.8484848737716675
+200-Episode Moving-Average Rewards: 0.8492462038993835
+500-Episode Moving-Average Rewards: 0.8837675452232361
+1000-Episode Moving-Average Rewards: 0.8918918967247009
+10000-Episode Moving-Average Rewards: 0.7609024047851562
+Average Rewards: 0.7608139534883721
+Total Rewards: 6543.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8775510204081632
+100-Episode Moving-Average Losses: 0.9191919191919192
+200-Episode Moving-Average Losses: 0.9195979899497487
+500-Episode Moving-Average Losses: 0.9398797595190381
+1000-Episode Moving-Average Losses: 0.943943943943944
+10000-Episode Moving-Average Losses: 0.8797534597046168
+Average Losses: 0.8796511627906977
+Total Losses: 7565
+=========================
+Episode: 8700
+Total Steps: 214983
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.8585858345031738
+200-Episode Moving-Average Rewards: 0.8542713522911072
+500-Episode Moving-Average Rewards: 0.8717435002326965
+1000-Episode Moving-Average Rewards: 0.8828828930854797
+10000-Episode Moving-Average Rewards: 0.7620416283607483
+Average Rewards: 0.7619540229885058
+Total Rewards: 6629.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9292929292929293
+200-Episode Moving-Average Losses: 0.9246231155778895
+500-Episode Moving-Average Losses: 0.9338677354709419
+1000-Episode Moving-Average Losses: 0.93993993993994
+10000-Episode Moving-Average Losses: 0.8803310725370732
+Average Losses: 0.8802298850574712
+Total Losses: 7658
+=========================
+Episode: 8800
+Total Steps: 217572
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.8717435002326965
+1000-Episode Moving-Average Rewards: 0.8858858942985535
+10000-Episode Moving-Average Rewards: 0.7636095285415649
+Average Rewards: 0.7635227272727273
+Total Rewards: 6719.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9396984924623115
+500-Episode Moving-Average Losses: 0.9338677354709419
+1000-Episode Moving-Average Losses: 0.9419419419419419
+10000-Episode Moving-Average Losses: 0.8811228548698716
+Average Losses: 0.8810227272727272
+Total Losses: 7753
+=========================
+Episode: 8900
+Total Steps: 220337
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.8797594904899597
+1000-Episode Moving-Average Rewards: 0.8858858942985535
+10000-Episode Moving-Average Rewards: 0.7655916213989258
+Average Rewards: 0.7655056179775281
+Total Rewards: 6813.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9378757515030061
+1000-Episode Moving-Average Losses: 0.9419419419419419
+10000-Episode Moving-Average Losses: 0.8821215866951343
+Average Losses: 0.8820224719101124
+Total Losses: 7850
+=========================
+Episode: 9000
+Total Steps: 223083
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.929648220539093
+500-Episode Moving-Average Rewards: 0.8937875628471375
+1000-Episode Moving-Average Rewards: 0.8878878951072693
+10000-Episode Moving-Average Rewards: 0.767307460308075
+Average Rewards: 0.7672222222222222
+Total Rewards: 6905.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.964824120603015
+500-Episode Moving-Average Losses: 0.9458917835671342
+1000-Episode Moving-Average Losses: 0.9429429429429429
+10000-Episode Moving-Average Losses: 0.8829869985553951
+Average Losses: 0.8828888888888888
+Total Losses: 7946
+=========================
+Episode: 9100
+Total Steps: 225716
+-------------------------
+50-Episode Moving-Average Rewards: 1.0
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.929648220539093
+500-Episode Moving-Average Rewards: 0.9118236303329468
+1000-Episode Moving-Average Rewards: 0.8978978991508484
+10000-Episode Moving-Average Rewards: 0.7692053914070129
+Average Rewards: 0.7691208791208791
+Total Rewards: 6999.0
+-------------------------
+50-Episode Moving-Average Losses: 1.0
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.964824120603015
+500-Episode Moving-Average Losses: 0.9559118236472945
+1000-Episode Moving-Average Losses: 0.9479479479479479
+10000-Episode Moving-Average Losses: 0.8839432904714803
+Average Losses: 0.8838461538461538
+Total Losses: 8043
+=========================
+Episode: 9200
+Total Steps: 228435
+-------------------------
+50-Episode Moving-Average Rewards: 0.8367347121238708
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.9198396801948547
+1000-Episode Moving-Average Rewards: 0.8958958983421326
+10000-Episode Moving-Average Rewards: 0.7706272602081299
+Average Rewards: 0.7705434782608696
+Total Rewards: 7089.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9183673469387755
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9599198396793587
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8846613762365475
+Average Losses: 0.8845652173913043
+Total Losses: 8138
+=========================
+Episode: 9300
+Total Steps: 231206
+-------------------------
+50-Episode Moving-Average Rewards: 1.0
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.909547746181488
+500-Episode Moving-Average Rewards: 0.9238476753234863
+1000-Episode Moving-Average Rewards: 0.8978978991508484
+10000-Episode Moving-Average Rewards: 0.7722335457801819
+Average Rewards: 0.7721505376344086
+Total Rewards: 7181.0
+-------------------------
+50-Episode Moving-Average Losses: 1.0
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9547738693467337
+500-Episode Moving-Average Losses: 0.9619238476953907
+1000-Episode Moving-Average Losses: 0.9479479479479479
+10000-Episode Moving-Average Losses: 0.885471556081299
+Average Losses: 0.8853763440860215
+Total Losses: 8234
+=========================
+Episode: 9400
+Total Steps: 233811
+-------------------------
+50-Episode Moving-Average Rewards: 0.9591836929321289
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.8994975090026855
+500-Episode Moving-Average Rewards: 0.9118236303329468
+1000-Episode Moving-Average Rewards: 0.8958958983421326
+10000-Episode Moving-Average Rewards: 0.7733801603317261
+Average Rewards: 0.7732978723404256
+Total Rewards: 7269.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9795918367346939
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9559118236472945
+1000-Episode Moving-Average Losses: 0.9469469469469469
+10000-Episode Moving-Average Losses: 0.8860517076284711
+Average Losses: 0.8859574468085106
+Total Losses: 8328
+=========================
+Episode: 9500
+Total Steps: 236276
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.8989899158477783
+200-Episode Moving-Average Rewards: 0.8994975090026855
+500-Episode Moving-Average Rewards: 0.9078156352043152
+1000-Episode Moving-Average Rewards: 0.9009009003639221
+10000-Episode Moving-Average Rewards: 0.7747130990028381
+Average Rewards: 0.7746315789473684
+Total Rewards: 7359.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9494949494949495
+200-Episode Moving-Average Losses: 0.949748743718593
+500-Episode Moving-Average Losses: 0.9539078156312625
+1000-Episode Moving-Average Losses: 0.94994994994995
+10000-Episode Moving-Average Losses: 0.8867249184124645
+Average Losses: 0.8866315789473684
+Total Losses: 8423
+=========================
+Episode: 9600
+Total Steps: 238953
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.939393937587738
+200-Episode Moving-Average Rewards: 0.9195979833602905
+500-Episode Moving-Average Rewards: 0.9078156352043152
+1000-Episode Moving-Average Rewards: 0.9099099040031433
+10000-Episode Moving-Average Rewards: 0.7764350175857544
+Average Rewards: 0.7763541666666667
+Total Rewards: 7453.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9696969696969697
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9539078156312625
+1000-Episode Moving-Average Losses: 0.954954954954955
+10000-Episode Moving-Average Losses: 0.8875924575476613
+Average Losses: 0.8875
+Total Losses: 8520
+=========================
+Episode: 9700
+Total Steps: 241605
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.929648220539093
+500-Episode Moving-Average Rewards: 0.9118236303329468
+1000-Episode Moving-Average Rewards: 0.9159159064292908
+10000-Episode Moving-Average Rewards: 0.7779152393341064
+Average Rewards: 0.7778350515463918
+Total Rewards: 7545.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.964824120603015
+500-Episode Moving-Average Losses: 0.9559118236472945
+1000-Episode Moving-Average Losses: 0.9579579579579579
+10000-Episode Moving-Average Losses: 0.888339004021033
+Average Losses: 0.8882474226804123
+Total Losses: 8616
+=========================
+Episode: 9800
+Total Steps: 244184
+-------------------------
+50-Episode Moving-Average Rewards: 0.918367326259613
+100-Episode Moving-Average Rewards: 0.9292929172515869
+200-Episode Moving-Average Rewards: 0.9246231317520142
+500-Episode Moving-Average Rewards: 0.9178356528282166
+1000-Episode Moving-Average Rewards: 0.9189189076423645
+10000-Episode Moving-Average Rewards: 0.7794672846794128
+Average Rewards: 0.7793877551020408
+Total Rewards: 7638.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9591836734693877
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9597989949748744
+500-Episode Moving-Average Losses: 0.9579158316633266
+1000-Episode Moving-Average Losses: 0.958958958958959
+10000-Episode Moving-Average Losses: 0.8890703132972753
+Average Losses: 0.8889795918367347
+Total Losses: 8712
+=========================
+Episode: 9900
+Total Steps: 246806
+-------------------------
+50-Episode Moving-Average Rewards: 0.795918345451355
+100-Episode Moving-Average Rewards: 0.8282828330993652
+200-Episode Moving-Average Rewards: 0.8793969750404358
+500-Episode Moving-Average Rewards: 0.9038076400756836
+1000-Episode Moving-Average Rewards: 0.9079079031944275
+10000-Episode Moving-Average Rewards: 0.7799777984619141
+Average Rewards: 0.7798989898989899
+Total Rewards: 7721.0
+-------------------------
+50-Episode Moving-Average Losses: 0.8979591836734694
+100-Episode Moving-Average Losses: 0.9090909090909091
+200-Episode Moving-Average Losses: 0.9346733668341709
+500-Episode Moving-Average Losses: 0.9498997995991983
+1000-Episode Moving-Average Losses: 0.9529529529529529
+10000-Episode Moving-Average Losses: 0.8892817456308718
+Average Losses: 0.8891919191919192
+Total Losses: 8803
+=========================
+Episode: 10000
+Total Steps: 249534
+-------------------------
+50-Episode Moving-Average Rewards: 0.8775510191917419
+100-Episode Moving-Average Rewards: 0.9191918969154358
+200-Episode Moving-Average Rewards: 0.8743718862533569
+500-Episode Moving-Average Rewards: 0.9078156352043152
+1000-Episode Moving-Average Rewards: 0.9079079031944275
+10000-Episode Moving-Average Rewards: 0.7813781499862671
+Average Rewards: 0.7813
+Total Rewards: 7813.0
+-------------------------
+50-Episode Moving-Average Losses: 0.9387755102040817
+100-Episode Moving-Average Losses: 0.9595959595959596
+200-Episode Moving-Average Losses: 0.9346733668341709
+500-Episode Moving-Average Losses: 0.9519038076152304
+1000-Episode Moving-Average Losses: 0.9529529529529529
+10000-Episode Moving-Average Losses: 0.88998899889989
+Average Losses: 0.8899
+Total Losses: 8899
+=========================
+In the end of training,
+Total Steps: 249534
+Total Reward: 7814
+Average Reward: 0.7814
+Total Number of Losses: 8900
+Average Number of Losses: 0.89
+==============================
+
+
+
+
+CPU times: user 3h 27min 10s, sys: 6min 48s, total: 3h 33min 59s
+Wall time: 3h 20min

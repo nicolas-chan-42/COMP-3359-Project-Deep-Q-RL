@@ -1,0 +1,518 @@
+Connect-Four Gym Environment Made
+Loaded model Pretrain_v2_SimpleFC_Dense5_512 for DeepQPlayer
+Evaluating through 5000 episodes
+------------------------------
+Evaluation Episode: 100
+Total Steps: 2297
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 1.000000
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979798
+500-Episode Moving-Average Evaluation Rewards: 0.979798
+1000-Episode Moving-Average Evaluation Rewards: 0.979798
+5000-Episode Moving-Average Evaluation Rewards: 0.979798
+Total Evaluation Rewards: 97.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 1.000000
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989899
+500-Episode Moving-Average Evaluation Losses: 0.989899
+1000-Episode Moving-Average Evaluation Losses: 0.989899
+5000-Episode Moving-Average Evaluation Losses: 0.989899
+Total Evaluation Losses: 98
+=========================
+Evaluation Episode: 200
+Total Steps: 4444
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.979900
+1000-Episode Moving-Average Evaluation Rewards: 0.979900
+5000-Episode Moving-Average Evaluation Rewards: 0.979900
+Total Evaluation Rewards: 195.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.989950
+1000-Episode Moving-Average Evaluation Losses: 0.989950
+5000-Episode Moving-Average Evaluation Losses: 0.989950
+Total Evaluation Losses: 197
+=========================
+Evaluation Episode: 300
+Total Steps: 6528
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.959596
+200-Episode Moving-Average Evaluation Rewards: 0.969849
+500-Episode Moving-Average Evaluation Rewards: 0.973244
+1000-Episode Moving-Average Evaluation Rewards: 0.973244
+5000-Episode Moving-Average Evaluation Rewards: 0.973244
+Total Evaluation Rewards: 291.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.979798
+200-Episode Moving-Average Evaluation Losses: 0.984925
+500-Episode Moving-Average Evaluation Losses: 0.986622
+1000-Episode Moving-Average Evaluation Losses: 0.986622
+5000-Episode Moving-Average Evaluation Losses: 0.986622
+Total Evaluation Losses: 295
+=========================
+Evaluation Episode: 400
+Total Steps: 8787
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 1.000000
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.969849
+500-Episode Moving-Average Evaluation Rewards: 0.974937
+1000-Episode Moving-Average Evaluation Rewards: 0.974937
+5000-Episode Moving-Average Evaluation Rewards: 0.974937
+Total Evaluation Rewards: 389.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 1.000000
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.984925
+500-Episode Moving-Average Evaluation Losses: 0.987469
+1000-Episode Moving-Average Evaluation Losses: 0.987469
+5000-Episode Moving-Average Evaluation Losses: 0.987469
+Total Evaluation Losses: 394
+=========================
+Evaluation Episode: 500
+Total Steps: 10854
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.975952
+1000-Episode Moving-Average Evaluation Rewards: 0.975952
+5000-Episode Moving-Average Evaluation Rewards: 0.975952
+Total Evaluation Rewards: 487.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.987976
+1000-Episode Moving-Average Evaluation Losses: 0.987976
+5000-Episode Moving-Average Evaluation Losses: 0.987976
+Total Evaluation Losses: 493
+=========================
+Evaluation Episode: 600
+Total Steps: 13085
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.975952
+1000-Episode Moving-Average Evaluation Rewards: 0.976628
+5000-Episode Moving-Average Evaluation Rewards: 0.976628
+Total Evaluation Rewards: 585.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.987976
+1000-Episode Moving-Average Evaluation Losses: 0.988314
+5000-Episode Moving-Average Evaluation Losses: 0.988314
+Total Evaluation Losses: 592
+=========================
+Evaluation Episode: 700
+Total Steps: 15202
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.939394
+200-Episode Moving-Average Evaluation Rewards: 0.959799
+500-Episode Moving-Average Evaluation Rewards: 0.967936
+1000-Episode Moving-Average Evaluation Rewards: 0.971388
+5000-Episode Moving-Average Evaluation Rewards: 0.971388
+Total Evaluation Rewards: 679.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.969697
+200-Episode Moving-Average Evaluation Losses: 0.979899
+500-Episode Moving-Average Evaluation Losses: 0.983968
+1000-Episode Moving-Average Evaluation Losses: 0.985694
+5000-Episode Moving-Average Evaluation Losses: 0.985694
+Total Evaluation Losses: 689
+=========================
+Evaluation Episode: 800
+Total Steps: 17383
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.918367
+100-Episode Moving-Average Evaluation Rewards: 0.939394
+200-Episode Moving-Average Evaluation Rewards: 0.939699
+500-Episode Moving-Average Evaluation Rewards: 0.963928
+1000-Episode Moving-Average Evaluation Rewards: 0.967459
+5000-Episode Moving-Average Evaluation Rewards: 0.967459
+Total Evaluation Rewards: 773.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.959184
+100-Episode Moving-Average Evaluation Losses: 0.969697
+200-Episode Moving-Average Evaluation Losses: 0.969849
+500-Episode Moving-Average Evaluation Losses: 0.981964
+1000-Episode Moving-Average Evaluation Losses: 0.983730
+5000-Episode Moving-Average Evaluation Losses: 0.983730
+Total Evaluation Losses: 786
+=========================
+Evaluation Episode: 900
+Total Steps: 19525
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.919192
+200-Episode Moving-Average Evaluation Rewards: 0.929648
+500-Episode Moving-Average Evaluation Rewards: 0.951904
+1000-Episode Moving-Average Evaluation Rewards: 0.962180
+5000-Episode Moving-Average Evaluation Rewards: 0.962180
+Total Evaluation Rewards: 865.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.959596
+200-Episode Moving-Average Evaluation Losses: 0.964824
+500-Episode Moving-Average Evaluation Losses: 0.975952
+1000-Episode Moving-Average Evaluation Losses: 0.981090
+5000-Episode Moving-Average Evaluation Losses: 0.981090
+Total Evaluation Losses: 882
+=========================
+Evaluation Episode: 1000
+Total Steps: 21718
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.949749
+500-Episode Moving-Average Evaluation Rewards: 0.951904
+1000-Episode Moving-Average Evaluation Rewards: 0.963964
+5000-Episode Moving-Average Evaluation Rewards: 0.963964
+Total Evaluation Rewards: 963.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.974874
+500-Episode Moving-Average Evaluation Losses: 0.975952
+1000-Episode Moving-Average Evaluation Losses: 0.981982
+5000-Episode Moving-Average Evaluation Losses: 0.981982
+Total Evaluation Losses: 981
+=========================
+Evaluation Episode: 1100
+Total Steps: 23839
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.951904
+1000-Episode Moving-Average Evaluation Rewards: 0.963964
+5000-Episode Moving-Average Evaluation Rewards: 0.965423
+Total Evaluation Rewards: 1061.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.975952
+1000-Episode Moving-Average Evaluation Losses: 0.981982
+5000-Episode Moving-Average Evaluation Losses: 0.982712
+Total Evaluation Losses: 1080
+=========================
+Evaluation Episode: 1200
+Total Steps: 25928
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 1.000000
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.959920
+1000-Episode Moving-Average Evaluation Rewards: 0.963964
+5000-Episode Moving-Average Evaluation Rewards: 0.966639
+Total Evaluation Rewards: 1159.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 1.000000
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.979960
+1000-Episode Moving-Average Evaluation Losses: 0.981982
+5000-Episode Moving-Average Evaluation Losses: 0.983319
+Total Evaluation Losses: 1179
+=========================
+Evaluation Episode: 1300
+Total Steps: 28033
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 1.000000
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.967936
+1000-Episode Moving-Average Evaluation Rewards: 0.965966
+5000-Episode Moving-Average Evaluation Rewards: 0.967667
+Total Evaluation Rewards: 1257.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 1.000000
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.983968
+1000-Episode Moving-Average Evaluation Losses: 0.982983
+5000-Episode Moving-Average Evaluation Losses: 0.983834
+Total Evaluation Losses: 1278
+=========================
+Evaluation Episode: 1400
+Total Steps: 30155
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 1.000000
+100-Episode Moving-Average Evaluation Rewards: 1.000000
+200-Episode Moving-Average Evaluation Rewards: 0.989950
+500-Episode Moving-Average Evaluation Rewards: 0.983968
+1000-Episode Moving-Average Evaluation Rewards: 0.967968
+5000-Episode Moving-Average Evaluation Rewards: 0.969979
+Total Evaluation Rewards: 1357.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 1.000000
+100-Episode Moving-Average Evaluation Losses: 1.000000
+200-Episode Moving-Average Evaluation Losses: 0.994975
+500-Episode Moving-Average Evaluation Losses: 0.991984
+1000-Episode Moving-Average Evaluation Losses: 0.983984
+5000-Episode Moving-Average Evaluation Losses: 0.984989
+Total Evaluation Losses: 1378
+=========================
+Evaluation Episode: 1500
+Total Steps: 32322
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.989950
+500-Episode Moving-Average Evaluation Rewards: 0.983968
+1000-Episode Moving-Average Evaluation Rewards: 0.967968
+5000-Episode Moving-Average Evaluation Rewards: 0.970647
+Total Evaluation Rewards: 1455.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.994975
+500-Episode Moving-Average Evaluation Losses: 0.991984
+1000-Episode Moving-Average Evaluation Losses: 0.983984
+5000-Episode Moving-Average Evaluation Losses: 0.985324
+Total Evaluation Losses: 1477
+=========================
+Evaluation Episode: 1600
+Total Steps: 34529
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 1.000000
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.983968
+1000-Episode Moving-Average Evaluation Rewards: 0.967968
+5000-Episode Moving-Average Evaluation Rewards: 0.971232
+Total Evaluation Rewards: 1553.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 1.000000
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.991984
+1000-Episode Moving-Average Evaluation Losses: 0.983984
+5000-Episode Moving-Average Evaluation Losses: 0.985616
+Total Evaluation Losses: 1576
+=========================
+Evaluation Episode: 1700
+Total Steps: 36680
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.983968
+1000-Episode Moving-Average Evaluation Rewards: 0.971972
+5000-Episode Moving-Average Evaluation Rewards: 0.971748
+Total Evaluation Rewards: 1651.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.991984
+1000-Episode Moving-Average Evaluation Losses: 0.985986
+5000-Episode Moving-Average Evaluation Losses: 0.985874
+Total Evaluation Losses: 1675
+=========================
+Evaluation Episode: 1800
+Total Steps: 38909
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.979900
+500-Episode Moving-Average Evaluation Rewards: 0.983968
+1000-Episode Moving-Average Evaluation Rewards: 0.975976
+5000-Episode Moving-Average Evaluation Rewards: 0.972207
+Total Evaluation Rewards: 1749.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.989950
+500-Episode Moving-Average Evaluation Losses: 0.991984
+1000-Episode Moving-Average Evaluation Losses: 0.987988
+5000-Episode Moving-Average Evaluation Losses: 0.986103
+Total Evaluation Losses: 1774
+=========================
+Evaluation Episode: 1900
+Total Steps: 41153
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.877551
+100-Episode Moving-Average Evaluation Rewards: 0.919192
+200-Episode Moving-Average Evaluation Rewards: 0.949749
+500-Episode Moving-Average Evaluation Rewards: 0.967936
+1000-Episode Moving-Average Evaluation Rewards: 0.975976
+5000-Episode Moving-Average Evaluation Rewards: 0.969458
+Total Evaluation Rewards: 1841.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.938776
+100-Episode Moving-Average Evaluation Losses: 0.959596
+200-Episode Moving-Average Evaluation Losses: 0.974874
+500-Episode Moving-Average Evaluation Losses: 0.983968
+1000-Episode Moving-Average Evaluation Losses: 0.987988
+5000-Episode Moving-Average Evaluation Losses: 0.984729
+Total Evaluation Losses: 1870
+=========================
+Evaluation Episode: 2000
+Total Steps: 43310
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.949749
+500-Episode Moving-Average Evaluation Rewards: 0.967936
+1000-Episode Moving-Average Evaluation Rewards: 0.975976
+5000-Episode Moving-Average Evaluation Rewards: 0.969985
+Total Evaluation Rewards: 1939.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.974874
+500-Episode Moving-Average Evaluation Losses: 0.983968
+1000-Episode Moving-Average Evaluation Losses: 0.987988
+5000-Episode Moving-Average Evaluation Losses: 0.984992
+Total Evaluation Losses: 1969
+=========================
+Evaluation Episode: 2100
+Total Steps: 45580
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.877551
+100-Episode Moving-Average Evaluation Rewards: 0.919192
+200-Episode Moving-Average Evaluation Rewards: 0.949749
+500-Episode Moving-Average Evaluation Rewards: 0.955912
+1000-Episode Moving-Average Evaluation Rewards: 0.969970
+5000-Episode Moving-Average Evaluation Rewards: 0.967604
+Total Evaluation Rewards: 2031.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.938776
+100-Episode Moving-Average Evaluation Losses: 0.959596
+200-Episode Moving-Average Evaluation Losses: 0.974874
+500-Episode Moving-Average Evaluation Losses: 0.977956
+1000-Episode Moving-Average Evaluation Losses: 0.984985
+5000-Episode Moving-Average Evaluation Losses: 0.983802
+Total Evaluation Losses: 2065
+=========================
+Evaluation Episode: 2200
+Total Steps: 47961
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.857143
+100-Episode Moving-Average Evaluation Rewards: 0.919192
+200-Episode Moving-Average Evaluation Rewards: 0.919598
+500-Episode Moving-Average Evaluation Rewards: 0.943888
+1000-Episode Moving-Average Evaluation Rewards: 0.963964
+5000-Episode Moving-Average Evaluation Rewards: 0.965439
+Total Evaluation Rewards: 2123.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.918367
+100-Episode Moving-Average Evaluation Losses: 0.949495
+200-Episode Moving-Average Evaluation Losses: 0.954774
+500-Episode Moving-Average Evaluation Losses: 0.969940
+1000-Episode Moving-Average Evaluation Losses: 0.980981
+5000-Episode Moving-Average Evaluation Losses: 0.982265
+Total Evaluation Losses: 2160
+=========================
+Evaluation Episode: 2300
+Total Steps: 49967
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 1.000000
+100-Episode Moving-Average Evaluation Rewards: 1.000000
+200-Episode Moving-Average Evaluation Rewards: 0.959799
+500-Episode Moving-Average Evaluation Rewards: 0.947896
+1000-Episode Moving-Average Evaluation Rewards: 0.965966
+5000-Episode Moving-Average Evaluation Rewards: 0.966942
+Total Evaluation Rewards: 2223.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 1.000000
+100-Episode Moving-Average Evaluation Losses: 1.000000
+200-Episode Moving-Average Evaluation Losses: 0.974874
+500-Episode Moving-Average Evaluation Losses: 0.971944
+1000-Episode Moving-Average Evaluation Losses: 0.981982
+5000-Episode Moving-Average Evaluation Losses: 0.983036
+Total Evaluation Losses: 2260
+=========================
+Evaluation Episode: 2400
+Total Steps: 52184
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 1.000000
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.989950
+500-Episode Moving-Average Evaluation Rewards: 0.959920
+1000-Episode Moving-Average Evaluation Rewards: 0.963964
+5000-Episode Moving-Average Evaluation Rewards: 0.967486
+Total Evaluation Rewards: 2321.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 1.000000
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.994975
+500-Episode Moving-Average Evaluation Losses: 0.977956
+1000-Episode Moving-Average Evaluation Losses: 0.980981
+5000-Episode Moving-Average Evaluation Losses: 0.983326
+Total Evaluation Losses: 2359
+=========================
+Evaluation Episode: 2500
+Total Steps: 54382
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.959596
+200-Episode Moving-Average Evaluation Rewards: 0.969849
+500-Episode Moving-Average Evaluation Rewards: 0.955912
+1000-Episode Moving-Average Evaluation Rewards: 0.961962
+5000-Episode Moving-Average Evaluation Rewards: 0.967187
+Total Evaluation Rewards: 2417.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.979798
+200-Episode Moving-Average Evaluation Losses: 0.984925
+500-Episode Moving-Average Evaluation Losses: 0.975952
+1000-Episode Moving-Average Evaluation Losses: 0.979980
+5000-Episode Moving-Average Evaluation Losses: 0.983193
+Total Evaluation Losses: 2457
+=========================
+Evaluation Episode: 2600
+Total Steps: 56465
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.959184
+100-Episode Moving-Average Evaluation Rewards: 0.979798
+200-Episode Moving-Average Evaluation Rewards: 0.969849
+500-Episode Moving-Average Evaluation Rewards: 0.967936
+1000-Episode Moving-Average Evaluation Rewards: 0.961962
+5000-Episode Moving-Average Evaluation Rewards: 0.967680
+Total Evaluation Rewards: 2515.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.979592
+100-Episode Moving-Average Evaluation Losses: 0.989899
+200-Episode Moving-Average Evaluation Losses: 0.984925
+500-Episode Moving-Average Evaluation Losses: 0.981964
+1000-Episode Moving-Average Evaluation Losses: 0.979980
+5000-Episode Moving-Average Evaluation Losses: 0.983455
+Total Evaluation Losses: 2556
+=========================
+Evaluation Episode: 2700
+Total Steps: 58721
+-------------------------
+50-Episode Moving-Average Evaluation Rewards: 0.918367
+100-Episode Moving-Average Evaluation Rewards: 0.939394
+200-Episode Moving-Average Evaluation Rewards: 0.959799
+500-Episode Moving-Average Evaluation Rewards: 0.971944
+1000-Episode Moving-Average Evaluation Rewards: 0.957958
+5000-Episode Moving-Average Evaluation Rewards: 0.966654
+Total Evaluation Rewards: 2609.0
+-------------------------
+50-Episode Moving-Average Evaluation Losses: 0.959184
+100-Episode Moving-Average Evaluation Losses: 0.959596
+200-Episode Moving-Average Evaluation Losses: 0.974874
+500-Episode Moving-Average Evaluation Losses: 0.983968
+1000-Episode Moving-Average Evaluation Losses: 0.976977
+5000-Episode Moving-Average Evaluation Losses: 0.982586
+Total Evaluation Losses: 2652
+=========================
+In evaluation episode 2717

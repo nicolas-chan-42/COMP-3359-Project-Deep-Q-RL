@@ -1,0 +1,39 @@
+_________________________Hyper-parameters________________________
+ENV_NAME: ConnectFour-v1
+LR: 0.001
+REPLAY_BUFFER_MAX_LENGTH: 100000
+BATCH_SIZE: 32
+EPS_START: 1
+EPS_END: 0.01
+EPS_DECAY_STEPS: 10000
+GAMMA: 0.95
+N_EPISODES: 30000
+EPOCHS_PER_LEARNING: 2
+EPOCHS_PER_PRETRAIN_LEARNING: 2
+N_STEPS_PER_TARGET_UPDATE: 1000
+MODEL_DIR: saved_models/
+LOAD_MODEL: [None, None]
+SAVE_MODEL: DQPlayer_zero_momentum
+PRETRAIN: False
+
+__________________________Model Summary__________________________
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+flatten (Flatten)            (None, 42)                0         
+_________________________________________________________________
+dense (Dense)                (None, 84)                3612      
+_________________________________________________________________
+dense_1 (Dense)              (None, 84)                7140      
+_________________________________________________________________
+dense_2 (Dense)              (None, 84)                7140      
+_________________________________________________________________
+dense_3 (Dense)              (None, 84)                7140      
+_________________________________________________________________
+dense_4 (Dense)              (None, 7)                 595       
+=================================================================
+Total params: 25,627
+Trainable params: 25,627
+Non-trainable params: 0
+_________________________________________________________________
