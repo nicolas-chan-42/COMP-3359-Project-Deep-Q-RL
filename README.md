@@ -8,7 +8,7 @@ The Project Objective is to create a RL agent losing in Connect-Four (7x6).
 The Connect 4 OpenAI Gym Environment is built upon [gym-connect-four](https://github.com/IASIAI/gym-connect-four) under MIT license.
 
 ## File Structure
-* './gym_conect_four` is a modified [gym-connect-four](https://github.com/IASIAI/gym-connect-four)
+* `./gym_conect_four` is a modified [gym-connect-four](https://github.com/IASIAI/gym-connect-four)
 * `./losing_connect_four` contains our code for model training, evaluation, creating deep-Q networks using different components, etc.
 * `./saved_models` contains the model architecture (`.h5` files) and weights (`.json` files) of some of our trained models. Corresponding txt files can be used as a quick summary of the model.
 * `./Results` contains the saved models, summary text, and graphs of training and evaluations of most of our experimented models.
